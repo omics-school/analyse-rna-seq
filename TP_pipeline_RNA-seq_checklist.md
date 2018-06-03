@@ -25,8 +25,8 @@ license: Creative Commons Attribution (CC-BY)
 ## Préparation des données
 
 - [ ] Le répertoire `RNAseq` est créé dans mon répertoire personnel.
-- [ ] Les fichiers contenant les reads (`.fastq.gz`) sont copiés dans le répertoire `RNAseq`.
-    Identifiants des échantillons (le `XX` de `140317_SN365_A_L001_HCA-XX_R1.fastq.gz`)
+- [ ] Les fichiers contenant les reads (`.fastq.gz`) sont copiés dans le répertoire `RNAseq`.  
+    Identifiants des échantillons (le `XX` de `140317_SN365_A_L001_HCA-XX_R1.fastq.gz`)  
     : __________________________________________________
 - [ ] Le fichier contenant la séquence du génome de référence (`.fna`) est copié dans le répertoire `RNAseq`.
 - [ ] Le fichier contenant les annotations du génome de référence (`_DUO2.gff`) est copié dans le répertoire `RNAseq`.
@@ -51,11 +51,11 @@ Identifiant d'un échantillon contenant les *reads* : ___
 
 ### Alignements des *reads* sur le génome de référence
 
-- [ ] Lancement de Bowtie (commande `bowtie2`).
-    Nombre total de *reads* dans le fichier `.fastq.gz` : ____________
-    Nombre de *reads* non alignés : ____________
-    Nombre de *reads* alignés (au moins 1 fois) : ____________
-    Taux d'alignement : ____________
+- [ ] Lancement de Bowtie (commande `bowtie2`).  
+    Nombre total de *reads* dans le fichier `.fastq.gz` : ____________  
+    Nombre de *reads* non alignés : ____________  
+    Nombre de *reads* alignés (au moins 1 fois) : ____________  
+    Taux d'alignement : ____________  
 - [ ] Taille du fichier d'alignement créé par Bowtie : ___________
 
 Pourquoi le fichier d'alignement créé par Bowtie est beaucoup plus gros que le fichier contenant les *reads* ?
