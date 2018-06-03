@@ -229,4 +229,4 @@ Déterminez le nombre de *reads* alignés sur le gène `ostta18g01980`. Pour cel
 ```
 $ grep ostta18g01980 count.txt
 ```
-ou alors ouvrir le fichier `count.txt` avec less puis cherchez `ostta18g01980` en tapant `/ostta18g01980` puis la touche `Entrée`.
+ou alors ouvrir le fichier `count.txt` avec less puis chercher `ostta18g01980` en tapant `/ostta18g01980` puis la touche `Entrée`.
