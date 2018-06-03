@@ -8,10 +8,10 @@ license: Creative Commons Attribution (CC-BY)
 
 ## Préparation de l'environnement de travail
 
-- [ ] Conda est disponible dans mon shell :
-    La commande ```conda --version``` ne renvoie pas de message d'erreur.
+- [ ] Conda est disponible dans mon shell.  
+    La commande ```conda --version``` ne renvoie pas de message d'erreur.  
     La version de conda est : ___________________________
-- [ ] L'environnement conda pour l'analyse RNA-seq est activé :
+- [ ] L'environnement conda pour l'analyse RNA-seq est activé.  
     Mon invite de commande ressemble à quelque chose du type :
     ```
     (rnaseq) ppoulain@candihub:~$
