@@ -45,8 +45,8 @@ La distribution Miniconda a été installée sur le serveur du DU omics-school.n
     ```
     source /data/omics-school/share/miniconda/etc/profile.d/conda.sh
     ```
-    Enregistrez le fichier (`ctrl + o`) puis quittez nano (`ctrl + x`)
-    Remarque 1 : la ligne de commande à ajouter est assez longue. Utilisez le copier / coller (`ctrl + maj + v`) dans nano.
+    Enregistrez le fichier (`ctrl + o`) puis quittez nano (`ctrl + x`).  
+    Remarque 1 : la ligne de commande à ajouter est assez longue. Utilisez le copier / coller (`ctrl + maj + v`) dans nano.  
     Remarque 2 : il est possible que votre fichier `.bashrc` soit vide, ce n'est pas un problème.
 1. Vérifiez que conda est maintenant disponible en tapant les commandes suivantes :
     ```
@@ -110,7 +110,9 @@ et
 ```
 $ bowtie2 --version
 ```
-Certains programmes peuvent donner beaucoup d'informations.
+Certains programmes peuvent renvoyer beaucoup d'informations.
+
+Connectez-vous maintenant à votre compte sur Galaxy. Essayer de retrouver les versions des logiciels que vous utilisés (FastQC, Bowtie2, SAMtools, HTSeq). Pour ce faire, dans votre *History*, cliquez sur le nom d'un résultats d'analyse, puis cliquez sur le petit i entouré (:information_source:) et lisez les informations de la section *Job Dependencies* 
 
 
 ## Préparation des données
@@ -119,15 +121,19 @@ Sur le serveur du DU, dans votre répertoire personnel, créez le répertoire `R
 
 Dans ce répertoire, copiez :
 
-- Les 2 ou 3 fichiers contenant les reads (`.fastq.gz`) qui vous ont été attribués la dernière fois et que vous avez analysé avec Galaxy. Tous les fichiers sont dans le répertoire  `/data/omics-school/share/RNAseq_tauri/`
+- Les 2 ou 3 fichiers contenant les reads (`.fastq.gz`) qui vous ont été attribués la dernière fois et que vous avez analysés avec Galaxy. Tous les fichiers sont dans le répertoire  `/data/omics-school/share/RNAseq_tauri/`
 - Le génome de référence de *O. tauri* : `/data/omics-school/share/GCF_000214015.3_version_140606_genomic.fna`
 - Les annotations du génome de référence :
 `/data/omics-school/share/GCF_000214015.3_version_140606_genomic_DUO2.gff`
 
+Remarque : le génome de référence de *Ostreococcus tauri* et ses annotations sont disponibles sur la [page dédiée](https://www.ncbi.nlm.nih.gov/genome/373?genome_assembly_id=352933) sur le site du NCBI :
+- [génome de référence](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/214/015/GCF_000214015.3_version_140606/GCF_000214015.3_version_140606_genomic.fna.gz)
+- [annotations](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/214/015/GCF_000214015.3_version_140606/GCF_000214015.3_version_140606_genomic.gff.gz). Le fichier d'annotations a légèrement été modifié pour ne prendre en compte que les gènes et alléger la visualisation dans IGV.
+
 
 ## Analyse manuelle
 
-Pour cette première analyse, choisissez un *seul échantillon* contenant les *reads*.
+Pour cette première analyse, choisissez un **seul échantillon** contenant des *reads*.
 
 
 ### Contrôle qualité
@@ -143,7 +149,7 @@ FastQC va produire deux fichiers (`.html` et `.zip`). Copiez le fichier `.html` 
 
 Ouvrez ce fichier dans un navigateur internet (Firefox par exemple).
 
-Analyser le rapport de FastQC.
+Analysez le rapport de FastQC.
 
 
 ### Indexation du génome de référence
@@ -169,7 +175,10 @@ Lancez l'alignement :
 $ bowtie2 -x O_tauri -U nom-fichier-fastq.gz -S bowtie.sam
 ```
 
-Ici, `O_tauri` désigne les fichiers index du génome de référence, `nom-fichier-fastq.gz` est le fichier contenant l'échantillon que vous avez choisi et `bowtie.sam` est le fichier qui va contenir l'alignement produit par Bowtie2.
+Ici :
+- `O_tauri` désigne les fichiers index du génome de référence,
+- `nom-fichier-fastq.gz` est le fichier contenant l'échantillon que vous avez choisi
+- et `bowtie.sam` est le fichier qui va contenir l'alignement produit par Bowtie2.
 
 Cette étape est la plus longue et peut prendre plusieurs minutes (~ 10).
 
@@ -187,7 +196,7 @@ Il faut être prudent si le taux d'alignement global est trop important (> 20%).
 
 Vous allez maintenant utiliser SAMtools pour :
 
-1. Convertir le fichier `.sam` créé par Bowtie2, qui est un fichier texte, en fichier `.bam`, qui est un fichier binaire, et qui donc prend moins de place.
+1. Convertir le fichier `.sam` créé par Bowtie2, qui est un fichier texte, en fichier `.bam`, qui est un fichier binaire, et qui donc prend moins de place sur le disque.
     ```
     $ samtools view -b bowtie.sam > bowtie.bam
     ```
