@@ -298,7 +298,25 @@ Dans un script Bash, tout ce qui suit le symbole `#` est considéré comme un co
 Observez le script bash [script1.sh](script1.sh) et essayer de comprendre son fonctionnement, notamment l'utilisation des variables.
 
 Testez le script `script1.sh` sur **un** de vos échantillons. Pour cela :
-- Recopiez le script dans un fichier `script1.sh` dans votre répertoire `RNAseq` ou téléchargez-le directement avec la commande
+- Recopiez le script dans un fichier `script1.sh` dans votre répertoire `RNAseq` ou, plus efficacement, téléchargez-le directement avec la commande
 ```
-$ wget zzz
+$ wget https://raw.githubusercontent.com/omics-school/analyses-rna-seq-o-tauri/master/script1.sh
 ```
+- Ouvrez le script `script1.sh` avec `nano` et modifiez la variable `sample` avec votre numéro d'échantillon. Sauvegardez le script (`ctrl + o`) et quittez nano (`ctrl + x`).  
+Rappel : pas d'espace avant ou après le symbole `=` !
+- Lancez le script avec la commande
+    ```
+    $ bash script1.sh
+    ```
+
+Vérifiez que le déroulement du script se passe bien. Vous avez le temps de prendre un café :coffee:. Voir plusieurs :coffee: :cookie: :coffee: :cookie:
+
+
+## Automatisation de l'analyse : niveau 2
+
+Le script précédent était pratique mais :
+1. Il ne gère qu'un seul échantillon à la fois.
+1. Il ne conserve pas les informations liées à l'alignement (nombre de *reads* non-alignés, alignés une fois...).
+
+
+## Automatisation de l'analyse : niveau 3 (hacker)
