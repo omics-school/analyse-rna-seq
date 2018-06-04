@@ -1,5 +1,5 @@
 ---
-title: Analyse de données RNA-seq de O. tauri sous Linux
+title: Analyse des données RNA-seq de O. tauri sous Linux
 author: Pierre Poulain
 license: Creative Commons Attribution (CC-BY)
 ---
@@ -112,7 +112,7 @@ $ bowtie2 --version
 ```
 Certains programmes peuvent renvoyer beaucoup d'informations.
 
-Connectez-vous maintenant à votre compte sur Galaxy. Essayer de retrouver les versions des logiciels que vous utilisés (FastQC, Bowtie2, SAMtools, HTSeq). Pour ce faire, dans votre *History*, cliquez sur le nom d'un résultats d'analyse, puis cliquez sur le petit i entouré (:information_source:) et lisez les informations de la section *Job Dependencies* 
+Connectez-vous maintenant à votre compte sur Galaxy. Essayer de retrouver les versions des logiciels que vous utilisés (FastQC, Bowtie2, SAMtools, HTSeq). Pour ce faire, dans votre *History*, cliquez sur le nom d'un résultats d'analyse, puis cliquez sur le petit i entouré (:information_source:) et lisez les informations de la section *Job Dependencies*
 
 
 ## Préparation des données
