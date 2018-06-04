@@ -21,7 +21,7 @@ samtools sort bowtie-${sample}.bam -o bowtie-${sample}.sorted.bam
 samtools index bowtie-${sample}.sorted.bam
 
 echo "comptage"
-htseq-count --stranded=no --type='gene' --idattr='ID' --order=name --format=bam bowtie-${sample}.sorted.bam ${annotations}-${sample} > count.txt
+htseq-count --stranded=no --type='gene' --idattr='ID' --order=name --format=bam bowtie-${sample}.sorted.bam ${annotations} > count-${sample}.txt
 
 echo "nettoyage des fichiers inutiles"
 rm -f bowtie-${sample}.sam bowtie-${sample}.bam
