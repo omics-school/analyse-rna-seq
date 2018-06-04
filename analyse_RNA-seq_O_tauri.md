@@ -55,7 +55,9 @@ La distribution Miniconda a été installée sur le serveur du DU omics-school.n
     ```
 1. Bravo ! Vous avez correctement configuré conda. Fermez votre shell sur le serveur du DU.
 
-Remarque : les manipulations ci-dessus vous ont permis de rendre disponible conda dans votre shell Linux sur le serveur du DU. Elles ne sont à faire qu'une seule fois.
+Les manipulations ci-dessus vous ont permis de rendre disponible conda dans votre shell Linux sur le serveur du DU. Elles ne sont à faire qu'une seule fois.
+
+Une documentation expliquant l'installation et la configuration de conda est disponible [ici](installation_conda_logiciels_RNA-seq.md).
 
 
 ### Chargement de l'environnement Conda
@@ -112,7 +114,12 @@ $ bowtie2 --version
 ```
 Certains programmes peuvent renvoyer beaucoup d'informations.
 
-Connectez-vous maintenant à votre compte sur Galaxy. Essayer de retrouver les versions des logiciels que vous utilisés (FastQC, Bowtie2, SAMtools, HTSeq). Pour ce faire, dans votre *History*, cliquez sur le nom d'un résultats d'analyse, puis cliquez sur le petit i entouré (:information_source:) et lisez les informations de la section *Job Dependencies*
+
+### Comparaison avec les logiciels utilisés dans Galaxy
+
+Connectez-vous maintenant à votre compte sur Galaxy. Essayez de retrouver les versions des logiciels que vous utilisés (FastQC, Bowtie2, SAMtools, HTSeq).
+
+Pour ce faire, dans votre *History*, cliquez sur le nom d'un résultats d'analyse, puis cliquez sur le petit i entouré (:information_source:) et lisez les informations de la section *Job Dependencies*.
 
 
 ## Préparation des données
@@ -238,4 +245,60 @@ Déterminez le nombre de *reads* alignés sur le gène `ostta18g01980`. Pour cel
 ```
 $ grep ostta18g01980 count.txt
 ```
-ou alors ouvrir le fichier `count.txt` avec less puis chercher `ostta18g01980` en tapant `/ostta18g01980` puis la touche `Entrée`.
+ou alors ouvrir le fichier `count.txt` avec la commande `less` puis chercher `ostta18g01980` en tapant `/ostta18g01980` puis la touche `Entrée`.
+
+
+## Automatisation de l'analyse : niveau 1
+
+Tout cela est très bien mais les fichiers que vous avez générés (`bowtie.bam`, `bowtie.sorted.bam`, `count.txt`...) ne sont pas très informatifs sur l'échantillon dont ils proviennent.
+
+Par ailleurs, entrer toutes ces commandes à la main, les unes après les autres, est pénible et source d'erreur.
+
+Pour répondre à ces deux problèmes, nous allons introduire les notions Bash de variables et scripts.
+
+### Variables
+
+Une variable va simplement contenir de l'information qui sera utilisable autant de fois que nécessaires.
+
+Création de variables :
+```
+$ toto=33
+$ t="salut"
+```
+Il faut coller le nom de la variable et son contenu.
+
+Affichage de variables :
+```
+$ echo $toto
+33
+$ echo "$t Pierre"
+salut Pierre
+```
+La commande `echo` permet d'afficher une chaîne de caractère, une variable, ou les deux.
+
+Pour utiliser une variable (et accéder à son contenu), il faut précéder son nom du caractère `$`. Attention, ce symbole n'est pas à confondre avec celui en tout début de ligne qui désigne l'invite de commande de votre shell Linux.
+
+Une bonne pratique consiste à utiliser une variable avec le symbole `$` et son nom entre accolades :
+```
+$ echo ${toto}
+33
+$ echo "${t} Pierre"
+salut Pierre
+```
+
+### Script
+
+Un script est un fichier texte qui contient des instructions Bash. Par convention, il porte l'extension `.sh`.
+
+Dans un script Bash, tout ce qui suit le symbole `#` est considéré comme un commentaire.
+
+
+### Analyse RNA-seq
+
+Observez le script bash [script1.sh](script1.sh) et essayer de comprendre son fonctionnement, notamment l'utilisation des variables.
+
+Testez le script `script1.sh` sur **un** de vos échantillons. Pour cela :
+- Recopiez le script dans un fichier `script1.sh` dans votre répertoire `RNAseq` ou téléchargez-le directement avec la commande
+```
+$ wget zzz
+```
