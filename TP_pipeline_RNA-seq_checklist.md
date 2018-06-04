@@ -63,11 +63,11 @@ Pourquoi le fichier d'alignement créé par Bowtie est beaucoup plus gros que le
 
 ### Conversion des *reads* alignés en binaire, tri et indexation
 
-- [ ] Lancement de SAMtools pour convertir le fichier d'alignement des *reads* en binaire.
+- [ ] Lancement de SAMtools pour convertir le fichier d'alignement des *reads* en binaire.  
     Taille du fichier créé par samtools : _______________
-- [ ] Lancement de samtools pour trier les *reads* alignés.
+- [ ] Lancement de samtools pour trier les *reads* alignés.  
     Taille du fichier créé par samtools : _______________
-- [ ] Lancement de samtools pour indexer les *reads* alignés.
+- [ ] Lancement de samtools pour indexer les *reads* alignés.  
     Nom du fichier d'index : ___________________________________
 
 
@@ -86,9 +86,9 @@ IGV :
 
 ### Comptage des *reads* alignés sur les gènes de *O. tauri*
 
-- [ ] Lancement de HTSeq
+- [ ] Lancement de HTSeq  
     Nombre d'annotations contenues dans le fichier `.gff` : _______________
-- [ ] Recherche du gène `ostta18g01980` dans le fichier de comptage
+- [ ] Recherche du gène `ostta18g01980` dans le fichier de comptage.  
     Nombre de *reads* alignés sur ce gène : _______________
 
 Bravo !
