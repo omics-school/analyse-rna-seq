@@ -90,7 +90,7 @@ $ htseq-count -h | grep version
 
 Sur Ubuntu Serveur 106.04, par défaut, le fichier `.bashrc` dans le répertoire personnel des utilisateurs n'est pas lu (voir [.bashrc not executed when opening new terminal](https://askubuntu.com/questions/161249/bashrc-not-executed-when-opening-new-terminal))
 
-La solution est alors de créer, pour utilisateur, le fichier `.bash_profile` avec :
+La solution est alors de créer, pour chaque utilisateur, le fichier `.bash_profile` avec :
 ```
 # include .bashrc if it exists
 if [ -f "$HOME/.bashrc" ]; then
