@@ -147,11 +147,11 @@ Remarque : le génome de référence de *Ostreococcus tauri* et ses annotations 
 - [annotations](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/214/015/GCF_000214015.3_version_140606/GCF_000214015.3_version_140606_genomic.gff.gz). Nous avons légèrement modifié le fichier d'annotations pour ne prendre en compte que les gènes et alléger la visualisation dans IGV.
 
 
-**:warning: Étape essentielle pour la suite :warning:**. Renommez les fichiers contenant vos *reads* (`.fastq.gz`) de la façon suivantes :
+**:warning: Étape essentielle pour la suite :warning:**. Renommez les fichiers contenant vos *reads* (`.fastq.gz`) de la façon suivante :
 ```
 HCA-XX_R1.fastq.gz
 ```
-avec `XX` le numéro de votre échantillons. Cela revient à supprimer la première partie du nom du fichier.
+avec `XX` le numéro de votre échantillon. Cela revient à supprimer la première partie du nom du fichier.
 
 Par exemple, pour les fichiers correspondants aux échantillons 10 et 41 :
 ```
