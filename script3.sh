@@ -6,7 +6,7 @@ set -euo pipefail
 
 # numéro des échantillons à analyser
 # les numéros sont dans une chaîne de caractères et séparés par un espace
-samples="10 33 27"
+samples="10 41 7"
 # nom du fichier contenant le génome de référence
 genome=GCF_000214015.3_version_140606_genomic.fna
 # nom du fichier contenant les annotations
@@ -17,7 +17,7 @@ do
     echo "=============================================================="
     echo "Contrôle qualité - échantillon ${sample}"
     echo "=============================================================="
-    fastqc 140317_SN365_A_L001_HCA-${sample}_R1.fastq.gz
+    fastqc HCA-${sample}_R1.fastq.gz
 
     echo "=============================================================="
     echo "Indexation du génome de référence"
@@ -27,7 +27,7 @@ do
     echo "=============================================================="
     echo "Alignement des reads sur le génome de référence - échantillon ${sample}"
     echo "=============================================================="
-    bowtie2 -x O_tauri -U 140317_SN365_A_L001_HCA-${sample}_R1.fastq.gz -S bowtie-${sample}.sam > bowtie-${sample}.out 2>&1
+    bowtie2 -x O_tauri -U HCA-${sample}_R1.fastq.gz -S bowtie-${sample}.sam > bowtie-${sample}.out 2>&1
 
     echo "=============================================================="
     echo "Conversion en binaire, tri et indexation des reads alignés - échantillon ${sample}"

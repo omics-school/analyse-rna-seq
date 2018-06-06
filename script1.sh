@@ -7,13 +7,13 @@ annotations=GCF_000214015.3_version_140606_genomic_DUO2.gff
 
 
 echo "Contrôle qualité"
-fastqc 140317_SN365_A_L001_HCA-${sample}_R1.fastq.gz
+fastqc HCA-${sample}_R1.fastq.gz
 
 echo "Indexation du génome de référence"
 bowtie2-build ${genome} O_tauri
 
 echo "Alignement des reads sur le génome de référence"
-bowtie2 -x O_tauri -U 140317_SN365_A_L001_HCA-${sample}_R1.fastq.gz -S bowtie-${sample}.sam
+bowtie2 -x O_tauri -U HCA-${sample}_R1.fastq.gz -S bowtie-${sample}.sam
 
 echo "Conversion en binaire, tri et indexation des reads alignés"
 samtools view -b bowtie-${sample}.sam > bowtie-${sample}.bam
