@@ -39,7 +39,11 @@ Voici deux articles très intéressants sur conda :
 - [Conda le meilleur ami du bioinformaticien](https://bioinfo-fr.net/conda-le-meilleur-ami-du-bioinformaticien). Article d'introduction. Attention cependant, certaines commandes sont obsolètes.
 - [Comment fixer les problèmes de déploiement et de durabilité des outils en bioinformatique ? Indice : conda !](https://bioinfo-fr.net/comment-fixer-les-problemes-de-deploiement-et-de-durabilite-des-outils-en-bioinformatique). Article un peu plus technique.
 
-La distribution Miniconda a été installée sur le serveur du DU. Pour que vous puissiez avoir accès à cet outil, vous devez configurer votre *shell* Linux sur le serveur du DU. Les étapes à suivre sont :
+
+### Configuration de conda
+
+La distribution Miniconda a été installée sur le serveur du DU. Pour que vous puissiez avoir accès à cet outil,
+vous devez configurer votre *shell* Linux sur le serveur du DU. Les étapes à suivre sont :
 
 1. Connectez-vous en SSH au serveur du DU.
 1. Éditez le fichier `.bashrc` dans votre répertoire personnel. Par exemple avec l'éditeur de texte nano :
