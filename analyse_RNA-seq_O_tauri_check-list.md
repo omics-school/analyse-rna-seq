@@ -131,4 +131,3 @@ Bravo !
 - [ ] Téléchargement du script 3
 - [ ] La variable à modifier avec mes numéros d'échantillon est :
     ._________________
-- [ ]
