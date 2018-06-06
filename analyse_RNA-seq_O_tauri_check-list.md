@@ -8,6 +8,8 @@ license: Creative Commons Attribution (CC-BY)
 
 ## Préparation de l'environnement de travail
 
+### Chargement de l'environnement conda
+
 - [ ] Conda est disponible dans mon shell.  
     La commande ```conda --version``` ne renvoie pas de message d'erreur.  
     La version de conda est : ___________________________
@@ -16,37 +18,46 @@ license: Creative Commons Attribution (CC-BY)
     ```
     (rnaseq) ppoulain@candihub:~$
     ```
+
+### Vérification des logiciels disponibles
+
 - [ ] La version de `fastqc` est : ___________________________
 - [ ] La version de `bowtie2` est : ___________________________
 - [ ] La version de `samtools` est : ___________________________
 - [ ] La version de `htseq-count` est : ___________________________
 
+### Comparaison avec les logiciels utilisés dans Galaxy
+
+- [ ] La version de `fastqc` est : ___________________________
+- [ ] La version de `bowtie2` est : ___________________________
+- [ ] La version de `samtools` est : ___________________________
+- [ ] La version de `htseq-count` est : ___________________________
 
 ## Préparation des données
 
 - [ ] Le répertoire `RNAseq` est créé dans mon répertoire personnel.
-- [ ] Les fichiers contenant les reads (`.fastq.gz`) sont copiés dans le répertoire `RNAseq`.  
+- [ ] Les fichiers contenant les *reads* (`.fastq.gz`) sont copiés dans le répertoire `RNAseq`.  
     Identifiants des échantillons (le `XX` de `140317_SN365_A_L001_HCA-XX_R1.fastq.gz`)  
-    : __________________________________________________
+    ._______ _______ _______ _______
 - [ ] Le fichier contenant la séquence du génome de référence (`.fna`) est copié dans le répertoire `RNAseq`.
 - [ ] Le fichier contenant les annotations du génome de référence (`_DUO2.gff`) est copié dans le répertoire `RNAseq`.
-
+- [ ] Les fichiers contenant les *reads* (`.fastq.gz`) ont été renommés correctement sur la forme `HCA-10_R1.fastq.gz`.
 
 ## Analyse manuelle
 
-Identifiant d'un échantillon contenant les *reads* : ___
+Identifiant de l'échantillon contenant les *reads* que vous allez analyser : ___
 
 ### Contrôle qualité
 
 - [ ] Lancement de FastQC.
-- [ ] Copie du fichier `.html` généré par FastQC sur votre machine (via FileZilla ou scp).
+- [ ] Copie du fichier `.html` généré par FastQC sur ma machine (via FileZilla ou scp).
 - [ ] Visualisation de l'analyse.
 
 
 ### Indexation du génome de référence
 
 - [ ] Lancement de Bowtie (commande `bowtie2-build`).
-- [ ] Taille occupée par les fichiers d'index crées par Bowtie : ____
+- [ ] Taille occupée par les fichiers d'index crées par Bowtie : ______
 
 
 ### Alignements des *reads* sur le génome de référence
@@ -58,15 +69,18 @@ Identifiant d'un échantillon contenant les *reads* : ___
     Taux d'alignement : ____________  
 - [ ] Taille du fichier d'alignement créé par Bowtie : ___________
 
-Pourquoi le fichier d'alignement créé par Bowtie est beaucoup plus gros que le fichier contenant les *reads* ?
+Pourquoi le fichier d'alignement créé par Bowtie est beaucoup plus gros que le fichier contenant les *reads* ?  
+.______________________________________________________________
+.______________________________________________________________
+.______________________________________________________________
 
 
 ### Conversion des *reads* alignés en binaire, tri et indexation
 
 - [ ] Lancement de SAMtools pour convertir le fichier d'alignement des *reads* en binaire.  
-    Taille du fichier créé par samtools : _______________
+    Taille du fichier créé par SAMtools : _______________
 - [ ] Lancement de samtools pour trier les *reads* alignés.  
-    Taille du fichier créé par samtools : _______________
+    Taille du fichier créé par SAMtools : _______________
 - [ ] Lancement de samtools pour indexer les *reads* alignés.  
     Nom du fichier d'index : ___________________________________
 
@@ -74,8 +88,8 @@ Pourquoi le fichier d'alignement créé par Bowtie est beaucoup plus gros que le
 ### Visualisation des *reads* alignés avec IGV
 
 Les fichiers suivants sont copiés sur la machine locale :
-- [ ] Génome de référence (`.fna`)
-- [ ] Annotations du génome de référence (`_DUO2.gff`)
+- [ ] génome de référence (`.fna`)
+- [ ] annotations du génome de référence (`_DUO2.gff`)
 - [ ] bam trié (`bowtie.sorted.bam`)
 - [ ] index du bam trié (`bowtie.sorted.bam.bai`)
 
@@ -96,10 +110,25 @@ Bravo !
 
 ## Automatisation de l'analyse : niveau 1
 
-
+- [ ] Ouverture du script 1
+- [ ] Les trois variables dans ce script sont :
+    ._______________ _______________ _______________
+- [ ] Téléchargement du script 1
+- [ ] Modification de la variable qui contient le numéro d'échantillon
+- [ ] Lancement du script 1
+- [ ] Café ! :coffee: :coffee: :coffee: :coffee:
 
 ## Automatisation de l'analyse : niveau 2
 
+- [ ] Une évolution possible du premier script :
+    ._____________________________________________
+- [ ] Téléchargement du script 2
+- [ ] Mais que peut bien vouloir dire `2>&1` :scream:
 
+## Automatisation de l'analyse : niveau 3 (ninja)
 
-## Automatisation de l'analyse : niveau 3
+- [ ] Activité et exercices *boucle* de Software Carpentry
+- [ ] Téléchargement du script 3
+- [ ] La variable à modifier avec mes numéros d'échantillon est :
+    ._________________
+- [ ]
