@@ -341,7 +341,7 @@ Le script précédent était pratique mais il ne conserve pas les informations l
 
 Proposez une évolution du premier script pour répondre à ce problème. N'hésitez pas à améliorer aussi la lisibilité du script lors de son exécution.
 
-La solution est dans le script 2. Pour le télécharger, utilisez la commande :
+La solution est dans le [script 2](script2.sh). Pour le télécharger, utilisez la commande :
 ```
 $ wget https://raw.githubusercontent.com/omics-school/analyses-rna-seq-o-tauri/master/script2.sh
 ```
