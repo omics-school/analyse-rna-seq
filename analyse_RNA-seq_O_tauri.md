@@ -1,5 +1,5 @@
 ---
-title: Analyse des données RNA-seq de O. tauri sous Linux
+title: Analyse des données RNA-seq O. tauri sous Linux
 author: Pierre Poulain
 license: Creative Commons Attribution (CC-BY)
 ---
