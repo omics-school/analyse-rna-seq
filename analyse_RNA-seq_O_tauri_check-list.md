@@ -1,5 +1,5 @@
 ---
-title: Check list analyse de données RNA-seq O. tauri
+title: Check list analyse de données RNA-seq O. tauri sous Linux
 author: Pierre Poulain
 license: Creative Commons Attribution (CC-BY)
 ---
