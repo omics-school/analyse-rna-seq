@@ -1,5 +1,5 @@
 ---
-title: Check list analyse de données RNA Seq
+title: Check list analyse de données RNA-seq O. tauri
 author: Pierre Poulain
 license: Creative Commons Attribution (CC-BY)
 ---
@@ -41,7 +41,7 @@ license: Creative Commons Attribution (CC-BY)
     ._______ _______ _______ _______
 - [ ] Le fichier contenant la séquence du génome de référence (`.fna`) est copié dans le répertoire `RNAseq`.
 - [ ] Le fichier contenant les annotations du génome de référence (`_DUO2.gff`) est copié dans le répertoire `RNAseq`.
-- [ ] Les fichiers contenant les *reads* (`.fastq.gz`) ont été renommés correctement sur la forme `HCA-10_R1.fastq.gz`.
+- [ ] Les fichiers contenant les *reads* (`.fastq.gz`) ont été renommés correctement sur la forme `HCA-XX_R1.fastq.gz`, avec `XX` le numéro de l'échantillon.
 
 ## Analyse manuelle
 
