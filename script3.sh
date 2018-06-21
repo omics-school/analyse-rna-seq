@@ -12,7 +12,7 @@ genome=GCF_000214015.3_version_140606_genomic.fna
 # nom du fichier contenant les annotations
 annotations=GCF_000214015.3_version_140606_genomic_DUO2.gff
 
-for sample in $(echo ${samples})
+for sample in ${samples}
 do
     echo "=============================================================="
     echo "Contrôle qualité - échantillon ${sample}"
