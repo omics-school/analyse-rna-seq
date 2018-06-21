@@ -55,14 +55,13 @@ vous devez configurer votre *shell* Linux sur le serveur du DU. Les étapes à s
     source /data/omics-school/share/miniconda/etc/profile.d/conda.sh
     ```
     Enregistrez le fichier (`ctrl + o`) puis quittez nano (`ctrl + x`).  
-    Remarque 1 : la ligne de commande à ajouter est assez longue. Pour éviter les erreurs, utilisez le copier / coller (`ctrl + maj + v`) dans nano.  
+    Remarque 1 : la ligne de commande à ajouter est assez longue. Pour éviter les erreurs, utilisez le copier (`ctrl + c`) / coller (clic droit) dans nano.  
     Remarque 2 : il est possible que votre fichier `.bashrc` soit vide, ce n'est pas un problème.
-1. Vérifiez que conda est maintenant disponible en tapant les commandes suivantes :
+1. Vérifiez que conda est maintenant disponible en vous déconnectant du serveur, en vous reconnectant puis en tapant la commande suivante :
     ```
-    $ source .bashrc
     $ conda --version
     ```
-1. Bravo ! :tada: Vous avez correctement configuré conda. Fermez votre shell sur le serveur du DU.
+1. Bravo ! :tada: Vous avez correctement configuré conda.
 
 Les manipulations ci-dessus vous ont permis de rendre disponible conda dans votre *shell* Linux sur le serveur du DU. Elles ne sont à faire qu'une seule fois.
 
@@ -130,24 +129,29 @@ Connectez-vous maintenant à votre compte sur Galaxy. Essayez de retrouver les v
 
 Pour ce faire, dans votre *History*, cliquez sur le nom d'un résultat d'analyse, puis cliquez sur le petit i entouré (:information_source:) et lisez les informations de la section *Job Dependencies*.
 
+Comparez les versions des logiciels disponibles dans Galaxy et installés sur le serveur du DU.
+
 
 ## Préparation des données
 
 Sur le serveur du DU, dans votre répertoire personnel, créez le répertoire `RNAseq`.
 
-Dans ce répertoire, copiez :
+Dans ce répertoire `RNAseq`, copiez :
 
 - Les 2 ou 3 fichiers contenant les *reads* (`.fastq.gz`) qui vous ont été attribués la dernière fois et que vous avez analysés avec Galaxy. Tous les fichiers sont dans le répertoire  `/data/omics-school/share/RNAseq_tauri/`
-- Le génome de référence de *O. tauri* : `/data/omics-school/share/GCF_000214015.3_version_140606_genomic.fna`
+- Le génome de référence de *O. tauri* :
+    `/data/omics-school/share/GCF_000214015.3_version_140606_genomic.fna`
 - Les annotations du génome de référence :
-`/data/omics-school/share/GCF_000214015.3_version_140606_genomic_DUO2.gff`
+    `/data/omics-school/share/GCF_000214015.3_version_140606_genomic_DUO2.gff`
 
 Remarque : le génome de référence de *Ostreococcus tauri* et ses annotations sont disponibles sur la [page dédiée](https://www.ncbi.nlm.nih.gov/genome/373?genome_assembly_id=352933) sur le site du NCBI :
 - [génome de référence](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/214/015/GCF_000214015.3_version_140606/GCF_000214015.3_version_140606_genomic.fna.gz)
 - [annotations](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/214/015/GCF_000214015.3_version_140606/GCF_000214015.3_version_140606_genomic.gff.gz). Nous avons légèrement modifié le fichier d'annotations pour ne prendre en compte que les gènes et alléger la visualisation dans IGV.
 
 
-**:warning: Étape essentielle pour la suite :warning:**. Renommez les fichiers contenant vos *reads* (`.fastq.gz`) de la façon suivante :
+**:warning: Étape essentielle pour la suite :warning:**
+
+Renommez les fichiers contenant vos *reads* (`.fastq.gz`) de la façon suivante :
 ```
 HCA-XX_R1.fastq.gz
 ```
@@ -202,7 +206,7 @@ Explications : la commande `du` affiche la taille occupée par des fichiers. L'o
 
 Lancez l'alignement :
 ```
-$ bowtie2 -x O_tauri -U nom-fichier-fastq.gz -S bowtie.sam
+$ bowtie2 -x O_tauri -U nom-du-fichier.fastq.gz -S bowtie.sam
 ```
 
 Ici :
@@ -212,12 +216,22 @@ Ici :
 
 Cette étape est la plus longue et peut prendre plusieurs minutes (~ 10).
 
-À la fin de l'alignement, Bowtie2 renvoie plusieurs informations intéressantes comme :
-- le nombre total de *reads* lus dans le fichier `.fastq.gz`
-- le nombre de *reads* non alignés (*aligned 0 times*)
-- le nombre de *reads* alignés une seule fois
-- le nombre de *reads* alignés plus d'une fois
-- un taux d'alignement global
+À la fin de l'alignement, Bowtie2 renvoie des informations qui ressemblent à :
+
+```
+6757072 reads; of these:
+  6757072 (100.00%) were unpaired; of these:
+    1129248 (16.71%) aligned 0 times
+    5164196 (76.43%) aligned exactly 1 time
+    463628 (6.86%) aligned >1 times
+83.29% overall alignment rate
+```
+On obtient ainsi :
+- le nombre total de *reads* lus dans le fichier `.fastq.gz` (ici `6757072`)
+- le nombre de *reads* non alignés "*aligned 0 times*" (`1129248`, soit `16.71%`)
+- le nombre de *reads* alignés une seule fois (`5164196`)
+- le nombre de *reads* alignés plus d'une fois (`463628`)
+- un taux d'alignement global (`83.29%`)
 
 Il faut être prudent si le nombre de *reads* non alignés est trop important (> 20%).
 
@@ -248,7 +262,7 @@ Pour visualiser l'alignement des *reads* sur le génome de référence avec IGV,
 - bam trié (`bowtie.sorted.bam`) ;
 - index du bam trié (`bowtie.sorted.bam.bai`).
 
-Lancez IGV et visualisez l'alignement des *reads* sur le génome de référence. Si vous avez oublié comme faire, visionnez la vidéo 2, de l'activité 1, du cours de Mai sur cloudschool.
+Lancez IGV et visualisez l'alignement des *reads* sur le génome de référence. Si vous avez oublié comme faire, visionnez la vidéo 2, de l'activité 1, du cours de Mai sur CloudSchool.
 
 Visualisez particulièrement le gène `ostta18g01980`.
 
@@ -262,13 +276,39 @@ Lancez la commande :
 $ htseq-count --stranded=no --type='gene' --idattr='ID' --order=name --format=bam bowtie.sorted.bam GCF_000214015.3_version_140606_genomic_DUO2.gff > count.txt
 ```
 
-HTSeq renvoie le nombre d'annotations trouvées dans le fichier `.gff`.
+HTSeq renvoie le nombre d'annotations trouvées dans le fichier `.gff` puis affiche une progression de l'analyse. Les options du programme `htseq-count` sont décrites dans la [documentation](http://gensoft.pasteur.fr/docs/HTSeq/0.9.1/count.html).
 
 Déterminez le nombre de *reads* alignés sur le gène `ostta18g01980`. Pour cela, vous pouvez lancer la commande
 ```
 $ grep ostta18g01980 count.txt
 ```
-ou alors ouvrir le fichier `count.txt` avec la commande `less` puis chercher `ostta18g01980` en tapant `/ostta18g01980` puis la touche `Entrée`.
+ou alors ouvrir le fichier `count.txt` avec la commande `less` puis chercher le gène `ostta18g01980` en tapant `/ostta18g01980` puis la touche `Entrée`.
+
+
+### Trucs et astuces
+
+Certaines étapes d'analyse (notamment l'alignement des *reads* sur le génome de référence et le comptage des *reads*) vont prendre du temps et consommer des ressources informatiques.
+
+Si vous fermez votre terminal alors que vous avez une tache d'analyse en cours, celui-ci sera arrêtée.
+Pour lancer une analyse en tâche de fond et pouvoir vous déconnecter, utilisez la syntaxe :
+```
+nohup votre-commande-avec-ses-paramètres &
+```
+Attention, tout ce qui s'affiche normalement à l'écran sera écrit dans le fichier `nohup.out`.
+
+Pour suivre l'avancée de votre analyse, lancez la commande
+```
+top
+```
+ou mieux, si le programme est installé sur le serveur :
+```
+htop
+```
+
+Enfin, voici quelques commandes utiles pour explorer les caractéristiques du serveur :
+- `grep -c /proc/cpuinfo` pour connaître le nombre de coeurs de la machine
+- `free -h` pour connaître la taille de la mémoire vive (total et disponible)
+- `df -h` pour connaître la volumétrie de stockage (totale et diponible)
 
 
 ## Automatisation de l'analyse : niveau 1
