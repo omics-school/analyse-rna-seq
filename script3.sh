@@ -27,7 +27,7 @@ do
     echo "=============================================================="
     echo "Alignement des reads sur le génome de référence - échantillon ${sample}"
     echo "=============================================================="
-    bowtie2 -x O_tauri -U HCA-${sample}_R1.fastq.gz -S bowtie-${sample}.sam > bowtie-${sample}.out 2>&1
+    bowtie2 -x O_tauri -U HCA-${sample}_R1.fastq.gz -S bowtie-${sample}.sam 2> bowtie-${sample}.out
 
     echo "=============================================================="
     echo "Conversion en binaire, tri et indexation des reads alignés - échantillon ${sample}"
