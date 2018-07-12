@@ -108,7 +108,7 @@ et est activable avec la commande
 $ conda activate rnaseq
 ```
 
-Un autre utilisateur (par exemple `adejardin`) ne peut pas modifié l'environnement `rnaseq` ni créer un nouvel environnement dans le répertoire par défaut de conda (`/data/omics-school/share/miniconda/envs/`) car il n'en pas les droits.
+Un autre utilisateur (par exemple `adejardin`) ne peut pas modifier l'environnement `rnaseq` ni même créer un nouvel environnement dans le répertoire par défaut de conda (`/data/omics-school/share/miniconda/envs/`) car il n'en pas les droits.
 
 La solution est alors de créer un nouvel environnement en indiquant dans quel répertoire cet environnement doit être créé. Par exemple :
 ```
