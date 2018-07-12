@@ -97,3 +97,40 @@ if [ -f "$HOME/.bashrc" ]; then
     . "$HOME/.bashrc"
 fi
 ```
+
+## Création d'un environnement pour un utilisateur différent de celui qui a installé conda
+
+Conda a été installé dans le répertoire `/data/omics-school/share/miniconda/` par l'utilisateur `ppoulain`.
+
+L'environnement `rnaseq` a été créé par le même utilisateur, il est dans le répertoire `/data/omics-school/share/miniconda/envs/rnaseq`
+et est activable avec la commande
+```
+$ conda activate rnaseq
+```
+
+Un autre utilisateur (par exemple `adejardin`) ne peut pas modifié l'environnement `rnaseq` ni créer un nouvel environnement dans le répertoire par défaut de conda (`/data/omics-school/share/miniconda/envs/`) car il n'en pas les droits.
+
+La solution est alors de créer un nouvel environnement en indiquant dans quel répertoire cet environnement doit être créé. Par exemple :
+```
+$ conda create -y -p $HOME/conda-env-projet
+```
+
+La commande pour activer l'environnement est :
+```
+$ conda activate $HOME/conda-env-projet
+```
+
+Pour l'utilisateur `adejardin`, l'invite de commande doit alors ressembler à quelque chose du type :
+```
+(/data/omics-school/adejardin/env-conda-env-projet) adejardin@candihub:~$
+```
+
+Il faut ensuite installer les logiciels nécessaires, par exemple :
+```
+$ conda install -y fastqc star htseq samtools
+```
+
+Rappel : pour quitter l'environnement une fois que les analyses sont terminées :
+```
+$ conda deactivate
+```
