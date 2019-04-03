@@ -1,16 +1,16 @@
 ---
-title: Analyse des données RNA-seq O. tauri sous Linux
+title: Analyse des données RNA-seq O. tauri avec Linux
 author: Pierre Poulain
 license: Creative Commons Attribution (CC-BY)
 ---
 
-# Analyse des données RNA-seq de O. tauri sous Linux
+# Analyse des données RNA-seq de *O. tauri* avec Linux
 
-Dans cette activité, nous allons analyser les données RNA-seq de O. tauri sous Linux.
+Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* dans un environnement Linux.
 
-Pour cela, vous allez beaucoup utiliser la ligne de commande, connecté en SSH sur le serveur du DU. Vous copierez également des fichiers depuis le serveur du DU vers votre machine locale (avec FileZilla).
+Pour cela, vous allez beaucoup utiliser la ligne de commande, connecté en SSH sur le serveur du DU. Vous copierez également des fichiers depuis le serveur du DU vers votre machine locale (avec le logiciel FileZilla ou la commande `scp`) .
 
-Voici une vue d'ensemble des étapes pour analyser les données de séquençage haut débit de *O. tauri.* :
+Voici une vue d'ensemble des étapes pour analyser les données de séquençage haut débit :
 
 ![](pipeline_RNA_seq_O_tauri.svg)
 
@@ -35,10 +35,14 @@ Enfin, Anaconda est également disponible dans une version *light* appelée [Min
 
 Enfin, [Bioconda](https://bioconda.github.io/) est un canal de diffusion de logiciels, utilisable par le gestionnaire de paquets conda et proposant de nombreux logiciels utilisés en bioinformatique.
 
-Voici deux articles très intéressants sur conda et le papier de référence de Bioconda :
+Voici deux articles très intéressants sur conda :
+ 
 - [Conda le meilleur ami du bioinformaticien](https://bioinfo-fr.net/conda-le-meilleur-ami-du-bioinformaticien). Article d'introduction. Attention cependant, certaines commandes sont obsolètes.
 - [Comment fixer les problèmes de déploiement et de durabilité des outils en bioinformatique ? Indice : conda !](https://bioinfo-fr.net/comment-fixer-les-problemes-de-deploiement-et-de-durabilite-des-outils-en-bioinformatique). Article un peu plus technique.
-- [Bioconda: sustainable and comprehensive software distribution for the life sciences](https://www.nature.com/articles/s41592-018-0046-7)
+
+et le papier de référence de Bioconda :
+
+- [Bioconda: sustainable and comprehensive software distribution for the life sciences](https://www.nature.com/articles/s41592-018-0046-7), Björn Grüning et *al.*, Nature methods, 2018.
 
 
 ### Configuration de conda
@@ -55,8 +59,8 @@ vous devez configurer votre *shell* Linux sur le serveur du DU. Les étapes à s
     ```
     source /data/omics-school/share/miniconda/etc/profile.d/conda.sh
     ```
-    Enregistrez le fichier (`ctrl + o`) puis quittez nano (`ctrl + x`).  
-    Remarque 1 : la ligne de commande à ajouter est assez longue. Pour éviter les erreurs, utilisez le copier (`ctrl + c`) / coller (clic droit) dans nano.  
+    Enregistrez le fichier (<kbd>Ctrl</kbd> + <kbd>O</kbd>) puis quittez nano (<kbd>Ctrl</kbd> + <kbd>X</kbd>).  
+    Remarque 1 : la ligne de commande à ajouter est assez longue. Pour éviter les erreurs, utilisez le copier (<kbd>Ctrl</kbd> + <kbd>C</kbd>) / coller (clic droit) dans nano.  
     Remarque 2 : il est possible que votre fichier `.bashrc` soit vide, ce n'est pas un problème.
 1. Vérifiez que conda est maintenant disponible en vous déconnectant du serveur, en vous reconnectant puis en tapant la commande suivante :
     ```
@@ -88,7 +92,7 @@ Nous allons maintenant voir comment charger un environnement virtuel créé avec
     ```
     (rnaseq) ppoulain@candihub:~$
     ```
-    La mention `(rnaseq)` indique que vous êtes dans l'environnement virtuel `rnaseq`.
+    La mention `(rnaseq)` au début de l'invite de commande indique que vous êtes dans l'environnement virtuel `rnaseq`.
 
 Remarque : pour quitter un environnement virtuel, il faut utiliser la commande
 ```
@@ -102,7 +106,7 @@ Pour la suite, nous supposerons que :
 
 ### Vérification des logiciels disponibles
 
-En bioinformatique, il est essentiel de vérifier et noter les versions des logiciels que vous utilisez.
+En bioinformatique, il est essentiel de vérifier et noter les versions des logiciels que vous utilisez. Vous reporterez les noms et les versions des logiciels que vous utiliserez dans la section *Materials & Methods* de vos articles.
 
 Dans votre environnement virtuel conda, vérifiez les versions des logiciels que vous allez utiliser :
 
@@ -124,7 +128,7 @@ $ bowtie2 --version
 Certains programmes peuvent renvoyer beaucoup d'informations.
 
 
-### Comparaison avec les logiciels utilisés dans Galaxy
+### Comparaison avec les logiciels utilisés dans Galaxy (si vous avez du temps)
 
 Connectez-vous maintenant à votre compte sur Galaxy. Essayez de retrouver les versions des logiciels que vous utilisés (FastQC, Bowtie2, SAMtools, HTSeq).
 
@@ -139,7 +143,7 @@ Sur le serveur du DU, dans votre répertoire personnel, créez le répertoire `R
 
 Dans ce répertoire `RNAseq`, copiez :
 
-- Les 2 ou 3 fichiers contenant les *reads* (`.fastq.gz`) qui vous ont été attribués la dernière fois et que vous avez analysés avec Galaxy. Tous les fichiers sont dans le répertoire  `/data/omics-school/share/RNAseq_tauri/`
+- Les 2 ou 3 fichiers contenant les *reads* (`.fastq.gz`) qui vous devez analyser. Tous les fichiers sont dans le répertoire  `/data/omics-school/share/RNAseq_tauri/`
 - Le génome de référence de *O. tauri* :
     `/data/omics-school/share/GCF_000214015.3_version_140606_genomic.fna`
 - Les annotations du génome de référence :
@@ -180,7 +184,12 @@ $ fastqc nom-fichier-fastq.gz
 ```
 où `nom-fichier-fastq.gz` est le fichier contenant l'échantillon que vous avez choisi.
 
-FastQC va produire deux fichiers (`.html` et `.zip`). Copiez le fichier `.html` sur votre machine locale avec FileZilla.
+FastQC va produire deux fichiers (`.html` et `.zip`). Copiez le fichier `.html` sur votre machine locale avec le logiciel FileZilla ou la commande `scp` :
+```
+$ scp <login>@omics-school.net:~/RNAseq/HCA-<numéro>_R1_fastqc.html ./
+```
+où `<login>` est votre identifiant sur le serveur et `<numéro>` est le numéro de l'échantillon que vous devez analyser.
+    
 
 Ouvrez ce fichier dans un navigateur internet (Firefox par exemple).
 
@@ -310,15 +319,17 @@ Enfin, voici quelques commandes utiles pour explorer les caractéristiques du se
 - `grep -c /proc/cpuinfo` pour connaître le nombre de coeurs de la machine
 - `free -h` pour connaître la taille de la mémoire vive (total et disponible)
 - `df -h` pour connaître la volumétrie de stockage (totale et diponible)
+- `who` pour savoir qui est connecté sur le serveur
 
 
 ## Automatisation de l'analyse : niveau 1
 
 Tout cela est très bien mais les fichiers que vous avez générés (`bowtie.bam`, `bowtie.sorted.bam`, `count.txt`...) ne sont pas très informatifs sur l'échantillon dont ils proviennent.
 
-Par ailleurs, entrer toutes ces commandes à la main, les unes après les autres, est pénible et source d'erreurs.
+Par ailleurs, entrer toutes ces commandes à la main, les unes après les autres, est pénible et source d'erreurs. Et il y a fort à parier que vous aurez complètement oublié ces commandes dans 1 semaine, voire dans 1 heure.
 
-Pour répondre à ces deux problèmes, nous allons introduire les notions Bash de variables et de  scripts.
+Pour répondre à ces deux problèmes, de gestion de données et d'automatisation, nous allons introduire les notions Bash de variables et de scripts.
+
 
 ### Variables
 
@@ -338,7 +349,7 @@ $ echo $toto
 $ echo "$t Pierre"
 salut Pierre
 ```
-La commande `echo` permet d'afficher une chaîne de caractère, une variable, ou les deux.
+La commande `echo` affiche une chaîne de caractère, une variable, ou les deux.
 
 Pour utiliser une variable (et accéder à son contenu), il faut précéder son nom du caractère `$`. Attention, ce symbole n'est pas à confondre avec celui qui désigne l'invite de commande de votre *shell* Linux.
 

@@ -5,9 +5,9 @@
 [Introduction à Unix](https://omics-school.github.io/unix/)
 
 
-## Procédure d'analyse
+## Tutoriel
 
-[Procédure d'analyse pas à pas](analyse_RNA-seq_O_tauri.md)
+[Tutoriel de l'analyse](analyse_RNA-seq_O_tauri.md)
 
 [*Check list*](analyse_RNA-seq_O_tauri_check-list.md) pour ne rien oublier.
 
