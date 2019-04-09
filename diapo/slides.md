@@ -51,25 +51,44 @@ DU Omiques 2019
 
 ---
 
+template: contentleft
+
 # Objectifs de l'activité
 
 --
 
 - Décrire et expliquer un processus d'analyse RNA-seq sous Unix.
+
 - Utiliser un environnement conda.
-- Lancez un script *shell* pour automatiser un processus d'analyse.
+
+- Modifier et lancez un script *shell* pour automatiser un processus d'analyse.
+
 - Copier des données entre le serveur et votre ordinateur.
 
 ---
+template: contentleft
 
 # Le processus d'analyse RNA-seq
 
-![](img/pipeline_RNA_seq_O_tauri.svg)
+.center[
+<img height="400px" src="img/pipeline_RNA_seq_O_tauri.png">
+]
 
 ---
+template: contentleft
 
 # Conda 🐍
 
+---
+template: contentleft
+
+# Copie de données 🦄
+
+--
+
+## FileZilla
+
+## `scp`
 
 ---
 
