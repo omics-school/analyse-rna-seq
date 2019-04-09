@@ -66,7 +66,7 @@ vous devez configurer votre *shell* Linux sur le serveur du DU. Les étapes à s
     ```
     $ conda --version
     ```
-1. Bravo ! :tada: Vous avez correctement configuré conda.
+1. Bravo ! 🎉 Vous avez correctement configuré conda.
 
 Les manipulations ci-dessus vous ont permis de rendre disponible conda dans votre *shell* Linux sur le serveur du DU. Elles ne sont à faire qu'une seule fois.
 
