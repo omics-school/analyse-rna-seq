@@ -59,7 +59,7 @@ vous devez configurer votre *shell* Linux sur le serveur du DU. Les étapes à s
     ```
     source /data/omics-school/share/miniconda/etc/profile.d/conda.sh
     ```
-    Enregistrez le fichier (<kbd>Ctrl</kbd> + <kbd>O</kbd>) puis quittez nano (<kbd>Ctrl</kbd> + <kbd>X</kbd>).  
+    Enregistrez le fichier (combinaison de touches <kbd>Ctrl</kbd> + <kbd>O</kbd> puis validez par <kbd>Entrée</kbd>) puis quittez nano (<kbd>Ctrl</kbd> + <kbd>X</kbd>).  
     Remarque 1 : la ligne de commande à ajouter est assez longue. Pour éviter les erreurs, utilisez le copier (<kbd>Ctrl</kbd> + <kbd>C</kbd>) / coller (clic droit) dans nano.  
     Remarque 2 : il est possible que votre fichier `.bashrc` soit vide, ce n'est pas un problème.
 1. Vérifiez que conda est maintenant disponible en vous déconnectant du serveur, en vous reconnectant puis en tapant la commande suivante :
