@@ -1,23 +1,27 @@
 # Analyse des données RNA-seq de *O. tauri* avec Linux
 
-## Prérequis 
+### Prérequis 
 
 [Introduction à Unix](https://omics-school.github.io/unix/)
 
 
-## Tutoriel
+### Objectifs et contexte
 
-[Tutoriel de l'analyse](analyse_RNA-seq_O_tauri.md)
+[diapo](diapo)
+
+### Tutoriel
+
+[Tutoriel de l'analyse RNA-seq](analyse_RNA-seq_O_tauri.md)
 
 [*Check list*](analyse_RNA-seq_O_tauri_check-list.md) pour ne rien oublier.
 
 
-## Pour aller plus loin
+### Pour aller plus loin
 
 [Installer conda](installation_conda_logiciels_RNA-seq.md) et les logiciels nécessaires pour l'anlyse RNA-seq.
 
 
-## Licence
+### Licence
 
 ![](img/CC-BY-SA.png)
 
