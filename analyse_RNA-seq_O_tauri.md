@@ -8,14 +8,14 @@ license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 
 Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* dans un environnement Linux.
 
-Pour cela, vous allez beaucoup utiliser la ligne de commande, connecté en SSH sur le serveur du DU. Vous copierez également des fichiers depuis le serveur du DU vers votre machine locale (avec le logiciel FileZilla ou la commande `scp`) .
+Pour cela, vous allez beaucoup utiliser la ligne de commande, connecté en SSH sur le serveur du DU. Vous copierez également des fichiers depuis le serveur du DU vers votre machine locale avec le logiciel FileZilla ou la commande `scp` (nous y reviendrons) .
 
 Voici une vue d'ensemble des étapes pour analyser les données de séquençage haut débit :
 
 ![](pipeline_RNA_seq_O_tauri.svg)
 
 
-## Préparation de l'environnement de travail
+## Étape 1 : préparation de l'environnement de travail
 
 Pour analyser les données de séquençage haut débit de *O. tauri.*, nous avons besoin des logiciels suivants :
 
@@ -23,26 +23,6 @@ Pour analyser les données de séquençage haut débit de *O. tauri.*, nous avon
 - [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) pour l'indexation du génome de référence puis l'alignement des *reads* sur le génome de référence.
 - [SAMtools](http://samtools.sourceforge.net/) pour la manipulation des fichiers d'alignements (conversion en binaire, tri et indexation)
 - [HTSeq](https://htseq.readthedocs.io/en/latest/) pour le comptage du nombre de *reads* alignés sur chaque gène.
-
-
-### Anaconda, Miniconda, Conda & Bioconda
-
-[Anaconda](https://www.anaconda.com/what-is-anaconda/) est une distribution open source, disponible pour Windows, Mac et Linux, et qui contient de nombreux outils utilisés pour l'analyse de données avec le langage de programmation Python.
-
-Anaconda est basé sur [conda](https://conda.io/docs/), un gestionnaire de paquets, qui permet d'installer des logiciels facilement et sans être administrateur. Conda permet d'installer des logiciels écrits en Python mais aussi en R, en C...
-
-Enfin, Anaconda est également disponible dans une version *light* appelée [Miniconda](https://conda.io/miniconda.html). Miniconda ne contient pas tous les outils Python disponibles dans Anaconda, mais il contient néanmoins le gestionnaire de paquets conda.
-
-Enfin, [Bioconda](https://bioconda.github.io/) est un canal de diffusion de logiciels, utilisable par le gestionnaire de paquets conda et proposant de nombreux logiciels utilisés en bioinformatique.
-
-Voici deux articles très intéressants sur conda :
- 
-- [Conda le meilleur ami du bioinformaticien](https://bioinfo-fr.net/conda-le-meilleur-ami-du-bioinformaticien). Article d'introduction. Attention cependant, certaines commandes sont obsolètes.
-- [Comment fixer les problèmes de déploiement et de durabilité des outils en bioinformatique ? Indice : conda !](https://bioinfo-fr.net/comment-fixer-les-problemes-de-deploiement-et-de-durabilite-des-outils-en-bioinformatique). Article un peu plus technique.
-
-et le papier de référence de Bioconda :
-
-- [Bioconda: sustainable and comprehensive software distribution for the life sciences](https://www.nature.com/articles/s41592-018-0046-7), Björn Grüning et *al.*, Nature methods, 2018.
 
 
 ### Configuration de conda
@@ -53,13 +33,14 @@ vous devez configurer votre *shell* Linux sur le serveur du DU. Les étapes à s
 1. Connectez-vous en SSH au serveur du DU.
 1. Éditez le fichier `.bashrc` dans votre répertoire personnel. Par exemple avec l'éditeur de texte nano :
     ```
-    $ nano .bashrc
+    $ nano ~/.bashrc
     ```
 1. Déplacez-vous à la fin du fichier et ajoutez la ligne ci-dessous :
     ```
     source /data/omics-school/share/miniconda/etc/profile.d/conda.sh
     ```
-    Enregistrez le fichier (combinaison de touches <kbd>Ctrl</kbd> + <kbd>O</kbd> puis validez par <kbd>Entrée</kbd>) puis quittez nano (<kbd>Ctrl</kbd> + <kbd>X</kbd>).  
+    Enregistrez le fichier avec la combinaison de touches <kbd>Ctrl</kbd> + <kbd>O</kbd> puis validez par <kbd>Entrée</kbd>.
+    Puis quittez nano avec la combinaison de touches <kbd>Ctrl</kbd> + <kbd>X</kbd>.  
     Remarque 1 : la ligne de commande à ajouter est assez longue. Pour éviter les erreurs, utilisez le copier (<kbd>Ctrl</kbd> + <kbd>C</kbd>) / coller (clic droit) dans nano.  
     Remarque 2 : il est possible que votre fichier `.bashrc` soit vide, ce n'est pas un problème.
 1. Vérifiez que conda est maintenant disponible en vous déconnectant du serveur, en vous reconnectant puis en tapant la commande suivante :
@@ -70,7 +51,7 @@ vous devez configurer votre *shell* Linux sur le serveur du DU. Les étapes à s
 
 Les manipulations ci-dessus vous ont permis de rendre disponible conda dans votre *shell* Linux sur le serveur du DU. Elles ne sont à faire qu'une seule fois.
 
-Une documentation expliquant l'installation de miniconda et la configuration de conda sur le serveur du DU est disponible [ici](installation_conda_logiciels_RNA-seq.md).
+Une documentation expliquant l'installation de miniconda et la configuration de conda sur le serveur du DU est disponible [ici](conda.md).
 
 
 ### Chargement de l'environnement conda
@@ -84,7 +65,7 @@ Nous allons maintenant voir comment charger un environnement virtuel créé avec
     ```
     $ conda --version
     ```
-1. Nous avons préparé un environnement virtuel conda spécialement pour l'analyse RNA-seq. Chargez cet environnement :
+1. Nous avons préparé un environnement virtuel conda spécialement pour l'analyse RNA-seq. Cet environement s'appelle `rnaseq`. Chargez cet environnement :
     ```
     $ conda activate rnaseq
     ```
@@ -103,6 +84,7 @@ mais vous n'aurez pas besoin de l'utiliser pour cette activité.
 Pour la suite, nous supposerons que :
 1. Vous êtes connecté en SSH au serveur du DU.
 1. Vous avez activé l'environnement conda `rnaseq`.
+
 
 ### Vérification des logiciels disponibles
 
@@ -125,7 +107,7 @@ et
 ```
 $ bowtie2 --version
 ```
-Certains programmes peuvent renvoyer beaucoup d'informations.
+Certains programmes peuvent en effet renvoyer beaucoup d'informations.
 
 
 ### Comparaison avec les logiciels utilisés dans Galaxy (si vous avez du temps)
@@ -137,24 +119,49 @@ Pour ce faire, dans votre *History*, cliquez sur le nom d'un résultat d'analyse
 Comparez les versions des logiciels disponibles dans Galaxy et installés sur le serveur du DU.
 
 
-## Préparation des données
+## Étape 2 : préparation des données
 
-Sur le serveur du DU, dans votre répertoire personnel, créez le répertoire `RNAseq`.
+Sur le serveur du DU, les données brutes dont vous aurez besoin sont dans le répertoire `/data/omics-school/share/tauri_2019/`. Voici un aperçu de l'organisation et du contenu de ce répertoire :
+```
+$ tree -h /data/omics-school/share/tauri_2019/ 
+/data/omics-school/share/tauri_2019/
+├── [462K]  GCF_000214015.3_version_140606_genomic_DUO2.gff
+├── [ 13M]  GCF_000214015.3_version_140606_genomic.fna
+└── [4.0K]  reads
+    ├── [507M]  140317_SN365_A_L001_HCA-10_R1.fastq.gz
+    ├── [510M]  140317_SN365_A_L001_HCA-11_R1.fastq.gz
+    ├── [374M]  140317_SN365_A_L001_HCA-12_R1.fastq.gz
+    ├── [399M]  140317_SN365_A_L001_HCA-13_R1.fastq.gz
+    ├── [375M]  140317_SN365_A_L001_HCA-14_R1.fastq.gz
+    ├── [441M]  140317_SN365_A_L001_HCA-15_R1.fastq.gz
+    ├── [440M]  140317_SN365_A_L001_HCA-16_R1.fastq.gz
+    ├── [587M]  140317_SN365_A_L001_HCA-17_R1.fastq.gz
+    ├── [531M]  140317_SN365_A_L001_HCA-18_R1.fastq.gz
+    ├── [944M]  140317_SN365_A_L001_HCA-19_R1.fastq.gz
+    ├── [459M]  140317_SN365_A_L001_HCA-20_R1.fastq.gz
+    ├── [907M]  140317_SN365_A_L001_HCA-21_R1.fastq.gz
+    ├── [393M]  140317_SN365_A_L001_HCA-22_R1.fastq.gz
+    ├── [429M]  140317_SN365_A_L001_HCA-23_R1.fastq.gz
+    ├── [930M]  140317_SN365_A_L001_HCA-24_R1.fastq.gz
+...
+```
+
+dans votre répertoire personnel, créez le répertoire `RNAseq`. Faites attention aux minuscules et aux majuscules !
 
 Dans ce répertoire `RNAseq`, copiez :
 
-- Les 2 ou 3 fichiers contenant les *reads* (`.fastq.gz`) qui vous devez analyser. Tous les fichiers sont dans le répertoire  `/data/omics-school/share/RNAseq_tauri/`
+- Les 2 ou 3 fichiers contenant les *reads* (`.fastq.gz`) qui vous devez analyser. Tous les fichiers sont dans le répertoire  `/data/omics-school/share/tauri_2019/reads`
 - Le génome de référence de *O. tauri* :
-    `/data/omics-school/share/GCF_000214015.3_version_140606_genomic.fna`
+    `/data/omics-school/share/tauri_2019/GCF_000214015.3_version_140606_genomic.fna`
 - Les annotations du génome de référence :
-    `/data/omics-school/share/GCF_000214015.3_version_140606_genomic_DUO2.gff`
+    `/data/omics-school/share/tauri_2019/GCF_000214015.3_version_140606_genomic_DUO2.gff`
 
 Remarque : le génome de référence de *Ostreococcus tauri* et ses annotations sont disponibles sur la [page dédiée](https://www.ncbi.nlm.nih.gov/genome/373?genome_assembly_id=352933) sur le site du NCBI :
 - [génome de référence](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/214/015/GCF_000214015.3_version_140606/GCF_000214015.3_version_140606_genomic.fna.gz)
 - [annotations](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/214/015/GCF_000214015.3_version_140606/GCF_000214015.3_version_140606_genomic.gff.gz). Nous avons légèrement modifié le fichier d'annotations pour ne prendre en compte que les gènes et alléger la visualisation dans IGV.
 
 
-**:warning: Étape essentielle pour la suite :warning:**
+**⚠ Étape essentielle pour la suite ⚠**
 
 Renommez les fichiers contenant vos *reads* (`.fastq.gz`) de la façon suivante :
 ```
@@ -168,9 +175,16 @@ $ mv 140317_SN365_A_L001_HCA-10_R1.fastq.gz HCA-10_R1.fastq.gz
 $ mv 140317_SN365_A_L002_HCA-41_R1.fastq.gz HCA-41_R1.fastq.gz
 ```
 
-Cela simplifiera considérablement l'automatisation des analyses par la suite.
+Cette opération simplifiera considérablement l'automatisation des analyses par la suite.
 
-## Analyse manuelle
+Déterminez la taille de vos données avec la commande 
+```
+$ du -ch *
+```
+
+Explications : la commande `du` affiche la taille occupée par des fichiers. L'option `-h` affiche la taille en ko, Mo, Go... L'option `-c` calcule la taille totale occupée par tous les fichiers.
+
+## Étape 3 : analyse manuelle
 
 Pour cette première analyse, choisissez un **seul échantillon** contenant des *reads*.
 
@@ -184,16 +198,45 @@ $ fastqc nom-fichier-fastq.gz
 ```
 où `nom-fichier-fastq.gz` est le fichier contenant l'échantillon que vous avez choisi.
 
-FastQC va produire deux fichiers (`.html` et `.zip`). Copiez le fichier `.html` sur votre machine locale avec le logiciel FileZilla ou la commande `scp` :
+FastQC va produire deux fichiers (un fichier avec l'extension `.html` et un autre avec l'extension `.zip`). Copiez le fichier `.html` sur votre machine locale avec le logiciel FileZilla ou la commande `scp`.
+
+
+#### `scp`
+
+Pour `scp`, vous devez être dans un *shell* sur votre **machine locale** et taper la commande 
+
 ```
 $ scp <login>@omics-school.net:~/RNAseq/HCA-<numéro>_R1_fastqc.html ./
 ```
-où `<login>` est votre identifiant sur le serveur et `<numéro>` est le numéro de l'échantillon que vous devez analyser.
-    
+où `<login>` est votre identifiant sur le serveur du DU et `<numéro>` est le numéro de l'échantillon que vous avez analysé.
 
-Ouvrez ce fichier dans un navigateur internet (Firefox par exemple).
+Entrez votre mot de passe lorsqu'on vous le demande.
 
-Analysez le rapport de FastQC.
+
+#### FileZilla 
+
+FileZilla est un logiciel open source (donc libre et gratuit) qui permet de transférer graphiquement des fichiers entre un serveur et une machine locale.
+
+Installez tout d'abord FileZilla en le [téléchargeant](https://filezilla-project.org/).
+
+Lancez-le puis remplissez les champs suivants : 
+
+- Hôte : `sftp://omics-school.net`
+- Identifiant : <votre-login-sur-le-serveur>
+- Mot de passe : <votre-mot-de-passe-sur-le-serveur>
+
+Puis cliquez sur le bouton *Connexion rapide*. 
+
+Vous devriez obtenir sur le panneau de gauche l'arborescence de vos fichiers locaux et sur le panneau de droite l'arboresence de vos fichiers sur le serveur. Vous pouvez transférer les fichiers de l'un vers l'autre par glisser/déposer.
+
+
+#### Analyse des résultats de FastQC
+
+Une fois les bons fichiers transférés sur votre machine locale :
+
+- Ouvrez ce fichier dans un navigateur internet (Firefox par exemple).
+
+- Analysez le rapport de FastQC.
 
 
 ### Indexation du génome de référence
@@ -209,22 +252,20 @@ Calculez la taille total des fichiers index avec la commande
 $ du -ch O_tauri*
 ```
 
-Explications : la commande `du` affiche la taille occupée par des fichiers. L'option `-h` affiche la taille en ko, Mo, Go... L'option `-c` calcule la taille totale occupée par tous les fichiers.
-
 
 ### Alignements des *reads* sur le génome de référence
 
 Lancez l'alignement :
 ```
-$ bowtie2 -x O_tauri -U nom-du-fichier.fastq.gz -S bowtie.sam
+$ bowtie2 -x O_tauri -U <nom-du-fichier.fastq.gz> -S bowtie.sam
 ```
 
 Ici :
 - `O_tauri` désigne les fichiers index du génome de référence,
-- `nom-fichier-fastq.gz` est le fichier contenant l'échantillon que vous avez choisi
+- `<nom-fichier-fastq.gz>` est le fichier contenant l'échantillon que vous avez choisi
 - et `bowtie.sam` est le fichier qui va contenir l'alignement produit par Bowtie2.
 
-Cette étape est la plus longue et peut prendre plusieurs minutes (~ 10).
+Cette étape est la plus longue et peut prendre plusieurs minutes (~ 10). Bowtie n'affiche rien à l'écran lorsqu'il fonctionne. Soyez patient.
 
 À la fin de l'alignement, Bowtie2 renvoie des informations qui ressemblent à :
 
@@ -238,7 +279,7 @@ Cette étape est la plus longue et peut prendre plusieurs minutes (~ 10).
 ```
 On obtient ainsi :
 - le nombre total de *reads* lus dans le fichier `.fastq.gz` (ici `6757072`)
-- le nombre de *reads* non alignés "*aligned 0 times*" (`1129248`, soit `16.71%`)
+- le nombre de *reads* non alignés « *aligned 0 times* » (`1129248`, soit `16.71%` du nombre total de *reads*)
 - le nombre de *reads* alignés une seule fois (`5164196`)
 - le nombre de *reads* alignés plus d'une fois (`463628`)
 - un taux d'alignement global (`83.29%`)
@@ -266,13 +307,13 @@ Vous allez maintenant utiliser SAMtools pour :
 
 ### Visualisation des *reads* alignés avec IGV
 
-Pour visualiser l'alignement des *reads* sur le génome de référence avec IGV, copiez, avec FileZilla, sur votre machine locale les fichiers :
+Pour visualiser l'alignement des *reads* sur le génome de référence avec IGV, copiez, avec FileZilla ou la commande `scp`, sur votre machine locale les fichiers :
 - génome de référence (fichier `.fna`) ;
 - annotations du génome de référence (fichier `_DUO2.gff`) ;
 - bam trié (`bowtie.sorted.bam`) ;
 - index du bam trié (`bowtie.sorted.bam.bai`).
 
-Lancez IGV et visualisez l'alignement des *reads* sur le génome de référence. Si vous avez oublié comme faire, visionnez la vidéo 2, de l'activité 1, du cours de Mai sur CloudSchool.
+Lancez IGV et visualisez l'alignement des *reads* sur le génome de référence. Si vous avez oublié comme faire, visionnez la vidéo sur ce sujet qui vous a été proposée précédemment.
 
 Visualisez particulièrement le gène `ostta18g01980`.
 
@@ -281,7 +322,7 @@ Visualisez particulièrement le gène `ostta18g01980`.
 
 Le comptage des *reads* alignés sur les gènes se fait avec HTSeq.
 
-Lancez la commande :
+De retour sur le serveur, lancez la commande :
 ```
 $ htseq-count --stranded=no --type='gene' --idattr='ID' --order=name --format=bam bowtie.sorted.bam GCF_000214015.3_version_140606_genomic_DUO2.gff > count.txt
 ```
@@ -299,20 +340,21 @@ ou alors ouvrir le fichier `count.txt` avec la commande `less` puis chercher le 
 
 Certaines étapes d'analyse (notamment l'alignement des *reads* sur le génome de référence et le comptage des *reads*) vont prendre du temps et consommer des ressources informatiques.
 
-Si vous fermez votre terminal alors que vous avez une tache d'analyse en cours, celui-ci sera arrêtée.
+Si vous fermez votre terminal alors que vous avez une tache d'analyse en cours, celle-ci sera arrêtée. C'est dommage 😭
+
 Pour lancer une analyse en tâche de fond et pouvoir vous déconnecter, utilisez la syntaxe :
 ```
-nohup votre-commande-avec-ses-paramètres &
+$ nohup votre-commande-avec-ses-paramètres &
 ```
 Attention, tout ce qui s'affiche normalement à l'écran sera écrit dans le fichier `nohup.out`.
 
 Pour suivre l'avancée de votre analyse, lancez la commande
 ```
-top
+$ top
 ```
 ou mieux, si le programme est installé sur le serveur :
 ```
-htop
+$ htop
 ```
 
 Enfin, voici quelques commandes utiles pour explorer les caractéristiques du serveur :
@@ -322,11 +364,11 @@ Enfin, voici quelques commandes utiles pour explorer les caractéristiques du se
 - `who` pour savoir qui est connecté sur le serveur
 
 
-## Automatisation de l'analyse : niveau 1
+## Étape 4 : automatisation de l'analyse : niveau 1
 
 Tout cela est très bien mais les fichiers que vous avez générés (`bowtie.bam`, `bowtie.sorted.bam`, `count.txt`...) ne sont pas très informatifs sur l'échantillon dont ils proviennent.
 
-Par ailleurs, entrer toutes ces commandes à la main, les unes après les autres, est pénible et source d'erreurs. Et il y a fort à parier que vous aurez complètement oublié ces commandes dans 1 semaine, voire dans 1 heure.
+Par ailleurs, entrer toutes ces commandes à la main, les unes après les autres, est pénible et source d'erreurs. Et il y a fort à parier que vous aurez complètement oublié ces commandes dans 1 semaine, voire dans 1 heure. Pour autant, c'est parfaitement normal, il n'y a absolument aucun intérêt à se souvenir de toutes ces commandes.
 
 Pour répondre à ces deux problèmes, de gestion de données et d'automatisation, nous allons introduire les notions Bash de variables et de scripts.
 
@@ -375,7 +417,7 @@ Observez le script bash [script1.sh](script1.sh) et essayer de comprendre son fo
 Testez le script `script1.sh` sur **un seul** de vos échantillons. Pour cela :
 - Recopiez le script dans un fichier `script1.sh` dans votre répertoire `RNAseq` ou, plus simplement, téléchargez-le directement avec la commande
 ```
-$ wget https://raw.githubusercontent.com/omics-school/analyses-rna-seq-o-tauri/master/script1.sh
+$ wget https://raw.githubusercontent.com/omics-school/analyses-rna-seq/master/script1.sh
 ```
 - Ouvrez le script `script1.sh` avec `nano` et modifiez la variable `sample` avec votre numéro d'échantillon. Sauvegardez le script (`ctrl + o`) et quittez nano (`ctrl + x`).  
 Rappel : pas d'espace avant ou après le symbole `=` !
@@ -384,10 +426,10 @@ Rappel : pas d'espace avant ou après le symbole `=` !
     $ bash script1.sh
     ```
 
-Vérifiez que le déroulement du script se passe bien. Vous avez le temps de prendre un café :coffee:. Voir plusieurs :coffee: :cookie: :coffee: :cookie:.
+Vérifiez que le déroulement du script se passe bien. Vous avez le temps de prendre un café ☕. Voir plusieurs ☕ 🍪 ☕ 🍪.
 
 
-## Automatisation de l'analyse : niveau 2
+## Étape 5 : automatisation de l'analyse : niveau 2
 
 Le script précédent était pratique mais il ne conserve pas les informations liées à l'alignement (nombre de *reads* non-alignés, alignés une fois...).
 
@@ -395,14 +437,14 @@ Proposez une évolution du premier script pour répondre à ce problème. N'hés
 
 La solution est dans le [script 2](script2.sh). Pour le télécharger, utilisez la commande :
 ```
-$ wget https://raw.githubusercontent.com/omics-school/analyses-rna-seq-o-tauri/master/script2.sh
+$ wget https://raw.githubusercontent.com/omics-school/analyses-rna-seq/master/script2.sh
 ```
 Vous remarquerez que la solution proposée pour conserver les informations liées à l'alignement est un peu particulière. Nous allons en discuter, mais dans un premier temps essayer de comprendre l'explication donnée [ici](https://stackoverflow.com/questions/876239/how-can-i-redirect-and-append-both-stdout-and-stderr-to-a-file-with-bash).
 
 
-## Automatisation de l'analyse : niveau 3 (ninja)
+## Étape 6 : automatisation de l'analyse : niveau 3 (ninja)
 
-Le script précédent était intéressant mais il ne prend en compte qu'un seul échantillon à la fois.
+Le script précédent était intéressant mais il ne prend en compte qu'un seul échantillon à la fois. Quel ennui !
 
 On aimerait avoir un seul script qui traiterait tous les échantillons qu'on souhaite analyser.
 Cela est possible avec une boucle. Une boucle permet de répéter un ensemble d'instructions.
@@ -431,21 +473,26 @@ Une leçon de Software Carpentry aborde la notion de [boucle](https://swcarpentr
 
 Le [script 3](script3.sh) utilise une boucle. Observez la structure du script et essayez de comprendre son fonctionnement.
 
-La ligne `set -euo pipefail` en tout début du script va arrêter celui-ci :
-- à la première erreur
-- si une variable n'est pas définie
-- si une erreur est rencontrée dans une commande avec un pipe (`|`)
+La ligne `set -euo pipefail` tout au début du script va arrêter celui-ci :
+- à la première erreur ;
+- si une variable n'est pas définie ;
+- si une erreur est rencontrée dans une commande avec un pipe (`|`).
 
 C'est une mesure de sécurité importante pour votre script. Si vous le souhaitez, vous pouvez lire l'article de Aaron Maxwell à ce sujet : [Use the Unofficial Bash Strict Mode (Unless You Looove Debugging)](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
 
 Téléchargez le script 3 avec la commande :
 ```
-$ wget https://raw.githubusercontent.com/omics-school/analyses-rna-seq-o-tauri/master/script3.sh
+$ wget https://raw.githubusercontent.com/omics-school/analyses-rna-seq/master/script3.sh
 ```
 
 Modifiez le script 3 avec les numéros d'échantillons que vous avez à analyser. Faites bien attention à la variable concernée et sa syntaxe.
 
-Si vous pensez en avoir le temps, lancez le script 3.
+Si vous pensez en avoir le temps, lancez le script 3. Comme ce script va automatiser toute l'analyse, il va fonctionner plusieurs minutes et vous aurez peut-être besoin de fermez votre session. Pour ne pas arrêter brutalement l'analyse à la fermture de la session, lancez le script de cette manière :
+
+```
+$ nohup bash script3.sh &
+```
+
 
 **Remarque**. Au tout début de l'activité, vous avez renommé les fichiers contenant les *reads* (`.fastq.gz`). Cette étape manuelle peut être automatisée, par exemple avec la commande suivante :
 
