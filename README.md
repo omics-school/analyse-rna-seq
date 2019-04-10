@@ -16,9 +16,11 @@
 [*Check list*](analyse_RNA-seq_O_tauri_check-list.md) pour ne rien oublier.
 
 
-### Pour aller plus loin
+### Conda
 
 [Découvrir conda](conda.md), l'installer ainsi que les logiciels nécessaires pour l'analyse RNA-seq.
+
+vidéo : [Analyse RNA-seq avec conda, Bash Ubuntu & Win10](https://www.youtube.com/watch?v=cEHuND9Bn_E)
 
 
 ### Licence
