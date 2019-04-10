@@ -51,7 +51,7 @@ vous devez configurer votre *shell* Linux sur le serveur du DU. Les étapes à s
 
 Les manipulations ci-dessus vous ont permis de rendre disponible conda dans votre *shell* Linux sur le serveur du DU. Elles ne sont à faire qu'une seule fois.
 
-Une documentation expliquant l'installation de miniconda et la configuration de conda sur le serveur du DU est disponible [ici](conda.md).
+Une documentation expliquant l'installation de miniconda et la configuration de conda est disponible [ici](conda.md).
 
 
 ### Chargement de l'environnement conda
@@ -146,14 +146,14 @@ $ tree -h /data/omics-school/share/tauri_2019/
 ...
 ```
 
-dans votre répertoire personnel, créez le répertoire `RNAseq`. Faites attention aux minuscules et aux majuscules !
+Dans votre répertoire personnel, créez le répertoire `RNAseq`. Faites attention aux minuscules et aux majuscules !
 
 Dans ce répertoire `RNAseq`, copiez :
 
 - Les 2 ou 3 fichiers contenant les *reads* (`.fastq.gz`) qui vous devez analyser. Tous les fichiers sont dans le répertoire  `/data/omics-school/share/tauri_2019/reads`
-- Le génome de référence de *O. tauri* :
+- Le génome de référence de *O. tauri* :  
     `/data/omics-school/share/tauri_2019/GCF_000214015.3_version_140606_genomic.fna`
-- Les annotations du génome de référence :
+- Les annotations du génome de référence :  
     `/data/omics-school/share/tauri_2019/GCF_000214015.3_version_140606_genomic_DUO2.gff`
 
 Remarque : le génome de référence de *Ostreococcus tauri* et ses annotations sont disponibles sur la [page dédiée](https://www.ncbi.nlm.nih.gov/genome/373?genome_assembly_id=352933) sur le site du NCBI :
@@ -183,6 +183,7 @@ $ du -ch *
 ```
 
 Explications : la commande `du` affiche la taille occupée par des fichiers. L'option `-h` affiche la taille en ko, Mo, Go... L'option `-c` calcule la taille totale occupée par tous les fichiers.
+
 
 ## Étape 3 : analyse manuelle
 
@@ -222,8 +223,8 @@ Installez tout d'abord FileZilla en le [téléchargeant](https://filezilla-proje
 Lancez-le puis remplissez les champs suivants : 
 
 - Hôte : `sftp://omics-school.net`
-- Identifiant : <votre-login-sur-le-serveur>
-- Mot de passe : <votre-mot-de-passe-sur-le-serveur>
+- Identifiant : `<votre-login-sur-le-serveur>`
+- Mot de passe : `<votre-mot-de-passe-sur-le-serveur>`
 
 Puis cliquez sur le bouton *Connexion rapide*. 
 
@@ -235,7 +236,6 @@ Vous devriez obtenir sur le panneau de gauche l'arborescence de vos fichiers loc
 Une fois les bons fichiers transférés sur votre machine locale :
 
 - Ouvrez ce fichier dans un navigateur internet (Firefox par exemple).
-
 - Analysez le rapport de FastQC.
 
 
@@ -352,7 +352,7 @@ Pour suivre l'avancée de votre analyse, lancez la commande
 ```
 $ top
 ```
-ou mieux, si le programme est installé sur le serveur :
+ou mieux, si le programme `htop` est installé sur le serveur :
 ```
 $ htop
 ```
