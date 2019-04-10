@@ -18,7 +18,7 @@
 
 ### Pour aller plus loin
 
-[Installer conda](installation_conda_logiciels_RNA-seq.md) et les logiciels nécessaires pour l'anlyse RNA-seq.
+[Découvrir conda](conda.md), l'installer ainsi que les logiciels nécessaires pour l'analyse RNA-seq.
 
 
 ### Licence
