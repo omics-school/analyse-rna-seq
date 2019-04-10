@@ -71,13 +71,17 @@ template: contentleft
 # Le processus d'analyse RNA-seq
 
 .center[
-<img height="400px" src="img/pipeline_RNA_seq_O_tauri.png">
+<img height="500px" src="img/pipeline_RNA_seq_O_tauri.png">
 ]
 
 ---
 template: contentleft
 
 # Conda 🐍
+
+.center[
+<img height="400px" src="img/conda.png">
+]
 
 ---
 template: contentleft
@@ -86,9 +90,22 @@ template: contentleft
 
 --
 
-## FileZilla
+## [FileZilla](https://filezilla-project.org/)
 
-## `scp`
+.center[
+<img width="600px" src="img/filezilla.png">
+]
+
+Hôte : `sftp://omics-school.net`
+
+--
+
+## `scp` (à utiliser depuis la machine locale)
+
+De la machine locale vers le serveur : `$ scp fichier.txt ppoulain@omics-school.net:~/repertoire/`
+
+Du serveur vers la machine locale : `$ scp ppoulain@omics-school.net:~/repertoire/fichier.txt ./`
+
 
 ---
 
@@ -98,6 +115,6 @@ background-color: #cccccc
 
 # C'est parti ! 🚀
 
-## 💻 [Tutoriel](https://omics-school.github.io/unix/tutoriel/)
+## 💻 [Tutoriel](https://omics-school.github.io/analyse-rna-seq/analyse_RNA-seq_O_tauri.html)
 
-## 💻 [Check-list](http://swcarpentry.github.io/shell-novice/)
+## 💻 [Check-list](https://omics-school.github.io/analyse-rna-seq/analyse_RNA-seq_O_tauri_check-list.html)
