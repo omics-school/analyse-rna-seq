@@ -5,7 +5,8 @@
 set -euo pipefail
 
 # numéro des échantillons à analyser
-# les numéros sont dans une chaîne de caractères et séparés par un espace
+# les numéros sont entre guillemets et séparés par un espace
+# faites en sorte que ces numéros correspondant à VOS échantillons
 samples="10 41 7"
 # nom du fichier contenant le génome de référence
 genome=GCF_000214015.3_version_140606_genomic.fna
