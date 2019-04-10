@@ -1,3 +1,9 @@
+---
+title: Conda et la création d'un environnement de travail pour des analyses reproductibles
+author: Pierre Poulain
+license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
+---
+
 # Conda et la création d'un environnement de travail pour des analyses reproductibles
 
 
