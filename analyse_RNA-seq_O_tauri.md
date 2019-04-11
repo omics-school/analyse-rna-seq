@@ -422,9 +422,9 @@ $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/scr
 - Ouvrez le script `script1.sh` avec `nano` et modifiez la variable `sample` avec votre numéro d'échantillon. Sauvegardez le script (`ctrl + o`) et quittez nano (`ctrl + x`).  
 Rappel : pas d'espace avant ou après le symbole `=` !
 - Lancez le script avec la commande
-    ```
-    $ bash script1.sh
-    ```
+```
+$ bash script1.sh
+```
 
 Vérifiez que le déroulement du script se passe bien. Vous avez le temps de prendre un café ☕. Voir plusieurs ☕ 🍪 ☕ 🍪.
 
