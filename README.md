@@ -1,4 +1,4 @@
-# Analyse des données RNA-seq de *O. tauri* avec Linux
+# Analyse des données RNA-seq de *O. tauri* avec Unix
 
 ### Prérequis 
 

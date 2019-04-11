@@ -1,6 +1,6 @@
 class: center, middle
 
-# Analyse de données RNA-seq avec Linux
+# Analyse de données RNA-seq avec Unix
 
 ## DU Omiques 2019
 

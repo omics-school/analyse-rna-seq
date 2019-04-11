@@ -1,10 +1,10 @@
 ---
-title: Check list analyse de données RNA-seq O. tauri sous Linux
+title: Check list analyse de données RNA-seq O. tauri avec Unix
 author: Pierre Poulain
 license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 ---
 
-# Analyse de données RNA-seq sous Linux : *check list*
+# Analyse de données RNA-seq avec Unix : *check list*
 
 ## Étape 1 : préparation de l'environnement de travail
 

@@ -1,12 +1,12 @@
 ---
-title: Analyse des données RNA-seq O. tauri avec Linux
+title: Analyse des données RNA-seq O. tauri avec Unix
 author: Pierre Poulain
 license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 ---
 
-# Analyse des données RNA-seq de *O. tauri* avec Linux
+# Analyse des données RNA-seq de *O. tauri* avec Unix
 
-Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* dans un environnement Linux.
+Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* dans un environnement Unix/Linux.
 
 Pour cela, vous allez beaucoup utiliser la ligne de commande, connecté en SSH sur le serveur du DU. Vous copierez également des fichiers depuis le serveur du DU vers votre machine locale avec le logiciel FileZilla ou la commande `scp` (nous y reviendrons) .
 
