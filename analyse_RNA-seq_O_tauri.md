@@ -207,9 +207,9 @@ FastQC va produire deux fichiers (un fichier avec l'extension `.html` et un autr
 Pour `scp`, vous devez être dans un *shell* sur votre **machine locale** et taper la commande 
 
 ```
-$ scp <login>@omics-school.net:~/RNAseq/HCA-<numéro>_R1_fastqc.html ./
+$ scp login@omics-school.net:~/RNAseq/HCA-numéro_R1_fastqc.html ./
 ```
-où `<login>` est votre identifiant sur le serveur du DU et `<numéro>` est le numéro de l'échantillon que vous avez analysé.
+où `login` est votre identifiant sur le serveur du DU et `numéro` est le numéro de l'échantillon que vous avez analysé.
 
 Entrez votre mot de passe lorsqu'on vous le demande.
 
@@ -257,15 +257,15 @@ $ du -ch O_tauri*
 
 Lancez l'alignement :
 ```
-$ bowtie2 -x O_tauri -U <nom-du-fichier.fastq.gz> -S bowtie.sam
+$ bowtie2 -x O_tauri -U nom-du-fichier.fastq.gz -S bowtie.sam
 ```
 
 Ici :
 - `O_tauri` désigne les fichiers index du génome de référence,
-- `<nom-fichier-fastq.gz>` est le fichier contenant l'échantillon que vous avez choisi
+- `nom-fichier-fastq.gz` est le fichier contenant l'échantillon que vous avez choisi
 - et `bowtie.sam` est le fichier qui va contenir l'alignement produit par Bowtie2.
 
-Cette étape est la plus longue et peut prendre plusieurs minutes (~ 10). Bowtie n'affiche rien à l'écran lorsqu'il fonctionne. Soyez patient.
+Cette étape est la plus longue et peut prendre une dizaine de minutes. Bowtie n'affiche rien à l'écran lorsqu'il fonctionne. Soyez patient.
 
 À la fin de l'alignement, Bowtie2 renvoie des informations qui ressemblent à :
 
