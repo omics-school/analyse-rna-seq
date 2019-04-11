@@ -417,7 +417,7 @@ Observez le script bash [script1.sh](script1.sh) et essayer de comprendre son fo
 Testez le script `script1.sh` sur **un seul** de vos échantillons. Pour cela :
 - Recopiez le script dans un fichier `script1.sh` dans votre répertoire `RNAseq` ou, plus simplement, téléchargez-le directement avec la commande
 ```
-$ wget https://raw.githubusercontent.com/omics-school/analyses-rna-seq/master/script1.sh
+$ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script1.sh
 ```
 - Ouvrez le script `script1.sh` avec `nano` et modifiez la variable `sample` avec votre numéro d'échantillon. Sauvegardez le script (`ctrl + o`) et quittez nano (`ctrl + x`).  
 Rappel : pas d'espace avant ou après le symbole `=` !
@@ -437,7 +437,7 @@ Proposez une évolution du premier script pour répondre à ce problème. N'hés
 
 La solution est dans le [script 2](script2.sh). Pour le télécharger, utilisez la commande :
 ```
-$ wget https://raw.githubusercontent.com/omics-school/analyses-rna-seq/master/script2.sh
+$ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script2.sh
 ```
 Vous remarquerez que la solution proposée pour conserver les informations liées à l'alignement est un peu particulière. Nous allons en discuter, mais dans un premier temps essayer de comprendre l'explication donnée [ici](https://stackoverflow.com/questions/876239/how-can-i-redirect-and-append-both-stdout-and-stderr-to-a-file-with-bash).
 
@@ -482,7 +482,7 @@ C'est une mesure de sécurité importante pour votre script. Si vous le souhaite
 
 Téléchargez le script 3 avec la commande :
 ```
-$ wget https://raw.githubusercontent.com/omics-school/analyses-rna-seq/master/script3.sh
+$ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script3.sh
 ```
 
 Modifiez le script 3 avec les numéros d'échantillons que vous avez à analyser. Faites bien attention à la variable concernée et sa syntaxe.
