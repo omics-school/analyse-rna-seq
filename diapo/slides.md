@@ -90,9 +90,9 @@ template: contentleft
 
 --
 
-## [FileZilla](https://filezilla-project.org/)
-
-Logiciel open source
+## FileZilla
+	
+<https://filezilla-project.org/>  - logiciel open source
 
 .center[
 <img width="1000px" src="img/filezilla.png">
