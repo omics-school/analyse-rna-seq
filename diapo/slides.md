@@ -92,19 +92,39 @@ template: contentleft
 
 ## [FileZilla](https://filezilla-project.org/)
 
+Logiciel open source
+
 .center[
-<img width="600px" src="img/filezilla.png">
+<img width="1000px" src="img/filezilla.png">
 ]
+
 
 Hôte : `sftp://omics-school.net`
 
---
+Identifiant : `<votre-login-sur-le-serveur>`
 
-## `scp` (à utiliser depuis la machine locale)
+Mot de passe : `<votre-mot-de-passe-sur-le-serveur>`
 
-De la machine locale vers le serveur : `$ scp fichier.txt ppoulain@omics-school.net:~/repertoire/`
+---
+template: contentleft
 
-Du serveur vers la machine locale : `$ scp ppoulain@omics-school.net:~/repertoire/fichier.txt ./`
+# Copie de données 🦄
+
+
+## `scp` 
+
+À utiliser depuis la machine locale.
+
+
+De la machine locale vers le serveur : 
+```
+$ scp fichier.txt ppoulain@omics-school.net:~/repertoire/
+```
+
+Du serveur vers la machine locale : 
+```
+$ scp ppoulain@omics-school.net:~/repertoire/fichier.txt ./
+```
 
 
 ---
