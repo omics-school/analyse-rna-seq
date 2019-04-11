@@ -113,13 +113,16 @@ template: contentleft
 
 ## `scp` 
 
-À utiliser depuis la machine locale.
+À utiliser dans un *shell* depuis la machine locale.
 
+<br />
 
 De la machine locale vers le serveur : 
 ```
 $ scp fichier.txt ppoulain@omics-school.net:~/repertoire/
 ```
+
+<br />
 
 Du serveur vers la machine locale : 
 ```
