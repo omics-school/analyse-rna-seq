@@ -346,7 +346,10 @@ Pour lancer une analyse en tâche de fond et pouvoir vous déconnecter, utilisez
 ```
 $ nohup votre-commande-avec-ses-paramètres &
 ```
-Attention, tout ce qui s'affiche normalement à l'écran sera écrit dans le fichier `nohup.out`.
+Attention, tout ce qui s'affiche normalement à l'écran sera écrit dans le fichier `nohup.out`. Vous obtiendrez d'ailleurs un message qui vous le confirme :
+```
+nohup: ignoring input and appending output to 'nohup.out'
+```
 
 Pour suivre l'avancée de votre analyse, lancez la commande
 ```
@@ -493,8 +496,16 @@ Si vous pensez en avoir le temps, lancez le script 3. Comme ce script va automat
 $ nohup bash script3.sh &
 ```
 
+Le message 
+```
+nohup: ignoring input and appending output to 'nohup.out'
+```
+vous rapelle que les messages qui apparaissaient habituellement à l'écran seront redirigés dans le fichier `nohup.out`.
 
-**Remarque**. Au tout début de l'activité, vous avez renommé les fichiers contenant les *reads* (`.fastq.gz`). Cette étape manuelle peut être automatisée, par exemple avec la commande suivante :
+
+#### Remarque
+
+Au tout début de l'activité, vous avez renommé les fichiers contenant les *reads* (`.fastq.gz`). Cette étape manuelle peut être automatisée, par exemple avec la commande suivante :
 
 ```
 for name in $(ls 140317*.fastq.gz); do newname=$(echo ${name} | sed 's/140317_SN365_A_L00._//'); mv ${name} ${newname}; done
