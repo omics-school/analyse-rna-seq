@@ -17,6 +17,12 @@
 [*Check list*](analyse_RNA-seq_O_tauri_check-list.md) pour ne rien oublier.
 
 
+### Calcul sur le cluster NNCR de l'IFB 
+
+
+[Tutoriel de l'analyse RNA-seq sur le cluster](cluster_IFB.md)
+
+
 ### Conda
 
 [Découvrir conda](conda.md), l'installer ainsi que les logiciels nécessaires pour l'analyse RNA-seq.
