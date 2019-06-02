@@ -1,0 +1,13 @@
+name: du_o_2019
+# channels priority
+# see https://bioconda.github.io/
+# conda-forge has highest prioriy
+channels:
+    - defaults
+    - bioconda
+    - conda-forge
+dependencies:
+    - fastqc
+    - bowtie2
+    - htseq
+    - samtools
