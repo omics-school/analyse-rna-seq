@@ -186,7 +186,7 @@ Pour quitter, appuyez sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kb
 - Dans un script sbatch, toutes les lignes *exécutables* doivent être lancées avec srun. Pourquoi ?
 
 
-## Automatisation 3 (sbtach + multi-coeurs)
+## Automatisation 3 (sbatch + multi-coeurs)
 
 Toujours depuis le cluster de l'IFB, téléchargez le script 5 avec la commande :
 ```
