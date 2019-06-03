@@ -101,17 +101,108 @@ Téléchargez le script 3 avec la commande :
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script3.sh
 ```
 
-Modifiez-le avec `nano` pour l'adapter à vos échantillons puis lancez-le avec la commande :
+Remarquez que c'est exactement le même script qui fonctionnait sur le serveur du DU.
+
+Pour que le premier test soit assez rapide, modifiez-le avec `nano` pour l'adapter à un seul de vos échantillons.
+
+Puis lancez-le avec la commande :
 ```
-srun bash script3.sh
+$ srun bash script3.sh
 ```
 
-## Automatisation 2
+Pour lancer votre analyse puis fermer votre session (et partir en week-end), utilisez plutôt 
+```
+$ nohup srun bash script3.sh &
+```
+
+Pour vérifier l'état de votre job, appelez la commande :
+```
+$ squeue -u login
+```
+
+Par exemple :
+```
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+            438536      fast     bash ppoulain  R       4:04      1 cpu-node-8
+```
+
+La colonne `ST` indique le statut de votre job. Si il est actif, son statut doit être `R` (pour *running*). La colonne `NODELIST(REASON)` indique sur quelle noeud du cluster a été lancé votre job (ici `cpu-node-8`).
+
+Par défaut, la commande `srun` va lancer votre job sur un noeud avec un seul CPU.
+
+Si vous avez besoin de supprimer un de vos jobs, utilisez la commande 
+```
+$ scancel job-id
+```
+
+où `job-id` est l'identifiant de votre job (colonne `JOBID` indiquée par la commande `squeue`).
+
+Supprimer un job que vous avez lancé.
 
 
-Téléchargez le script 4 avec la commande :
+@JULIEN : 
+
+- avec la commande `nohup run ... &` un utilisateur peut lancer plusieurs jobs différents ?
+- `srun` lancer le job immédiatement... si des ressources sont disponibles. Que se passe-t-il si ce n'est pas le cas ? Le job échoue ?
+
+
+
+## Automatisation 2 (sbatch)
+
+Toujours depuis le cluster de l'IFB, téléchargez le script 4 avec la commande :
 ```
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script4.sh
 ```
 
+Quelles différences observez-vous avec le script précédent ?
 
+Ouvrez ce fichier avec `nano` puis modifiez-le pour adapter votre adresse e-mail et vos numéros d'échantillons.
+
+Lancez ensuite votre analyse :
+```
+$ sbatch script4.sh
+```
+
+Un message équivalent à `Submitted batch job 440893` vous indique que votre job a correctement été lancé et vous indiquer son numéro d'identification `440893`.
+
+Vérifiez que votre job est bien lancé avec 
+```
+$ squeue -u login
+```
+
+Le fichier `slurm-440893.out` est également créé et contient les sorties du script. Pour le consultez en temps réél, tapez :
+```
+$ tail -f slurm-440893.out
+```
+
+Pour quitter, appuyez sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
+
+@JULIEN :
+
+- Dans un script sbatch, toutes les lignes *exécutables* doivent être lancées avec srun. Pourquoi ?
+
+
+## Automatisation 3 (sbtach + multi-coeurs)
+
+Toujours depuis le cluster de l'IFB, téléchargez le script 5 avec la commande :
+```
+$ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script5.sh
+```
+
+Quelles différences observez-vous avec le script précédent ?
+
+Ouvrez ce fichier avec `nano` puis modifiez-le pour adapter votre adresse e-mail et vos numéros d'échantillons.
+
+Lancez ensuite votre analyse :
+```
+$ sbatch script5.sh
+```
+
+Affichez en temps réel le fichier qui contient la sortie du script. 
+
+Le traitement de données est normalement beaucoup plus rapide car les outils `bowtie2-build`, `bowtie` et `samtools` utilisent plusieurs coeurs simultanément.
+
+
+@JULIEN :
+
+- je voudrais maintenant utiliser l'option `--threads` de bowtie2 et de samtools qui permettent d'utiliser plusieurs threads. Je souhaite toujours n'utiliser qu'un seul noeud mais plusieurs coeurs de ce noeud. Ce que j'ai indiqué dans dans l'entête du script (`--cpus-per-task=8`) et au niveau de la commande `srun` qui lance bowtie2 et samtools te semble correct ?
