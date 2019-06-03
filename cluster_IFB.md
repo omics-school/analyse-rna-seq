@@ -9,7 +9,9 @@ Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* sur
 
 # Remarques préables
 
-L'accès au cluster de l'IFB vous est fourni dans le cadre du DU Omique. C'est accès sera évoqué à l'issue de la formation, fin janvier 2020. Si vous souaitez continuer à utiliser ce cluster, n'hésitez pas à faire une demande en remplissant le formulaire [IFB core cluster - account request](https://www.france-bioinformatique.fr/fr/ifb-core-cluster-account-request) en précisant en quelques mots votre projet.
+L'accès au cluster de l'IFB vous est fourni dans le cadre du DU Omique. C'est accès sera révoqué à l'issue de la formation, fin janvier 2020. 
+
+Si vous souhaitez continuer à utiliser ce cluster, faites-en la demande en remplissant le formulaire [IFB core cluster - account request](https://www.france-bioinformatique.fr/fr/ifb-core-cluster-account-request) en précisant en quelques mots votre projet.
 
 Si vous avez besoin d'un logiciel spécifique sur le cluster. N'hésitez pas à le demander sur le site [Cluster Community Support](https://community.cluster.france-bioinformatique.fr/)
 
@@ -67,14 +69,16 @@ $ module ...
 
 Vérifiez que `fastqc`, `bowtie2`, `samtools` et `htseq-count` sont disponibles. 
 
-Quelles sont les versions de ces outils ? Si besoin, retournez voir le [Tutoriel de l'analyse RNA-seq](analyse_RNA-seq_O_tauri.md). Est-ce que sont les mêmes versions que sur le serveur du DU ?
+Quelles sont les versions de ces outils ? Si besoin, retournez voir le [Tutoriel de l'analyse RNA-seq](analyse_RNA-seq_O_tauri.md). 
+
+Est-ce que sont les mêmes versions que sur le serveur du DU ?
 
 
 ## Préparation des données
 
 Dans votre répertoire de travail (`/shared/projects/du_o_2019/login`), créez le répertoire `RNAseq`.
 
-Copiez à l'intérieur les fichiers dont vous aurez besoin pour travailler :
+Copiez à l'intérieur de ce répertoire les fichiers dont vous aurez besoin pour travailler :
 
 - le génome de référence
 - les annotations du génome
@@ -91,19 +95,19 @@ où `nom-fichier-fastq.gz` est le fichier contenant l'échantillon que vous avez
 
 La commande `srun` va lancer l'analyse du contrôle qualité (`fastqc nom-fichier-fastq.gz`) sur un des noeuds de calcul du cluster. 
 
-FastQC va produire deux fichiers (un fichier avec l'extension `.html` et un autre avec l'extension `.zip`). Copiez le fichier `.html` sur votre machine locale avec le logiciel FileZilla ou la commande `scp`.
+FastQC va produire deux fichiers (un fichier avec l'extension `.html` et un autre avec l'extension `.zip`). Copiez le fichier `.html` sur votre machine locale avec le logiciel FileZilla ou la commande `scp`. Visualisez ce fichier avec votre navigateur web.
 
 
 ## Automatisation 1 
 
-Téléchargez le script 3 avec la commande :
+Depuis le cluster de l'IFB, dans le répertoire `RNAseq` de votre répertoire de travail, téléchargez le script 3 avec la commande :
 ```
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script3.sh
 ```
 
 Remarquez que c'est exactement le même script qui fonctionnait sur le serveur du DU.
 
-Pour que le premier test soit assez rapide, modifiez-le avec `nano` pour l'adapter à un seul de vos échantillons.
+Pour que ce premier test soit assez rapide, modifiez-le avec `nano` pour l'adapter à **un seul** de vos échantillons.
 
 Puis lancez-le avec la commande :
 ```
@@ -126,7 +130,7 @@ Par exemple :
             438536      fast     bash ppoulain  R       4:04      1 cpu-node-8
 ```
 
-La colonne `ST` indique le statut de votre job. Si il est actif, son statut doit être `R` (pour *running*). La colonne `NODELIST(REASON)` indique sur quelle noeud du cluster a été lancé votre job (ici `cpu-node-8`).
+La colonne `ST` indique le statut de votre job. Si il est actif, son statut doit être `R` (pour *running*). La colonne `NODELIST(REASON)` indique sur quel noeud du cluster a été lancé votre job (ici `cpu-node-8`).
 
 Par défaut, la commande `srun` va lancer votre job sur un noeud avec un seul CPU.
 
@@ -137,7 +141,7 @@ $ scancel job-id
 
 où `job-id` est l'identifiant de votre job (colonne `JOBID` indiquée par la commande `squeue`).
 
-Supprimer un job que vous avez lancé.
+Supprimez un job que vous avez lancé.
 
 
 @JULIEN : 
