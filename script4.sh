@@ -3,7 +3,7 @@
 #SBATCH -n 1
 #SBATCH --partition=fast
 #SBATCH --mail-user=pierre.poulain@univ-paris-diderot.fr
-
+#SBATCH --mail-type=ALL
 
 # le script va s'arrêter
 # - à la première erreur
@@ -25,32 +25,36 @@ do
     echo "=============================================================="
     echo "Contrôle qualité - échantillon ${sample}"
     echo "=============================================================="
-    fastqc HCA-${sample}_R1.fastq.gz
+    srun fastqc HCA-${sample}_R1.fastq.gz
 
     echo "=============================================================="
     echo "Indexation du génome de référence"
     echo "=============================================================="
-    bowtie2-build ${genome} O_tauri
+    srun bowtie2-build ${genome} O_tauri
 
     echo "=============================================================="
     echo "Alignement des reads sur le génome de référence - échantillon ${sample}"
     echo "=============================================================="
-    bowtie2 -x O_tauri -U HCA-${sample}_R1.fastq.gz -S bowtie-${sample}.sam 2> bowtie-${sample}.out
+    srun bowtie2 -x O_tauri -U HCA-${sample}_R1.fastq.gz -S bowtie-${sample}.sam 2> bowtie-${sample}.out
 
     echo "=============================================================="
     echo "Conversion en binaire, tri et indexation des reads alignés - échantillon ${sample}"
     echo "=============================================================="
-    samtools view -b bowtie-${sample}.sam > bowtie-${sample}.bam
-    samtools sort bowtie-${sample}.bam -o bowtie-${sample}.sorted.bam
-    samtools index bowtie-${sample}.sorted.bam
+    srun samtools view -b bowtie-${sample}.sam > bowtie-${sample}.bam
+    srun samtools sort bowtie-${sample}.bam -o bowtie-${sample}.sorted.bam
+    srun samtools index bowtie-${sample}.sorted.bam
 
     echo "=============================================================="
     echo "Comptage - échantillon ${sample}"
     echo "=============================================================="
-    htseq-count --stranded=no --type='gene' --idattr='ID' --order=name --format=bam bowtie-${sample}.sorted.bam ${annotations} > count-${sample}.txt
+    srun htseq-count --stranded=no --type='gene' --idattr='ID' --order=name --format=bam bowtie-${sample}.sorted.bam ${annotations} > count-${sample}.txt
 
     echo "=============================================================="
     echo "Nettoyage des fichiers inutiles - échantillon ${sample}"
     echo "=============================================================="
-    rm -f bowtie-${sample}.sam bowtie-${sample}.bam
+    srun rm -f bowtie-${sample}.sam bowtie-${sample}.bam
 done
+
+# attente de la fin de toutes les étapes intermédiaires (lancée avec srun)
+# avant de cloturer le job
+wait
