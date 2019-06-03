@@ -41,9 +41,9 @@ do
     echo "=============================================================="
     echo "Conversion en binaire, tri et indexation des reads alignés - échantillon ${sample}"
     echo "=============================================================="
-    srun samtools view --threads $SLURM_CPUS_PER_TASK -b bowtie-${sample}.sam > bowtie-${sample}.bam
-    srun samtools sort --threads $SLURM_CPUS_PER_TASK bowtie-${sample}.bam -o bowtie-${sample}.sorted.bam
-    srun samtools index --threads $SLURM_CPUS_PER_TASK bowtie-${sample}.sorted.bam
+    srun samtools view -@ $SLURM_CPUS_PER_TASK -b bowtie-${sample}.sam > bowtie-${sample}.bam
+    srun samtools sort -@ $SLURM_CPUS_PER_TASK bowtie-${sample}.bam -o bowtie-${sample}.sorted.bam
+    srun samtools index -@ $SLURM_CPUS_PER_TASK bowtie-${sample}.sorted.bam
 
     echo "=============================================================="
     echo "Comptage - échantillon ${sample}"
