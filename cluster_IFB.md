@@ -7,13 +7,16 @@ license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 
 Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* sur le cluster NNCR de l'Institut Français de Bioinformatique (IFB). Ce cluster utilise un système d'exploitation Unix / Linux.
 
+@JULIEN : quel OS exactement ?
+
+
 # Remarques préables
 
-L'accès au cluster de l'IFB vous est fourni dans le cadre du DU Omique. C'est accès sera révoqué à l'issue de la formation, fin janvier 2020. 
+L'accès au cluster de l'IFB vous est fourni dans le cadre du DU Omique. Cet accès sera révoqué à l'issue de la formation, fin janvier 2020. 
 
-Si vous souhaitez continuer à utiliser ce cluster, faites-en la demande en remplissant le formulaire [IFB core cluster - account request](https://www.france-bioinformatique.fr/fr/ifb-core-cluster-account-request) en précisant en quelques mots votre projet.
+Si vous souhaitez continuer à utiliser ce cluster, faites-en la demande en remplissant le formulaire [IFB core cluster - account request](https://www.france-bioinformatique.fr/fr/ifb-core-cluster-account-request) et en indiquant quelques mots votre projet. Plusieurs utilisateurs peuvent être associées à un même projet et partager des données.
 
-Si vous avez besoin d'un logiciel spécifique sur le cluster. N'hésitez pas à le demander sur le site [Cluster Community Support](https://community.cluster.france-bioinformatique.fr/)
+Si vous avez besoin d'un logiciel spécifique sur le cluster. N'hésitez pas à le demander sur le site [Cluster Community Support](https://community.cluster.france-bioinformatique.fr/). Les administrateurs sont en général très réactifs.
 
 
 # Connexion 
@@ -50,7 +53,9 @@ Votre répertoire utilisateur sur le noeud de connexion (`/shared/home/login`) n
 
 De plus, le répertoire `/shared/projects/du_o_2019/data` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers (pas de modification, d'ajout ou de suppression).
 
-Vérifiez que tous les fichiers nécessaires pour l'analyse des données RNA-seq de *O. tauri* sont bien présents dans `/shared/projects/du_o_2019/data`.
+De quels fichiers aviez-vous besoin pour l'analyse des données RNA-seq de *O. tauri* ? 
+
+Vérifiez que tous les fichiers nécessaires sont bien présents dans `/shared/projects/du_o_2019/data`.
 
 Essayez de créer un fichier dans les répertoires :
 
@@ -60,7 +65,7 @@ Essayez de créer un fichier dans les répertoires :
 
 ## Environnement logiciel 
 
-L'environnement logiciel nécessaire pour l'analyse RNA-seq a été installée par les administrateurs du cluster.
+L'environnement logiciel nécessaire pour l'analyse RNA-seq a été installé par les administrateurs du cluster.
 
 Pour l'activer, lancer la commande :
 ```
@@ -69,9 +74,11 @@ $ module ...
 
 Vérifiez que `fastqc`, `bowtie2`, `samtools` et `htseq-count` sont disponibles. 
 
-Quelles sont les versions de ces outils ? Si besoin, retournez voir le [Tutoriel de l'analyse RNA-seq](analyse_RNA-seq_O_tauri.md). 
+Quelles sont les versions de ces outils ? Si besoin, retournez voir le [Tutoriel de l'analyse RNA-seq](analyse_RNA-seq_O_tauri.md) pour retrouver les commandes à exécuter pour obtenir les versions de ces différents logiciels.
 
-Est-ce que sont les mêmes versions que sur le serveur du DU ?
+Est-ce que ce sont les mêmes versions que sur le serveur du DU ?
+
+Remarque : la commande `module ...` vous permet de rendre disponible un certains nombre d'outils. Cette commande charge de manière transparente pour vous un environnement conda.
 
 
 ## Préparation des données
@@ -80,9 +87,9 @@ Dans votre répertoire de travail (`/shared/projects/du_o_2019/login`), créez l
 
 Copiez à l'intérieur de ce répertoire les fichiers dont vous aurez besoin pour travailler :
 
-- le génome de référence
-- les annotations du génome
-- les 2 ou 3 fichiers de reads
+- le génome de référence,
+- les annotations du génome,
+- les 2 ou 3 fichiers de reads.
 
 
 ## Commandes manuelles
@@ -91,11 +98,19 @@ Depuis le répertoire `RNAseq` de votre répertoire de travail, lancez un contr�
 ```
 $ srun fastqc nom-fichier-fastq.gz
 ```
-où `nom-fichier-fastq.gz` est le fichier contenant l'échantillon que vous avez choisi.
+où `nom-fichier-fastq.gz` est le fichier contenant l'échantillon que vous avez choisi d'analyser.
 
 La commande `srun` va lancer l'analyse du contrôle qualité (`fastqc nom-fichier-fastq.gz`) sur un des noeuds de calcul du cluster. 
 
 FastQC va produire deux fichiers (un fichier avec l'extension `.html` et un autre avec l'extension `.zip`). Copiez le fichier `.html` sur votre machine locale avec le logiciel FileZilla ou la commande `scp`. Visualisez ce fichier avec votre navigateur web.
+
+
+**Rappel** Pour récupérer votre fichier, il faut lancer la commande `scp` depuis votre machine locale :
+```
+$ scp login@core.cluster.france-bioinformatique.fr:/shared/projects/du_o_2019/login/RNAseq/nom-fichier-fastqc.html
+```
+
+où bien sûr `login` et `nom-fichier-fastqc` sont à adapter.
 
 
 ## Automatisation 1 
@@ -107,14 +122,14 @@ $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/scr
 
 Remarquez que c'est exactement le même script qui fonctionnait sur le serveur du DU.
 
-Pour que ce premier test soit assez rapide, modifiez-le avec `nano` pour l'adapter à **un seul** de vos échantillons.
+Pour que ce premier test soit assez rapide, ouvrez-le avec `nano` et modifiez la variable `samples` pour qu'elle ne contienne qu'un seul numéro d'échantillon.
 
-Puis lancez-le avec la commande :
+Puis lancez-le avec la commande (ou lisez le paragraphe suivant) :
 ```
 $ srun bash script3.sh
 ```
 
-Pour lancer votre analyse puis fermer votre session (et partir en week-end), utilisez plutôt 
+Pour lancer votre analyse puis fermer votre session (et partir en week-end 😆), utilisez plutôt :
 ```
 $ nohup srun bash script3.sh &
 ```
@@ -132,6 +147,12 @@ Par exemple :
 
 La colonne `ST` indique le statut de votre job. Si il est actif, son statut doit être `R` (pour *running*). La colonne `NODELIST(REASON)` indique sur quel noeud du cluster a été lancé votre job (ici `cpu-node-8`).
 
+**Remarque** Voici quelques statut de job intéressant :
+
+- `CA` (*cancelled*) : le job a été annulé
+- `F` (*failled*) : le job a planté
+- `PD` (*pending*) : le job est en attente que des ressources soient disponibles
+- `R` (*running*) : le job est lancé
 Par défaut, la commande `srun` va lancer votre job sur un noeud avec un seul CPU.
 
 Si vous avez besoin de supprimer un de vos jobs, utilisez la commande 
@@ -153,12 +174,12 @@ Supprimez un job que vous avez lancé.
 
 ## Automatisation 2 (sbatch)
 
-Toujours depuis le cluster de l'IFB, téléchargez le script 4 avec la commande :
+Toujours depuis le cluster de l'IFB, dans le répertoire `RNAseq` de votre répertoire de travail, téléchargez le script 4 avec la commande :
 ```
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script4.sh
 ```
 
-Quelles différences observez-vous avec le script précédent ?
+Identifiez les différences avec le script précédent.
 
 Ouvrez ce fichier avec `nano` puis modifiez-le pour adapter votre adresse e-mail et vos numéros d'échantillons.
 
@@ -167,7 +188,7 @@ Lancez ensuite votre analyse :
 $ sbatch script4.sh
 ```
 
-Un message équivalent à `Submitted batch job 440893` vous indique que votre job a correctement été lancé et vous indiquer son numéro d'identification `440893`.
+Un message équivalent à `Submitted batch job 440893` vous indique que votre job a correctement été lancé et vous indique son numéro d'identification `440893`.
 
 Vérifiez que votre job est bien lancé avec 
 ```
@@ -193,7 +214,7 @@ Toujours depuis le cluster de l'IFB, téléchargez le script 5 avec la commande 
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script5.sh
 ```
 
-Quelles différences observez-vous avec le script précédent ?
+Identifiez les différences avec le script précédent.
 
 Ouvrez ce fichier avec `nano` puis modifiez-le pour adapter votre adresse e-mail et vos numéros d'échantillons.
 
