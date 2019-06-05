@@ -67,6 +67,7 @@ template: contentleft
 
 - Copier des données entre le serveur et votre ordinateur.
 
+
 ---
 template: contentleft
 
@@ -75,12 +76,27 @@ template: contentleft
 --
 
 .center[
+<img height="470px" src="img/Penalva__Jade__Wikimedia__CC-BY-SA.jpg">
+]
+
+.footnote[
+	Jade / CINES<br />
+	.ref[Source : <a href="https://commons.wikimedia.org/wiki/File:Jade_CINES.jpg">Penalva</a>, Wikipedia, CC BY-SA]
+]
+
+---
+template: contentleft
+
+# Dessine-moi un cluster...
+
+.center[
 <img height="470px" src="img/Penalva__Occigen__Wikimedia__CC-BY-SA.jpg">
 ]
 
-.footnote[.ref[
-	Source : <a href="https://commons.wikimedia.org/wiki/File:Occigen.jpg">Penalva</a>, Wikipedia, CC BY-SA
-]]
+.footnote[
+	Occigen / CINES<br />
+	.ref[Source : <a href="https://commons.wikimedia.org/wiki/File:Occigen.jpg">Penalva</a>, Wikipedia, CC BY-SA]
+]
 
 ---
 template: contentleft
@@ -91,9 +107,10 @@ template: contentleft
 <img height="520px" src="img/racks_cluster_IFB.jpg">
 ]
 
-.footnote[.ref[
-	Source : Julien Seiler, IFB, CC BY-SA
-]]
+.footnote[
+	Cluster NNCR / IFB<br />
+	.ref[Source : Julien Seiler, IFB, CC BY-SA]
+]
 
 ---
 template: contentleft
@@ -133,14 +150,7 @@ CINES OCCIGEN | Montpellier | 85&nbsp;824 | 202&nbsp;000 | 8 000 | Periodic call
 ---
 template: contentleft
 
-# SLURM
-
-Simple Linux Utility for Resource Management
-
----
-template: contentleft
-
-# SLURM
+# Schéma du cluster NNCR IFB
 
 .center[
 <img height="500px" src="img/slurm_components_IFB.png">
@@ -153,24 +163,195 @@ template: contentleft
 ---
 template: contentleft
 
-# SLURM
+# Organisation
 
-Noeud de soumission de jobs = noeud de connexion
+Noeud de connexion
 
 ```
 $ ssh login@core.cluster.france-bioinformatique.fr
 ```
 
 --
-
-<br />
-<br />
 <br />
 <br />
 
-On lance un job **depuis** ce noeud mais pas **sur** 😡
+On ne lance pas d'analyse **SUR** ce noeud 😡 
+mais on lance un job **DEPUIS** ce noeud 😇.
 
-s-commands (`srun`, `sbatch`, `squeue`...)
+Noeud de connexion = noeud de soumission
+
+Utilisation des commandes SLURM (`srun`, `sbatch`, `squeue`...)
+
+--
+<br />
+<br />
+<br />
+
+`/shared/home/login` : répertoire utilisateur. Espace très limité. On ne fait rien ici.
+
+`/shared/projects/du_o_2019/login` : répertoire de stockage. Contient toutes vos données d'analyse.
+
+`/shared/projects/du_o_2019/data` : répertoire de données partagées. En lecture seulement.
+
+---
+template: contentleft
+
+# SLURM ?
+
+*Simple Linux Utility for Resource Management*
+
+--
+
+.left[
+<img height="300px" src="img/mohamed_hassan__waiter_silhouette-3187737__Pixabay__CC0.png">
+]
+
+.right[
+Donne accès à la puissance de calcul du cluster.
+]
+
+---
+template: contentleft
+
+# srun
+
+```
+$ srun ma_commande
+```
+
+Exécute `ma_commande` sur un des noeuds du cluster (1 seul noeud, 1 seul coeur).
+
+
+<br />
+Interactif. Un job à la fois. 
+
+--
+
+<br />
+Sauf si :
+```
+$ nohup srun ma_commande & 
+```
+
+---
+template: contentleft
+
+# squeue
+
+```
+$ squeue
+$ squeue -u login
+```
+
+Affiche les jobs dans la queue (en attente et en exécution).
+
+--
+
+# scancel 
+
+```
+$ scancel job-id
+$ scancel -u login
+```
+
+---
+template: contentleft
+
+# sbatch 
+
+```
+$ sbatch my-script.sh
+```
+
+--
+
+<br />
+<br />
+my-script.sh :
+```
+#!/bin/bash
+
+#SBATCH -n 1
+#SBATCH --partition=fast
+#SBATCH --mail-user=pierre.poulain@univ-paris-diderot.fr
+#SBATCH --mail-type=ALL
+
+srun echo "Hello world!"
+srun hostname
+srun echo "Number of cores: $(grep -c 'processor' /proc/cpuinfo)"
+srun echo "Memory size: $(free -h | awk '/Mem/ {print $2}')"
+srun sleep 30
+
+wait
+```
+
+---
+template: contentleft
+
+# sbatch 
+
+Sur le cluster NNCR.
+
+Job d'une journée max :
+```
+#SBATCH --partition=fast
+```
+
+Job de 10 jours max :
+```
+#SBATCH --partition=long
+```
+
+
+---
+template: contentleft
+
+# sacct
+
+Des stats...
+
+```
+$ sacct --format=User,JobID,Jobname,partition,state,start,elapsed,nnodes,ncpus,nodelist
+```
+Affiche l'identifiant et le nom du job, le type de queue, l'état du job, le début, le temps consommé, le nombre de noeuds, le nombre de coeurs et les noms des coeurs.
+
+
+--
+<br />
+
+# sreport 
+
+```
+$ sreport Cluster UserUtilizationByAccount Start=2019-01-01 Users=ppoulain
+```
+Temps de calcul total consommé (en minutes). Important pour des appels d'offre !
+
+
+---
+template: contentleft
+
+# Création des environnements logiciels
+
+```
+$ module load du_o_2019
+```
+
+Liste des modules disponibles :
+```
+$ module avail 
+```
+
+Liste des modules chargés :
+```
+$ module list
+```
+
+Décharger un module :
+```
+$ module unload un-module
+```
+
+
 
 ---
 template: contentleft
@@ -178,6 +359,11 @@ template: contentleft
 # Doc et liens utiles
 
 [IFB Core Cluster documentation](http://taskforce-nncr.gitlab.cluster.france-bioinformatique.fr/doc/)
+
+
+[IFB Cluster Community Support](https://community.cluster.france-bioinformatique.fr)
+
+
 
 
 ---
@@ -189,61 +375,6 @@ template: contentleft
 <img height="500px" src="img/pipeline_RNA_seq_O_tauri.png">
 ]
 
----
-template: contentleft
-
-# Conda 🐍
-
-.center[
-<img height="400px" src="img/conda.png">
-]
-
----
-template: contentleft
-
-# Copie de données 🦄
-
---
-
-## D
-	
-<https://filezilla-project.org/>  - logiciel open source
-
-.center[
-<img width="1000px" src="img/filezilla.png">
-]
-
-
-Hôte : `sftp://omics-school.net`
-
-Identifiant : `<votre-login-sur-le-serveur>`
-
-Mot de passe : `<votre-mot-de-passe-sur-le-serveur>`
-
----
-template: contentleft
-
-# Copie de données 🦄
-
-
-## `scp` 
-
-À utiliser dans un *shell* depuis la machine locale.
-
-<br />
-
-De la machine locale vers le serveur : 
-```
-$ scp fichier.txt ppoulain@omics-school.net:~/repertoire/
-```
-
-<br />
-
-Du serveur vers la machine locale : 
-```
-$ scp ppoulain@omics-school.net:~/repertoire/fichier.txt ./
-```
-
 
 ---
 
@@ -251,8 +382,7 @@ template: contentleft
 
 background-color: #cccccc
 
-# C'est parti ! 🚀
+# À vous ! 🚀
 
-## 💻 [Tutoriel](https://omics-school.github.io/analyse-rna-seq/analyse_RNA-seq_O_tauri.html)
-
-## 💻 [Check-list](https://omics-school.github.io/analyse-rna-seq/analyse_RNA-seq_O_tauri_check-list.html)
+## 💻 [Tutoriel](https://omics-school.github.io/analyse-rna-seq/cluster_IFB)
+## 💻 [Check-list](https://omics-school.github.io/analyse-rna-seq/cluster_IFB_check-list)
