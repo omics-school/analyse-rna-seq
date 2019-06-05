@@ -363,7 +363,7 @@ template: contentleft
 
 [IFB Cluster Community Support](https://community.cluster.france-bioinformatique.fr)
 
-
+Webinar 06/06/2019 11h-12h !
 
 
 ---
