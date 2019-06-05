@@ -123,7 +123,7 @@ template: contentleft
 
 Un noeud (*node*) = une machine physique = un élément du cluster
 
-Sur ce cluster, un noeud a deux processeurs. Un processeur a 14 coeurs.
+Sur ce cluster, un noeud a deux processeurs. Un processeur a 14 coeurs hyperthreadés.
 
 .footnote[.ref[
 	Source : Julien Seiler, IFB, CC BY-SA
@@ -207,7 +207,7 @@ template: contentleft
 ]
 
 .right[
-Donne accès à la puissance de calcul du cluster.
+### Donne accès à la puissance de calcul du cluster.
 ]
 
 ---
@@ -264,9 +264,8 @@ $ sbatch my-script.sh
 ```
 
 --
+<hr />
 
-<br />
-<br />
 my-script.sh :
 ```
 #!/bin/bash
@@ -284,6 +283,25 @@ srun sleep 30
 
 wait
 ```
+
+---
+template: contentleft
+
+# sbatch 
+
+
+```
+$ sbatch my-script.sh 
+Submitted batch job 446182
+
+$ cat slurm-446182.out 
+Hello world!
+cpu-node-6
+Number of cores: 56
+Memory size: 251G
+
+```
+
 
 ---
 template: contentleft
@@ -337,6 +355,8 @@ $ module load du_o/2019
 ```
 
 --
+<br />
+<br />
 
 Liste des modules disponibles :
 ```
@@ -386,4 +406,7 @@ background-color: #cccccc
 # À vous ! 🚀
 
 ## 💻 [Tutoriel](https://omics-school.github.io/analyse-rna-seq/cluster_IFB)
-## 💻 [Check-list](https://omics-school.github.io/analyse-rna-seq/cluster_IFB_check-list)
+
+.center[
+<img height="300px" src="img/slurm.jpg">
+]
