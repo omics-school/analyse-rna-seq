@@ -363,6 +363,7 @@ $ module load du_o/2019
 Liste des modules disponibles :
 ```
 $ module avail 
+$ module avail -l | grep fastqc
 ```
 
 Liste des modules chargés :
@@ -375,6 +376,10 @@ Décharger un module :
 $ module unload un-module
 ```
 
+<br />
+<div style="background-color:lightblue; fontsize:1.2rem; padding: 10px;">
+Toujours activer le(s) module(s) nécessaire(s) avant de lancer une analyse avec <tt>srun</tt> ou <tt>sbatch</tt>.
+</div>
 
 ---
 template: contentleft
