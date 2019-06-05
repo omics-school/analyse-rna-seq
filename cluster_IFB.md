@@ -9,6 +9,8 @@ Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* sur
 
 @JULIEN : quel OS exactement ?
 
+CentOS 7.5
+
 
 # Remarques préables
 
@@ -168,9 +170,12 @@ Supprimez un job que vous avez lancé.
 @JULIEN : 
 
 - avec la commande `nohup run ... &` un utilisateur peut lancer plusieurs jobs différents ?
+
+Oui `nohup srun .... &`
+
 - `srun` lancer le job immédiatement... si des ressources sont disponibles. Que se passe-t-il si ce n'est pas le cas ? Le job échoue ?
 
-
+Non le srun reste en attente que les ressources nécessaires se libèrent.
 
 ## Automatisation 2 (sbatch)
 
@@ -206,6 +211,14 @@ Pour quitter, appuyez sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kb
 
 - Dans un script sbatch, toutes les lignes *exécutables* doivent être lancées avec srun. Pourquoi ?
 
+Oui et non.
+Le job sbatch va faire un réservation de ressource pour l'ensemble du script.
+Chaque "ligne" d'un script correspond à un job step.
+Quand tu n'utilises pas `srun` dans un ligne de script, cette ligne va être associé à un job step particulier appelé `batch`. La particulier de ce job step est qu'il dispose de l'ensemble des ressources réservés pour le job mais uniquement d'un cpu.
+En précédent une ligne de `srun` tu marques un nouveau job step dans ton script.
+Si tu ne précises rien à `srun`, l'ensemble des ressourcers réservés par le job seront allouées à ligne executable (avec l'ensemble des cpu cette fois).
+Mais tu peux décider pour un `srun`de n'utiliser qu'une partie des ressources réservés. Voir lancer plusieurs `srun` en parallèle (en terminant par un &) afin d'avoir des step parallèle au sein d'un même job.
+Un autre avantage à l'utlisation de `srun` dans tes scripts et que tu vas pouvoir suivre l'état d'avancement précis de ton script via la commande `sacct` qui va t'indiquer les jobs steps déjà réalisés ainsi que le job step courant. Tu pourras également voir combien de temps le script a passé dans chaque step ainsi que les ressources (ram notamment) consommées.
 
 ## Automatisation 3 (sbatch + multi-coeurs)
 
@@ -231,3 +244,5 @@ Le traitement de données est normalement beaucoup plus rapide car les outils `b
 @JULIEN :
 
 - je voudrais maintenant utiliser l'option `--threads` de bowtie2 et de samtools qui permettent d'utiliser plusieurs threads. Je souhaite toujours n'utiliser qu'un seul noeud mais plusieurs coeurs de ce noeud. Ce que j'ai indiqué dans dans l'entête du script (`--cpus-per-task=8`) et au niveau de la commande `srun` qui lance bowtie2 et samtools te semble correct ?
+
+Oui !
