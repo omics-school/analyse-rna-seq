@@ -330,11 +330,13 @@ Temps de calcul total consommé (en minutes). Important pour des appels d'offre 
 ---
 template: contentleft
 
-# Création des environnements logiciels
+# Environnements logiciels
 
 ```
-$ module load du_o_2019
+$ module load du_o/2019
 ```
+
+--
 
 Liste des modules disponibles :
 ```
@@ -350,7 +352,6 @@ Décharger un module :
 ```
 $ module unload un-module
 ```
-
 
 
 ---
