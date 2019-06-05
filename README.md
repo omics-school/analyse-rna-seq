@@ -19,8 +19,7 @@
 
 ### Calcul sur le cluster NNCR de l'IFB 
 
-
-[Tutoriel de l'analyse RNA-seq sur le cluster](cluster_IFB.md)
+[Diapo](diapo_cluster) / [Tutoriel](cluster_IFB.md)
 
 
 ### Conda
