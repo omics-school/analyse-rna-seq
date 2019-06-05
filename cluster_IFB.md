@@ -5,7 +5,7 @@ license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 ---
 
 
-Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* sur le cluster *National Network of Computational Resources* (NNCR) de l'Institut Français de Bioinformatique (IFB). Ce cluster utilise un système d'exploitation Linux (Centos 7.5).
+Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* avec le cluster *National Network of Computational Resources* (NNCR) de l'Institut Français de Bioinformatique (IFB). Ce cluster utilise un système d'exploitation Linux (Centos 7.5).
 
 
 # Remarques préables
@@ -218,6 +218,6 @@ $ sbatch script5.sh
 
 Affichez en temps réel le fichier qui contient la sortie du script. 
 
-Le traitement de données est normalement beaucoup plus rapide car les outils `bowtie2-build`, `bowtie` et `samtools` utilisent plusieurs coeurs simultanément.
+Le traitement de données est normalement beaucoup plus rapide car les outils `bowtie2-build`, `bowtie2` et `samtools` utilisent plusieurs coeurs simultanément.
 
 Remarque : pour 3 échantillons à traiter, le script 4 prendre environ 52 minutes alors que le script 5 seulement 25.

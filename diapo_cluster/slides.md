@@ -57,7 +57,7 @@ template: contentleft
 
 --
 
-- Comprendre le fonctionnement du cluster de l'IFB.
+- Expliquer le fonctionnement du cluster de l'IFB.
 
 - Utiliser les commandes SLURM.
 
@@ -151,6 +151,8 @@ CINES OCCIGEN | Montpellier | 85&nbsp;824 | 202&nbsp;000 | 8 000 | Periodic call
 template: contentleft
 
 # Schéma du cluster NNCR IFB
+
+NNCR = *National Network of Computational Resources*
 
 .center[
 <img height="500px" src="img/slurm_components_IFB.png">
