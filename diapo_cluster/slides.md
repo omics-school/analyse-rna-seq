@@ -390,7 +390,10 @@ template: contentleft
 
 [IFB Cluster Community Support](https://community.cluster.france-bioinformatique.fr)
 
-Webinar 06/06/2019 11h-12h !
+
+Webinar 06/06/2019 11h-12h
+
+- [présentation](https://community.cluster.france-bioinformatique.fr/uploads/default/original/1X/f81042e18ece6c0875978e00e3b47285462ffda0.pdf)
 
 
 ---
