@@ -207,9 +207,14 @@ Toujours depuis le cluster de l'IFB, dans le répertoire `RNAseq` de votre répe
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script5.sh
 ```
 
-Identifiez les différences avec le script précédent.
+L'objectif est maintenant « d'aller plus vite » en attribuant plusieurs coeurs pour les étapes d'indexation du génome (`bowtie2-build`), d'alignement des reads (`bowtie2`) sur le génome et du traitement des résultats (`samtools`). Chaque programme a une option particulière pour la prise en compte de plusieurs coeurs. 
 
-Ouvrez ce fichier avec `nano` puis modifiez l'adresse e-mail et vos numéros d'échantillons.
+On demande spécifiquement à SLURM d'attribuer 8 coeurs au job avec l'instruction :
+```
+#SBATCH --cpus-per-task=8
+```
+
+Ouvrez le fichier `script5.sh` avec `nano` puis modifiez l'adresse e-mail et vos numéros d'échantillons.
 
 Lancez ensuite votre analyse :
 ```
