@@ -108,11 +108,15 @@ FastQC va produire deux fichiers (un fichier avec l'extension `.html` et un autr
 
 **Rappel** Pour récupérer votre fichier en ligne de commande, il faut lancer la commande `scp` depuis votre machine locale :
 ```
-$ scp login@core.cluster.france-bioinformatique.fr:/shared/projects/du_o_2019/login/RNAseq/nom-fichier-fastqc.html
+$ scp login@core.cluster.france-bioinformatique.fr:/shared/projects/du_o_2019/login/RNAseq/nom-fichier-fastqc.html .
 ```
 
 où bien sûr `login` et `nom-fichier-fastqc.html` sont à adapter.
 
+Si vous êtes sous Windows avec les PC du DU, vous voudriez sans doute faire quelque chose du type 
+```
+$ scp login@core.cluster.france-bioinformatique.fr:/shared/projects/du_o_2019/login/RNAseq/nom-fichier-fastqc.html /mnt/c/Users/omics/
+```
 
 ## Automatisation 1 
 
