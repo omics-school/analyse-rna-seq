@@ -2,7 +2,7 @@
 
 #SBATCH -n 1
 #SBATCH --partition=fast
-#SBATCH --mail-user=pierre.poulain@univ-paris-diderot.fr
+#SBATCH --mail-user=your-email@mail.com
 #SBATCH --mail-type=ALL
 
 # le script va s'arrêter
