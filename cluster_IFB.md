@@ -221,3 +221,19 @@ Affichez en temps réel le fichier qui contient la sortie du script.
 Le traitement de données est normalement beaucoup plus rapide car les outils `bowtie2-build`, `bowtie2` et `samtools` utilisent plusieurs coeurs simultanément.
 
 Remarque : pour 3 échantillons à traiter, le script 4 prendre environ 52 minutes alors que le script 5 seulement 25.
+
+
+## L'heure de faire les comptes
+
+Expérimentez les commandes `sacct` et `sreport` pour avoir une idée du déroulement de vos jobs et du temps de calcul consommé :
+
+```
+$ sacct --format=User,JobID,Jobname,partition,state,start,elapsed,nnodes,ncpus,nodelist
+```
+
+et
+
+```
+$ sreport Cluster UserUtilizationByAccount Start=2019-01-01 Users=login
+```
+

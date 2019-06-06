@@ -342,7 +342,7 @@ Affiche l'identifiant et le nom du job, le type de queue, l'état du job, le dé
 # sreport 
 
 ```
-$ sreport Cluster UserUtilizationByAccount Start=2019-01-01 Users=ppoulain
+$ sreport Cluster UserUtilizationByAccount Start=2019-01-01 Users=login
 ```
 Temps de calcul total consommé (en minutes). Important pour des appels d'offre !
 
