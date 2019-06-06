@@ -377,7 +377,7 @@ $ module unload un-module
 
 <br />
 <div style="background-color:lightblue; fontsize:1.2rem; padding: 10px;">
-Toujours activer le(s) module(s) nécessaire(s) **avant** de lancer une analyse avec <tt>srun</tt> ou <tt>sbatch</tt>.
+Toujours activer le(s) module(s) nécessaire(s) <strong>avant</strong> de lancer une analyse avec <tt>srun</tt> ou <tt>sbatch</tt>.
 </div>
 
 ---
