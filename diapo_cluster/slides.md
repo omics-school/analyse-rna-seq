@@ -279,9 +279,9 @@ my-script.sh :
 
 srun echo "Hello world!"
 srun hostname
-srun echo "Number of cores: $(grep -c 'processor' /proc/cpuinfo)"
 srun echo "Memory size: $(free -h | awk '/Mem/ {print $2}')"
 srun sleep 30
+srun echo "Bye bye"
 
 wait
 ```
@@ -299,7 +299,6 @@ Submitted batch job 446182
 $ cat slurm-446182.out 
 Hello world!
 cpu-node-6
-Number of cores: 56
 Memory size: 251G
 
 ```
