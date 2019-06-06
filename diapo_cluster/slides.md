@@ -204,12 +204,12 @@ template: contentleft
 
 --
 
-.left[
+.center[
 <img height="300px" src="img/mohamed_hassan__waiter_silhouette-3187737__Pixabay__CC0.png">
 ]
 
-.right[
-### Donne accès à la puissance de calcul du cluster.
+.center[
+## Donne accès à la puissance de calcul du cluster.
 ]
 
 ---
