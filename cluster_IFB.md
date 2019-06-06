@@ -76,7 +76,7 @@ Quelles sont les versions de ces programmes ? Si besoin, retournez voir le [Tuto
 
 Est-ce que ce sont les mêmes versions que sur le serveur du DU ?
 
-Remarque : la commande `module load du_o/2019` met à votre dispoistion un certain nombre d'outils. En réalité, cette commande charge de manière transparente pour vous un environnement conda. Pour vous en rendre compte, entrez par exemple la commande 
+Remarque : la commande `module load du_o/2019` met à votre disposition un certain nombre d'outils. En réalité, cette commande charge de manière transparente pour vous un environnement conda. Pour vous en rendre compte, entrez par exemple la commande 
 ```
 $ which fastqc
 ```
