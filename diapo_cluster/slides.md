@@ -391,10 +391,10 @@ template: contentleft
 [IFB Cluster Community Support](https://community.cluster.france-bioinformatique.fr)
 
 
-Webinar 06/06/2019 11h-12h
+[Webinar 06/06/2019](https://community.cluster.france-bioinformatique.fr/t/webinar-nncr-cluster-n-2-6-juin-2019/181) 11h-12h
 
 - [présentation](https://community.cluster.france-bioinformatique.fr/uploads/default/original/1X/f81042e18ece6c0875978e00e3b47285462ffda0.pdf)
-
+- [vidéo](https://www.gotostage.com/channel/506ca7d925e04f7cb1657d6dd5faf580/recording/718e4d85bd7a473684b404624743bdef/watch)
 
 ---
 template: contentleft
