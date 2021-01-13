@@ -4,11 +4,11 @@ author: Pierre Poulain
 license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 ---
 
-L'objectif de cette partie est de télécharger les données RNA-seq de *O. tauri* nécessaires à l'analyse.
+L'objectif de cette partie est de télécharger et contrôler les données RNA-seq de *O. tauri* nécessaires à l'analyse.
 
-Le jeu de données initial est consituté de 47 fichiers *.fastq.gz* (format *.fastq* compressé) pour un total de 24 Go.
+Le jeu de données initial, publié en [2016](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-016-2666-6), est constitué de 47 fichiers *.fastq.gz* (format *.fastq* compressé) pour un total de 24 Go.
 
-Pour que cette activité se déroule dans un temps raisonnable, nous allons travailler sur un jeu de données réduit, composé de 3 fichiers .fastq.gz uniquement, correspondant aux 3 réplicats de la condition S2 (échantillons 3, 4 et 5). Le jeu de données réduit réprésente 2,8 Go de données.
+Pour que cette activité se déroule dans un temps raisonnable, nous allons travailler sur un jeu de données réduit, composé de 3 fichiers *.fastq.gz* uniquement, correspondant aux 3 réplicats de la condition S2 (échantillons 3, 4 et 5). Le jeu de données réduit réprésente 1,2 Go de données.
 
 # Téléchargement du jeu de données
 
@@ -64,7 +64,7 @@ Le répertoire `genome` contient le génome de *O. tauri* et ses annotations au 
 
 Le répertoire `reads` contient les 3 fichiers *.fastq.gz*.
 
-Une manière pratique de voir cette organisation est d'utiliser la commande `tree`
+Une manière pratique de voir cette organisation est d'utiliser la commande `tree` :
 
 ```
 $ tree
@@ -81,7 +81,7 @@ $ tree
 2 directories, 6 files
 ```
 
-Enfin, déterminez la taille de vos données avec la commande 
+Enfin, déterminez la taille de vos données avec la commande :
 ```
 $ du -ch *
 14M     genome
