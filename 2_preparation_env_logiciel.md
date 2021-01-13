@@ -6,9 +6,9 @@ license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 
 L'objectif de cette partie est d'installer conda et les logiciels nécessaires à l'analyse RNA-seq des données *O. tauri*.
 
-# Installation de conda
+# 2.1 Installation de conda
 
-Conda est un gestionnaire de logiciels et d'environnements très utilisé en bioinformatique. [Miniconda](https://docs.conda.io/en/latest/miniconda.html) est une distribution qui permet d'installer conda. Puisque nous travaillons sous Linux (sous Windows 10 certes, mais nous vous rappelons que WSL est un Linux), nous allons installer la version Linux de Miniconda.
+Conda est un gestionnaire de logiciels et d'environnements très utilisé en bioinformatique. [Miniconda](https://docs.conda.io/en/latest/miniconda.html) est une distribution qui permet d'installer conda. Puisque nous travaillons sous Linux (sous Windows 10 certes, mais nous vous rappelons que WSL est un Linux), nous allons installer la version **Linux** de Miniconda.
 
 Pour cette étape, déplacez-vous dans votre répertoire utilisateur Unix :
 ```
@@ -36,21 +36,21 @@ Attention, la commande débute bien par un point `.`
 
 Fermez enfin votre terminal.
 
-Relancez un nouveau terminal. Vous devriez voir `(base)` à gauche de votre invite de commande.
+Relancez un nouveau terminal. Vous devriez voir `(base)` à gauche de votre invite de commande (comme [ici](img/conda_base.png)).
 
 Vérifiez enfin que conda est fonctionnel en tapant la commande :
 ```
 $ conda --version
 ```
 
-Si vous obtenez `conda 4.9.2` : bravo :tada:
+Si vous obtenez `conda 4.9.2` : bravo 🎉
 
 
-# Création de l'environnement rnaseq
+# 2.2 Création de l'environnement rnaseq
 
 Nous souhaitons maintenant installer les logiciels nécessaires à l'analyse RNA-seq. Nous pourrions le faire dans l'environnement par défaut de Miniconda (qui s'appelle *base* comme l'indique le `(base)` à gauche de votre invite de commande) mais ce serait une très mauvaise pratique.
 
-Nous allons donc créer un environnement conda dédié pour notre analyse RNA-seq. Sans grande originalité, nous allons appelé cet environnement `rnaseq` :
+Nous allons donc créer un environnement conda dédié pour notre analyse RNA-seq. Sans grande originalité, nous appellerons cet environnement `rnaseq` :
 
 ```
 $ conda create -n rnaseq -y
@@ -61,7 +61,7 @@ Une fois l'environnement créé, il faut l'activer (c'est-à-dire l'utiliser) :
 $ conda activate rnaseq
 ```
 
-Le `(base)` à gauche de votre invite de commande est maintenant remplacé par `(rnaseq)`.
+Le `(base)` à gauche de votre invite de commande est maintenant remplacé par `(rnaseq)` (comme [ici](img/conda_rnaseq.png)).
 
 Voici la liste des logiciels dont nous avons besoin :
 
@@ -109,9 +109,9 @@ University. (c) 2010-2019. Released under the terms of the GNU General Public
 License v3. Part of the 'HTSeq' framework, version 0.11.3.
 ```
 
-Bravo :tada: 
+Bravo ✨
 
 Vous avez installé Miniconda, créé un environnement conda et installé tous les logiciels nécessaires.
 
-Vous pouvez passer à l'étape suivante.
+Vous pouvez passer à l'étape suivante. ➡️
 
