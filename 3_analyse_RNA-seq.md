@@ -153,7 +153,7 @@ Toujours depuis votre shell Ubuntu et dans le répertoire `/mnt/c/Users/omics/rn
 $ mkdir -p count
 ```
 
-Puis lancez la commande pour compter les *reads* alignés :
+Puis lancez la commande (en une seule ligne) pour compter les *reads* alignés :
 ```
 $ htseq-count --stranded=no --type='gene' --idattr='ID' --order=name --format=bam map/bowtie.sorted.bam genome/GCF_000214015.3_version_140606.gff > count/count.txt
 ```
@@ -259,7 +259,7 @@ $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/scr
 Vous remarquerez que la solution proposée pour conserver les informations liées à l'alignement est un peu particulière. Nous allons en discuter, mais dans un premier temps essayer de comprendre l'explication donnée [ici](https://stackoverflow.com/questions/876239/how-can-i-redirect-and-append-both-stdout-and-stderr-to-a-file-with-bash).
 
 
-## Étape 3.6 : automatisation de l'analyse : niveau 3 (ninja)
+## Étape 3.5 : automatisation de l'analyse : niveau 3 (ninja)
 
 Le script précédent était intéressant mais il ne prend en compte qu'un seul échantillon à la fois. Quel ennui !
 
@@ -319,7 +319,7 @@ nohup: ignoring input and appending output to 'nohup.out'
 vous rappelle que les messages qui apparaissaient habituellement à l'écran seront redirigés dans le fichier `nohup.out`.
 
 
-##  Étape 3.7 Comparaison avec les logiciels utilisés dans Galaxy (si vous avez du temps)
+##  Étape 3.3 Comparaison avec les logiciels utilisés dans Galaxy (si vous avez du temps)
 
 Connectez-vous maintenant à votre compte sur Galaxy. Essayez de retrouver les versions des logiciels que vous utilisés (FastQC, Bowtie2, SAMtools, HTSeq).
 
