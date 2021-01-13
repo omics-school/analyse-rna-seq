@@ -1,5 +1,5 @@
 # Numéro de l'échantillon à analyser.
-sample=10
+sample=3
 # Chemin relatif et nom du fichier contenant le génome de référence.
 genome=genome/GCF_000214015.3_version_140606.fna
 # Chemin relatif et nom du fichier contenant les annotations.
