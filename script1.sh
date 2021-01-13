@@ -15,11 +15,11 @@ bowtie2-build ${genome} index/O_tauri
 
 echo "Alignement des reads sur le génome de référence"
 mkdir -p map
-bowtie2 -x index/O_tauri -U reads/HCA-${sample}_R1.fastq.gz -S map/bowtie-${sample}.sam
+bowtie2 -p 2 -x index/O_tauri -U reads/HCA-${sample}_R1.fastq.gz -S map/bowtie-${sample}.sam
 
 echo "Conversion en binaire, tri et indexation des reads alignés"
-samtools view -b map/bowtie-${sample}.sam > map/bowtie-${sample}.bam
-samtools sort map/bowtie-${sample}.bam -o map/bowtie-${sample}.sorted.bam
+samtools view -@ 2 -b map/bowtie-${sample}.sam > map/bowtie-${sample}.bam
+samtools sort -@ 2 map/bowtie-${sample}.bam -o map/bowtie-${sample}.sorted.bam
 samtools index map/bowtie-${sample}.sorted.bam
 
 echo "Comptage"

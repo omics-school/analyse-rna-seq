@@ -77,6 +77,9 @@ $ du -ch index/O_tauri*
 
 Comparez la taille totale des index à la taille du fichier contenant le genome (`genome/GCF_000214015.3_version_140606.fna`).
 
+L'indexation du génome n'est à faire qu'une seule fois.
+
+
 ### Alignements des *reads* sur le génome de référence
 
 Créez le répertoire `map` qui va contenir les *reads* alignés sur le génome de référence :
@@ -86,7 +89,7 @@ $ mkdir -p map
 
 Lancez l'alignement :
 ```
-$ bowtie2 -x index/O_tauri -U reads/nom-fichier.fastq.gz -S map/bowtie.sam
+$ bowtie2 -p 2 -x index/O_tauri -U reads/nom-fichier.fastq.gz -S map/bowtie.sam
 ```
 
 Ici :
@@ -94,7 +97,9 @@ Ici :
 - `reads/nom-fichier.fastq.gz` est le fichier contenant l'échantillon que vous avez choisi
 - et `reads/bowtie.sam` est le fichier qui va contenir l'alignement produit par Bowtie2.
 
-Cette étape est la plus longue et peut prendre une dizaine de minutes. **Bowtie n'affiche rien à l'écran lorsqu'il fonctionne**. Soyez patient.
+Comme votre machine dispose de 4 coeurs, nous en utilisons 2 (`-p 2`) pour accélérer le calcul.
+
+Cette étape peut prendre plusieurs minutes. **Bowtie n'affiche rien à l'écran lorsqu'il fonctionne**. Soyez patient.
 
 À la fin de l'alignement, Bowtie2 renvoie des informations qui ressemblent à :
 
@@ -122,14 +127,14 @@ Vous allez maintenant utiliser SAMtools pour :
 
 1. Convertir le fichier `.sam` (fichier texte) créé par Bowtie2 en fichier `.bam`, qui est un fichier binaire, et qui donc prend moins de place sur le disque.
     ```
-    $ samtools view -b map/bowtie.sam > map/bowtie.bam
+    $ samtools view -@ 2 -b map/bowtie.sam > map/bowtie.bam
     ```
-    Cette étape peut prendre une dizaine de minutes.  
+    Cette étape va prendre plusieurs minutes.  
     Comparez la taille deux fichiers `map/bowtie.sam` et `map/bowtie.bam`. Quel est le ratio de compression entre les deux formats de fichiers ?
 
 2. Trier les *reads* alignés suivant l'ordre dans lequel ils apparaissent dans le génome.
     ```
-    $ samtools sort map/bowtie.bam -o map/bowtie.sorted.bam
+    $ samtools sort -@ 2 map/bowtie.bam -o map/bowtie.sorted.bam
     ```
     Cette étape peut prendre une dizaine de minutes.
 
@@ -137,19 +142,6 @@ Vous allez maintenant utiliser SAMtools pour :
     ```
     $ samtools index map/bowtie.sorted.bam
     ```
-
-
-### Visualisation des *reads* alignés avec IGV
-
-Pour visualiser l'alignement des *reads* sur le génome de référence avec IGV, vous avez besoin des fichiers suivants :
-- Le génome de référence (`genome/GCF_000214015.3_version_140606.fna`).
-- Les annotations du génome de référence (`genome/GCF_000214015.3_version_140606.gff`).
-- Le fichier bam trié (`map/bowtie.sorted.bam`).
-- L'index du bam trié (`map/bowtie.sorted.bam.bai`).
-
-Lancez IGV et visualisez l'alignement des *reads* sur le génome de référence. Si vous avez oublié comme faire, visionnez la vidéo sur ce sujet qui vous a été proposée précédemment.
-
-Visualisez particulièrement le gène `ostta18g01980`.
 
 
 ### Comptage des *reads* alignés sur les gènes de *O. tauri*
@@ -168,11 +160,24 @@ $ htseq-count --stranded=no --type='gene' --idattr='ID' --order=name --format=ba
 
 HTSeq renvoie le nombre d'annotations trouvées dans le fichier `.gff` puis affiche une progression de l'analyse. Les options du programme `htseq-count` sont décrites dans la [documentation](http://gensoft.pasteur.fr/docs/HTSeq/0.9.1/count.html).
 
-Déterminez le nombre de *reads* alignés sur le gène `ostta18g01980`. Pour cela, vous pouvez lancer la commande
+Déterminez le nombre de *reads* alignés sur le gène `ostta18g01980`. Pour cela, lancez la commande :
 ```
 $ grep ostta18g01980 count/count.txt
 ```
-ou alors ouvrir le fichier `count.txt` avec la commande `less` puis chercher le gène `ostta18g01980` en tapant `/ostta18g01980` puis la touche <kbd>Entrée</kbd>.
+ou alors ouvrir le fichier `count/count.txt` avec la commande `less` puis chercher le gène `ostta18g01980` en tapant `/ostta18g01980` puis la touche <kbd>Entrée</kbd>.
+
+
+### Visualisation des *reads* alignés avec IGV
+
+Pour visualiser l'alignement des *reads* sur le génome de référence avec IGV, vous avez besoin des fichiers suivants :
+- Le génome de référence (`genome/GCF_000214015.3_version_140606.fna`).
+- Les annotations du génome de référence (`genome/GCF_000214015.3_version_140606.gff`).
+- Le fichier bam trié (`map/bowtie.sorted.bam`).
+- L'index du bam trié (`map/bowtie.sorted.bam.bai`).
+
+Lancez IGV et visualisez l'alignement des *reads* sur le génome de référence. Si vous avez oublié comme faire, visionnez la vidéo sur ce sujet qui vous a été proposée précédemment.
+
+Visualisez particulièrement le gène `ostta18g01980`.
 
 
 ## Étape 3.3 : automatisation de l'analyse : niveau 1
