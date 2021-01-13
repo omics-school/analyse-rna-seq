@@ -39,7 +39,7 @@ $ tar zxvf rnaseq_sample.tgz
 
 Vérifiez que le répertoire `rnaseq_sample` est bien créé avec la commande `ls`.
 
-# Exploration rapide des fichiers
+# Exploration rapide des fichiers
 
 Déplacez-vous tout d'abord dans le répertoire `rnaseq_sample` précédemment créé :
 ```
