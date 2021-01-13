@@ -63,6 +63,9 @@ $ conda activate rnaseq
 
 Le `(base)` à gauche de votre invite de commande est maintenant remplacé par `(rnaseq)` (comme [ici](img/conda_rnaseq.png)).
 
+
+# 2.3 Installation des logiciels nécessaires
+
 Voici la liste des logiciels dont nous avons besoin :
 
 - [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) pour le contrôle qualité des données de séquençage.
