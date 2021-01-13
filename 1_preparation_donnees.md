@@ -114,7 +114,7 @@ $ md5sum genome/GCF_000214015.3_version_140606.fna
 046b6e933274c884428a7d5929090f5d  genome/GCF_000214015.3_version_140606.fna
 ```
 
-Par comparaison avec le contenu du fichier `md5sum.txt`, on peut ainsi conclure que l'intégrité du fichier `genome/GCF_000214015.3_version_140606.fna` est bien vérifiée. Nous avons donc téléchargé le bon fichier. 🎉
+Par comparaison avec le contenu du fichier `md5sum.txt`, on peut conclure que l'intégrité du fichier `genome/GCF_000214015.3_version_140606.fna` est bien vérifiée. Nous avons donc téléchargé le bon fichier. 🎉
 
 On peut alors faire la même chose pour tous les fichiers, mais ce serait fastidieux de le faire individuellement. Il est alors possible d'automatiser cette vérification avec l'option `-c` de la commande `md5sum` :
 ```
