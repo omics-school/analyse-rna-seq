@@ -10,7 +10,7 @@ Le jeu de données initial, publié en [2016](https://bmcgenomics.biomedcentral.
 
 Pour que cette activité se déroule dans un temps raisonnable, nous allons travailler sur un jeu de données réduit, composé de 3 fichiers *.fastq.gz* uniquement, correspondant aux 3 réplicats de la condition S2 (échantillons 3, 4 et 5). Le jeu de données réduit réprésente 1,2 Go de données.
 
-# Téléchargement du jeu de données
+# 1.1 Téléchargement du jeu de données
 
 Sous Windows, ouvrez un terminal Ubuntu. Si vous avez oublié comment faire, consultez le [tutoriel Unix](https://omics-school.github.io/unix-tutorial/tutoriel/README).
 
@@ -39,7 +39,7 @@ $ tar zxvf rnaseq_sample.tgz
 
 Vérifiez que le répertoire `rnaseq_sample` est bien créé avec la commande `ls`.
 
-# Exploration rapide des fichiers
+# 1.2 Exploration rapide des fichiers
 
 Déplacez-vous tout d'abord dans le répertoire `rnaseq_sample` précédemment créé :
 ```
@@ -93,7 +93,7 @@ $ du -ch *
 Explications : la commande `du` affiche la taille occupée par des fichiers. L'option `-h` affiche la taille en ko, Mo, Go... L'option `-c` calcule la taille totale occupée par tous les fichiers.
 
 
-# Vérification de l'intégrité des données
+# 1.3 Vérification de l'intégrité des données
 
 Nous avons téléchargé des données mais nous ne savons pas si le téléchargement s'est bien passé. Nous allons pour cela contrôler l'intégrité des données avec la commande `md5sum`.
 
