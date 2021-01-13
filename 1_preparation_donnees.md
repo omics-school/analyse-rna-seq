@@ -130,4 +130,4 @@ reads/HCA-5_R1.fastq.gz: OK
 
 Si vous avez des *OK* partout, bravo ! Tous les fichiers sont corrects.
 
-Vous pouvez passer à l'étape suivante :rocket:
+Vous pouvez passer à l'étape suivante 🚀
