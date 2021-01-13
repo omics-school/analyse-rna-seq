@@ -46,7 +46,7 @@ $ conda --version
 Si vous obtenez `conda 4.9.2` : bravo 🎉
 
 
-# 2.2 Création de l'environnement rnaseq
+# 2.2 Création de l'environnement rnaseq
 
 Nous souhaitons maintenant installer les logiciels nécessaires à l'analyse RNA-seq. Nous pourrions le faire dans l'environnement par défaut de Miniconda (qui s'appelle *base* comme l'indique le `(base)` à gauche de votre invite de commande) mais ce serait une très mauvaise pratique.
 
@@ -77,7 +77,7 @@ $ conda install -c bioconda fastqc bowtie2 samtools htseq -y
 
 L'installation des logiciels et de leurs dépendances va prendre quelques minutes.
 
-Pour terminer, vérifiez que les logiciels sont bien installés en affichant leur version :
+Pour terminer, vérifiez que les logiciels sont bien installés en affichant leurs versions :
 
 ```
 $ fastqc --version
