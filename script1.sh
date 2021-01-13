@@ -1,27 +1,30 @@
-# numéro de l'échantillon à analyser
+# Numéro de l'échantillon à analyser.
 sample=10
-# nom du fichier contenant le génome de référence
-genome=GCF_000214015.3_version_140606_genomic.fna
-# nom du fichier contenant les annotations
-annotations=GCF_000214015.3_version_140606_genomic_DUO2.gff
+# Chemin relatif et nom du fichier contenant le génome de référence.
+genome=genome/GCF_000214015.3_version_140606.fna
+# Chemin relatif et nom du fichier contenant les annotations.
+annotations=genome/GCF_000214015.3_version_140606.gff
 
 
 echo "Contrôle qualité"
-fastqc HCA-${sample}_R1.fastq.gz
+fastqc reads/HCA-${sample}_R1.fastq.gz
 
 echo "Indexation du génome de référence"
-bowtie2-build ${genome} O_tauri
+mkdir -p index
+bowtie2-build ${genome} index/O_tauri
 
 echo "Alignement des reads sur le génome de référence"
-bowtie2 -x O_tauri -U HCA-${sample}_R1.fastq.gz -S bowtie-${sample}.sam
+mkdir -p map
+bowtie2 -x index/O_tauri -U reads/HCA-${sample}_R1.fastq.gz -S map/bowtie-${sample}.sam
 
 echo "Conversion en binaire, tri et indexation des reads alignés"
-samtools view -b bowtie-${sample}.sam > bowtie-${sample}.bam
-samtools sort bowtie-${sample}.bam -o bowtie-${sample}.sorted.bam
-samtools index bowtie-${sample}.sorted.bam
+samtools view -b map/bowtie-${sample}.sam > map/bowtie-${sample}.bam
+samtools sort map/bowtie-${sample}.bam -o map/bowtie-${sample}.sorted.bam
+samtools index map/bowtie-${sample}.sorted.bam
 
 echo "Comptage"
-htseq-count --stranded=no --type='gene' --idattr='ID' --order=name --format=bam bowtie-${sample}.sorted.bam ${annotations} > count-${sample}.txt
+mkdir -p count
+htseq-count --stranded=no --type='gene' --idattr='ID' --order=name --format=bam map/bowtie-${sample}.sorted.bam ${annotations} > count/count-${sample}.txt
 
 echo "Nettoyage des fichiers inutiles"
-rm -f bowtie-${sample}.sam bowtie-${sample}.bam
+rm -f map/bowtie-${sample}.sam map/bowtie-${sample}.bam

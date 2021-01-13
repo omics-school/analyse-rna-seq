@@ -1,23 +1,24 @@
 # Analyse des données RNA-seq de *O. tauri* avec Unix
 
-### Prérequis 
+### Prérequis : introduction à Unix
 
-[Introduction à Unix](https://omics-school.github.io/unix/)
+[Introduction à Unix](https://omics-school.github.io/unix-tutorial/)
 
+### Analyse de données RNA-seq avec Unix sur votre machine locale
 
-### Objectifs et contexte
+Tutoriel :
 
-[Diapo](diapo)
+1. [Préparation des données](1_preparation_donnees.md)
+2. [Préparation de l'environnement logiciel](2_preparation_env_logiciel.md)
+3. [Analyse RNA-seq](3_analyse_RNA-seq.md)
 
-
-### Tutoriel
-
-[Tutoriel de l'analyse RNA-seq](analyse_RNA-seq_O_tauri.md)
 
 [*Check list*](analyse_RNA-seq_O_tauri_check-list.md) pour ne rien oublier.
 
 
-### Calcul sur le cluster NNCR de l'IFB 
+### Analyse de données RNA-seq avec Unix sur un cluster de calcul
+
+Nous utiliserons le cluster de calcul de l'[Institut Français de Bioinformatique](https://www.france-bioinformatique.fr/cluster-ifb-core/) (IFB).
 
 [Diapo](diapo_cluster) / [Tutoriel](cluster_IFB.md)
 
