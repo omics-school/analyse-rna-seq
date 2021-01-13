@@ -11,7 +11,7 @@ Voici une vue d'ensemble des étapes pour analyser les données de séquençage 
 ![](pipeline_RNA_seq_O_tauri.svg)
 
 
-## Étape 3.1 : préparation de l'environnement de travail
+## 3.1 Préparation de l'environnement de travail
 
 Sous Windows, ouvrez un terminal Ubuntu.
 
@@ -30,7 +30,7 @@ Remarque : contrôlez que le nom de l'environnement conda apparait bien à gauch
 Vous êtes maintenant prêt à analyser des données RNA-seq 🤠
 
 
-## Étape 3.2 : analyse manuelle
+## 3.2 Analyse manuelle
 
 Pour cette première analyse, choisissez un **seul échantillon** contenant des *reads*, c'est-à-dire un fichier parmi :
 ```
@@ -180,7 +180,7 @@ Lancez IGV et visualisez l'alignement des *reads* sur le génome de référence.
 Visualisez particulièrement le gène `ostta18g01980`.
 
 
-## Étape 3.3 : automatisation de l'analyse : niveau 1
+## 3.3 Automatisation de l'analyse : niveau 1
 
 Tout cela est très bien mais les fichiers que vous avez générés (`map/bowtie.bam`, `map/bowtie.sorted.bam`, `cout/count.txt`...) portent des noms qui ne sont pas très informatifs sur l'échantillon dont ils proviennent.
 
@@ -248,7 +248,7 @@ Testez le script `script1.sh` sur **un seul** de vos échantillons. Pour cela :
 Vérifiez que le déroulement du script se passe bien. Vous avez le temps de prendre un café ☕. Voir plusieurs ☕ 🍪 ☕ 🍪.
 
 
-## Étape 3.4 : automatisation de l'analyse : niveau 2
+## 3.4 Automatisation de l'analyse : niveau 2
 
 Le script précédent était pratique mais il ne conserve pas les informations liées à l'alignement (nombre de *reads* non-alignés, alignés une fois...).
 
@@ -259,7 +259,7 @@ $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/scr
 Vous remarquerez que la solution proposée pour conserver les informations liées à l'alignement est un peu particulière. Nous allons en discuter, mais dans un premier temps essayer de comprendre l'explication donnée [ici](https://stackoverflow.com/questions/876239/how-can-i-redirect-and-append-both-stdout-and-stderr-to-a-file-with-bash).
 
 
-## Étape 3.5 : automatisation de l'analyse : niveau 3 (ninja)
+## 3.5 Automatisation de l'analyse : niveau 3 (ninja)
 
 Le script précédent était intéressant mais il ne prend en compte qu'un seul échantillon à la fois. Quel ennui !
 
@@ -319,7 +319,7 @@ nohup: ignoring input and appending output to 'nohup.out'
 vous rappelle que les messages qui apparaissaient habituellement à l'écran seront redirigés dans le fichier `nohup.out`.
 
 
-##  Étape 3.3 Comparaison avec les logiciels utilisés dans Galaxy (si vous avez du temps)
+##  3.6 Comparaison avec les logiciels utilisés dans Galaxy (si vous avez du temps)
 
 Connectez-vous maintenant à votre compte sur Galaxy. Essayez de retrouver les versions des logiciels que vous utilisés (FastQC, Bowtie2, SAMtools, HTSeq).
 
