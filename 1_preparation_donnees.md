@@ -29,7 +29,7 @@ $ cd /mnt/c/Users/omics
 Téléchargez le jeu de données de réduit qui se trouve sur [Zenodo](https://zenodo.org/record/4437683) avec la commande `wget` :
 
 ```
-$ wget https://zenodo.org/record/4437683/files/rnaseq_sample.tgz?download=1
+$ wget https://zenodo.org/record/4437683/files/rnaseq_sample.tgz
 ```
 
 Le fichier `rnaseq_sample.tgz` est une archive compressée (un peu comme un fichier zip). Décompressez-le avec la commande :
