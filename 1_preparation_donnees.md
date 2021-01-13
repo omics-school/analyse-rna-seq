@@ -6,9 +6,7 @@ license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 
 L'objectif de cette partie est de télécharger et contrôler les données RNA-seq de *O. tauri* nécessaires à l'analyse.
 
-Le jeu de données initial, publié en [2016](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-016-2666-6), est constitué de 47 fichiers *.fastq.gz* (format *.fastq* compressé) pour un total de 24 Go.
-
-Pour que cette activité se déroule dans un temps raisonnable, nous allons travailler sur un jeu de données réduit, composé de 3 fichiers *.fastq.gz* uniquement, correspondant aux 3 réplicats de la condition S2 (échantillons 3, 4 et 5). Le jeu de données réduit réprésente 1,2 Go de données.
+Le jeu de données initial, publié en [2016](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-016-2666-6), est constitué de 47 fichiers *.fastq.gz* (format *.fastq* compressé) pour un total de 24 Go. Pour que cette activité se déroule dans un temps raisonnable, nous allons travailler sur un jeu de données réduit, composé de 3 fichiers *.fastq.gz* uniquement, correspondant aux 3 réplicats de la condition S2 (échantillons 3, 4 et 5). Le jeu de données réduit réprésente 1,2 Go de données.
 
 # 1.1 Téléchargement du jeu de données
 
@@ -54,11 +52,11 @@ Affichez le contenu du répertoire courant, vous devriez obtenir quelque chose d
 $ ls -l
 total 0
 drwxrwxrwx 1 duo duo 512 Jan 13 10:16 genome
--rwxrwxrwx 1 duo duo 500 Jan 13 10:17 md5sum.txt
-drwxrwxrwx 1 duo duo 512 Jan 13 10:15 reads
+-rwxrwxrwx 1 duo duo 326 Jan 13 23:57 md5sum.txt
+drwxrwxrwx 1 duo duo 512 Jan 13 23:57 reads
 ```
 
-Le répertoire `genome` contient le génome de *O. tauri* et ses annotations au format gff. Remarque : le génome de référence de *Ostreococcus tauri* et ses annotations sont disponibles sur la [page dédiée](https://www.ncbi.nlm.nih.gov/genome/373?genome_assembly_id=352933) sur le site du NCBI :
+Le répertoire `genome` contient le génome de *O. tauri* et ses annotations au format gff. Le génome de référence de *Ostreococcus tauri* et ses annotations sont disponibles sur la [page dédiée](https://www.ncbi.nlm.nih.gov/genome/373?genome_assembly_id=352933) sur le site du NCBI :
 - [génome de référence](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/214/015/GCF_000214015.3_version_140606/GCF_000214015.3_version_140606_genomic.fna.gz)
 - [annotations](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/214/015/GCF_000214015.3_version_140606/GCF_000214015.3_version_140606_genomic.gff.gz). Nous avons légèrement modifié le fichier d'annotations pour ne prendre en compte que les gènes et alléger la visualisation dans IGV.
 
@@ -116,7 +114,7 @@ $ md5sum genome/GCF_000214015.3_version_140606.fna
 046b6e933274c884428a7d5929090f5d  genome/GCF_000214015.3_version_140606.fna
 ```
 
-Par comparaison avec le contenu du fichier `md5sum.txt`, on peut ainsi conclure que l'intégrité du fichier `genome/GCF_000214015.3_version_140606.fna` est bien vérifiée. Nous avons donc téléchargé le bon fichier :tada:
+Par comparaison avec le contenu du fichier `md5sum.txt`, on peut ainsi conclure que l'intégrité du fichier `genome/GCF_000214015.3_version_140606.fna` est bien vérifiée. Nous avons donc téléchargé le bon fichier. 🎉
 
 On peut alors faire la même chose pour tous les fichiers, mais ce serait fastidieux de le faire individuellement. Il est alors possible d'automatiser cette vérification avec l'option `-c` de la commande `md5sum` :
 ```
