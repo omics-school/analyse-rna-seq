@@ -6,7 +6,7 @@ license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 
 L'objectif de cette partie est d'installer conda et les logiciels nécessaires à l'analyse RNA-seq des données *O. tauri*.
 
-# 2.1 Installation de conda
+## 2.1 Installation de conda
 
 Conda est un gestionnaire de logiciels et d'environnements très utilisé en bioinformatique. [Miniconda](https://docs.conda.io/en/latest/miniconda.html) est une distribution qui permet d'installer conda. Puisque nous travaillons sous Linux (sous Windows 10 certes, mais nous vous rappelons que WSL est un Linux), nous allons installer la version **Linux** de Miniconda.
 
@@ -46,7 +46,7 @@ $ conda --version
 Si vous obtenez `conda 4.9.2` : bravo 🎉
 
 
-# 2.2 Création de l'environnement rnaseq
+## 2.2 Création de l'environnement rnaseq
 
 Nous souhaitons maintenant installer les logiciels nécessaires à l'analyse RNA-seq. Nous pourrions le faire dans l'environnement par défaut de Miniconda (qui s'appelle *base* comme l'indique le `(base)` à gauche de votre invite de commande) mais ce serait une très mauvaise pratique.
 
@@ -64,7 +64,7 @@ $ conda activate rnaseq
 Le `(base)` à gauche de votre invite de commande est maintenant remplacé par `(rnaseq)` (comme [ici](img/conda_rnaseq.png)).
 
 
-# 2.3 Installation des logiciels nécessaires
+## 2.3 Installation des logiciels nécessaires
 
 Voici la liste des logiciels dont nous avons besoin :
 
