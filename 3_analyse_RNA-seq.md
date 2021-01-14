@@ -193,7 +193,6 @@ $ rm -f reads/*fastqc* index/*bt2 map/bowtie* count/count*
 💣 Attention à l'utilisation de la commande `rm` qui supprime définitivement les fichiers.
 
 
-
 ### Variables
 
 Une variable va simplement contenir de l'information qui sera utilisable autant de fois que nécessaire.
@@ -253,6 +252,37 @@ Testez le script `script1.sh` sur **un seul** de vos échantillons. Pour cela :
 Vérifiez que le déroulement du script se passe bien. Vous avez le temps de prendre un café (~ 20 ') ☕. Voir plusieurs ☕ 🍪 ☕ 🍪.
 
 Évaluer approximativement le temps nécessaire au script 1 pour s'exécuter. ⏱️ À partir de cette valeur, extrapoler le temps nécessaire qu'il faudrait pour analyser les 47 échantillons.
+
+Utilisez enfin la commande `tree` pour contempler votre travail (ici avec l'échantllon 3) :
+```
+$ tree
+.
+├── count
+│   └── count-3.txt
+├── genome
+│   ├── GCF_000214015.3_version_140606.fna
+│   └── GCF_000214015.3_version_140606.gff
+├── index
+│   ├── O_tauri.1.bt2
+│   ├── O_tauri.2.bt2
+│   ├── O_tauri.3.bt2
+│   ├── O_tauri.4.bt2
+│   ├── O_tauri.rev.1.bt2
+│   └── O_tauri.rev.2.bt2
+├── map
+│   ├── bowtie-3.sorted.bam
+│   └── bowtie-3.sorted.bam.bai
+├── md5sum.txt
+├── reads
+│   ├── HCA-3_R1.fastq.gz
+│   ├── HCA-3_R1_fastqc.html
+│   ├── HCA-3_R1_fastqc.zip
+│   ├── HCA-4_R1.fastq.gz
+│   └── HCA-5_R1.fastq.gz
+└── script1.sh
+
+5 directories, 18 files
+```
 
 
 ## 3.4 Automatisation de l'analyse : niveau 2
