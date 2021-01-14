@@ -12,12 +12,15 @@ Tutoriel :
 2. [Préparation de l'environnement logiciel](2_preparation_env_logiciel.md)
 3. [Analyse RNA-seq](3_analyse_RNA-seq.md)
 
+
+<!--
 ### Analyse de données RNA-seq avec Unix sur un cluster de calcul
 
 Nous utiliserons le cluster de calcul de l'[Institut Français de Bioinformatique](https://www.france-bioinformatique.fr/cluster-ifb-core/) (IFB).
 
 [Diapo](diapo_cluster) / [Tutoriel](cluster_IFB.md)
 
+-->
 
 ### Conda
 
