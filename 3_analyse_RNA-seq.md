@@ -181,9 +181,17 @@ Visualisez particulièrement le gène `ostta18g01980`.
 
 Tout cela est très bien mais les fichiers que vous avez générés (`map/bowtie.bam`, `map/bowtie.sorted.bam`, `cout/count.txt`...) portent des noms qui ne sont pas très informatifs sur l'échantillon dont ils proviennent.
 
-Par ailleurs, entrer toutes ces commandes à la main, les unes après les autres, est pénible et source d'erreurs. Et il y a fort à parier que vous aurez complètement oublié ces commandes dans 1 semaine, voire dans 1 heure. C'est parfaitement normal, il n'y a absolument aucun intérêt à se souvenir de toutes ces commandes.
+Par ailleurs, entrer toutes ces commandes à la main, les unes après les autres, est pénible et source d'erreurs. Et il y a fort à parier que vous aurez complètement oublié ces commandes dans 1 semaine, voire dans 1 heure. 🤯 C'est parfaitement normal, il n'y a absolument aucun intérêt à se souvenir de toutes ces commandes.
 
 Pour répondre à ces deux problèmes, de gestion de données et d'automatisation, nous allons introduire les notions Bash de variables et de scripts.
+
+Mais d'abord, faites un peu de ménage en supprimant les fichiers créés précédemment :
+```
+$ rm -f reads/*fastqc* index/*bt2 map/bowtie* count/count*
+```
+
+💣 Attention à l'utilisation de la commande `rm` qui supprime définitivement les fichiers.
+
 
 
 ### Variables
