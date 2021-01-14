@@ -135,7 +135,7 @@ Vous allez maintenant utiliser SAMtools pour :
     ```
     Cette étape va prendre plusieurs minutes.
 
-3. Indexer le fichier `.bam`. Cette étape est indispensable pour visualiser l'alignement avec IGV.
+3. Indexer le fichier `.bam`. Cette étape est **indispensable** pour visualiser l'alignement avec IGV.
     ```
     $ samtools index map/bowtie.sorted.bam
     ```
@@ -161,7 +161,7 @@ Déterminez le nombre de *reads* alignés sur le gène `ostta18g01980`. Pour cel
 ```
 $ grep ostta18g01980 count/count.txt
 ```
-ou alors ouvrir le fichier `count/count.txt` avec la commande `less` puis chercher le gène `ostta18g01980` en tapant `/ostta18g01980` puis la touche <kbd>Entrée</kbd>.
+Vous pouvez aussi ouvrir le fichier `count/count.txt` avec la commande `less` puis chercher le gène `ostta18g01980` en tapant `/ostta18g01980` puis la touche <kbd>Entrée</kbd> (et enfin la touche <kbd>Q</kbd> pour quitter).
 
 
 ### Visualisation des *reads* alignés avec IGV
