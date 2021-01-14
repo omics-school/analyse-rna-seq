@@ -27,9 +27,6 @@ Nous utiliserons le cluster de calcul de l'[Institut Français de Bioinformatiqu
 
 [Découvrir conda](conda.md), l'installer ainsi que les logiciels nécessaires pour l'analyse RNA-seq.
 
-vidéo : [Analyse RNA-seq avec conda, Bash Ubuntu & Win10](https://www.youtube.com/watch?v=cEHuND9Bn_E)
-
-
 ### Licence
 
 ![](img/CC-BY-SA.png)

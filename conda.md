@@ -27,7 +27,7 @@ et le papier de référence de Bioconda :
 - [Bioconda: sustainable and comprehensive software distribution for the life sciences](https://www.nature.com/articles/s41592-018-0046-7), Björn Grüning et *al.*, Nature methods, 2018.
 
 
-**Conda est en train de devenir un standard pour installer et utiliser des logiciels en génomique.**
+**Conda est devenu un standard pour installer et utiliser des logiciels en génomique.**
 
 
 ## Installer miniconda dans votre répertoire utilisateur
@@ -42,17 +42,16 @@ $ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
 Installation de miniconda :
 ```
-$ bash Miniconda3-latest-Linux-x86_64.sh -b
+$ bash Miniconda3-latest-Linux-x86_64.sh -b -f
 ```
 
 Conda sera installé par défaut dans le répertoire `miniconda3` dans votre répertoire utilisateur.
 
-Une fois l'installation terminée, il faut ajouter la ligne ci-dessous dans le fichier `.bashrc` qui est situé dans le répertoire utilisateur :
+Activation de conda :
 ```
-source $HOME/miniconda3/etc/profile.d/conda.sh
+$ ./miniconda3/bin/conda init
 ```
 
-Rappel : `$HOME/miniconda3` est le répertoire dans lequel est installé conda.
 
 Après une déconnexion/reconnexion, on vérifie que conda est bien disponible dans le shell de l'utilisateur avec la commande :
 ```
@@ -65,17 +64,6 @@ Il est pertinent de mettre à jour conda après l'installation :
 
 ```
 $ conda update -y conda
-```
-
-## Configurer le canal Bioconda
-
-[Bioconda](https://bioconda.github.io/) est un canal de distribution de paquets installables par conda. Bioconda propose de nombreux logiciels dédiés à la bioinfo. La liste complète est disponible [ici](https://anaconda.org/bioconda/)
-
-Ajout des canaux `default`, `bioconda` et `conda-forge` :
-```
-$ conda config --add channels defaults
-$ conda config --add channels bioconda
-$ conda config --add channels conda-forge
 ```
 
 ## Gérer un environnement virtuel
@@ -106,33 +94,9 @@ $ conda deactivate
 Il faut avoir pris soin d'activer l'environnement virtuel au préalable.
 
 ```
-$ conda install -y fastqc bowtie2 htseq samtools
+$ conda install -y -c bioconda fastqc bowtie2 htseq samtools
 ```
 
 *Simple as that!* 😊
 
-L'installation va prendre un peu de temps. Il faut patienter.
-
-
-
-Vérification des versions des logiciels :
-```
-$ fastqc --version
-$ bowtie2 --version | head -n 1
-$ samtools --version | head -n 1
-$ htseq-count -h | grep version
-```
-
-
-## Remarque pour Ubuntu Server 16.04
-
-Sur Ubuntu Serveur 16.04, par défaut, le fichier `.bashrc` dans le répertoire personnel des utilisateurs n'est pas lu (voir [.bashrc not executed when opening new terminal](https://askubuntu.com/questions/161249/bashrc-not-executed-when-opening-new-terminal))
-
-La solution est alors de créer, pour chaque utilisateur, le fichier `.bash_profile` avec :
-```
-# include .bashrc if it exists
-if [ -f "$HOME/.bashrc" ]; then
-    . "$HOME/.bashrc"
-fi
-```
-
+L'installation peut parfois prendre un peu de temps.
