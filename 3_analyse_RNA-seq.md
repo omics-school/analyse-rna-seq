@@ -37,9 +37,6 @@ Pour cette première analyse, choisissez un **seul échantillon** contenant des 
 reads/HCA-3_R1.fastq.gz
 reads/HCA-4_R1.fastq.gz
 reads/HCA-5_R1.fastq.gz
-reads/HCA-6_R1.fastq.gz
-reads/HCA-7_R1.fastq.gz
-reads/HCA-8_R1.fastq.gz
 ```
 
 ### Contrôle qualité
@@ -136,7 +133,7 @@ Vous allez maintenant utiliser SAMtools pour :
     ```
     $ samtools sort -@ 2 map/bowtie.bam -o map/bowtie.sorted.bam
     ```
-    Cette étape peut prendre une dizaine de minutes.
+    Cette étape va prendre plusieurs minutes.
 
 3. Indexer le fichier `.bam`. Cette étape est indispensable pour visualiser l'alignement avec IGV.
     ```
@@ -228,40 +225,40 @@ Dans un script Bash, tout ce qui suit le symbole `#` est considéré comme un co
 
 ### Analyse RNA-seq
 
-Observez le script bash [script1.sh](script1.sh) et essayer de comprendre son fonctionnement, notamment l'utilisation des variables.
-
 Testez le script `script1.sh` sur **un seul** de vos échantillons. Pour cela :
 
-- Recopiez le script dans un fichier `script1.sh` dans votre répertoire `rnaseq_sample` ou, plus simplement, téléchargez-le directement avec la commande
+- Téléchargez le script `script1.sh` dans votre répertoire `rnaseq_sample` avec la commande :
     ```
     $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script1.sh
     ```
 
-- Ouvrez le script `script1.sh` avec `nano` et modifiez la variable `sample` avec votre numéro d'échantillon. Sauvegardez le script (`ctrl + o`) et quittez nano (`ctrl + x`).  
-    Rappel : pas d'espace avant ou après le symbole `=` !
+- Ouvrez le script `script1.sh` avec `nano`. Essayez de comprendre son fonctionnement, notamment l'utilisation des variables.  
+    Sur la deuxième ligne, modifiez la variable `sample` avec votre numéro d'échantillon. Sauvegardez le script (`ctrl + o`) et quittez nano (`ctrl + x`).  
+    Rappel : pas d'espace avant et après le symbole `=` !
 
-- Lancez le script avec la commande
+- Lancez le script avec la commande :
     ```
     $ bash script1.sh
     ```
 
-Vérifiez que le déroulement du script se passe bien. Vous avez le temps de prendre un café ☕. Voir plusieurs ☕ 🍪 ☕ 🍪.
+Vérifiez que le déroulement du script se passe bien. Vous avez le temps de prendre un café (20 ') ☕. Voir plusieurs ☕ 🍪 ☕ 🍪.
 
 
 ## 3.4 Automatisation de l'analyse : niveau 2
 
-Le script précédent était pratique mais il ne conserve pas les informations liées à l'alignement (nombre de *reads* non-alignés, alignés une fois...).
+Le script précédent est pratique mais il ne conserve pas les informations liées à l'alignement générées par Bowtie2 (nombre de *reads* non-alignés, alignés une fois...).
 
-Le [script 2](script2.sh) répond à ce problème. Pour le télécharger, utilisez la commande :
+Le [script 2](script2.sh) répond à ce problème. Téléchargez-le avec la commande :
 ```
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script2.sh
 ```
-Vous remarquerez que la solution proposée pour conserver les informations liées à l'alignement est un peu particulière. Nous allons en discuter, mais dans un premier temps essayer de comprendre l'explication donnée [ici](https://stackoverflow.com/questions/876239/how-can-i-redirect-and-append-both-stdout-and-stderr-to-a-file-with-bash).
+
+Ouvrez ce script avec `nano`. Vous remarquerez que la solution proposée pour conserver les informations liées à l'alignement est un peu particulière. Nous allons en discuter, mais dans un premier temps essayer de comprendre l'explication donnée [ici](https://stackoverflow.com/questions/876239/how-can-i-redirect-and-append-both-stdout-and-stderr-to-a-file-with-bash).
 
 
 ## 3.5 Automatisation de l'analyse : niveau 3 (ninja)
 
-Le script précédent était intéressant mais il ne prend en compte qu'un seul échantillon à la fois. Quel ennui !
+Le script précédent est intéressant mais il ne prend en compte qu'un seul échantillon à la fois. Quel ennui !
 
 On aimerait avoir un seul script qui traiterait tous les échantillons qu'on souhaite analyser.
 Cela est possible avec une boucle. Une boucle permet de répéter un ensemble d'instructions.
@@ -288,7 +285,12 @@ Notez l'utilisation du symbole `;` pour séparer les différents éléments de l
 
 Une leçon de Software Carpentry aborde la notion de [boucle](https://swcarpentry.github.io/shell-novice/05-loop/index.html). Prenez quelques minutes pour la parcourir et faire les exercices.
 
-Le [script 3](script3.sh) utilise une boucle. Observez la structure du script et essayez de comprendre son fonctionnement.
+Le script 3 utilise une boucle pour automatiser l'analyse de plusieurs échantillons. Téléchargez-le avec la commande :
+```
+$ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script3.sh
+```
+
+Ouvrez ce script avec `nano`. Observez la structure du script et essayez de comprendre son fonctionnement.
 
 La ligne `set -euo pipefail` tout au début du script va arrêter celui-ci :
 - à la première erreur ;
@@ -297,12 +299,8 @@ La ligne `set -euo pipefail` tout au début du script va arrêter celui-ci :
 
 C'est une mesure de sécurité importante pour votre script. Si vous le souhaitez, vous pouvez lire l'article de Aaron Maxwell à ce sujet : [Use the Unofficial Bash Strict Mode (Unless You Looove Debugging)](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
 
-Téléchargez le script 3 avec la commande :
-```
-$ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script3.sh
-```
 
-Modifiez le script 3 avec les numéros d'échantillons que vous avez à analyser. Faites bien attention à la variable concernée et sa syntaxe.
+Toujours avec `nano`, modifiez le script 3 avec les numéros d'échantillons que vous avez à analyser. Faites bien attention à la variable concernée et à sa syntaxe.
 
 Si vous pensez en avoir le temps, lancez le script 3. Comme ce script va automatiser toute l'analyse, il va fonctionner plusieurs dizaines de minutes et vous aurez peut-être besoin de fermez votre terminal. Pour ne pas arrêter brutalement l'analyse, lancez le script de cette manière :
 
