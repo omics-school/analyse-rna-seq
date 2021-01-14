@@ -126,7 +126,7 @@ Vous allez maintenant utiliser SAMtools pour :
     ```
     $ samtools view -@ 2 -b map/bowtie.sam > map/bowtie.bam
     ```
-    Cette étape va prendre plusieurs minutes.  
+    Cette étape va prendre plusieurs minutes. Comme votre machine dispose de 4 coeurs, nous allons en utiliser 2 (`-@ 2`) pour accélérer le calcul.  
     Comparez la taille deux fichiers `map/bowtie.sam` et `map/bowtie.bam`. Quel est le ratio de compression entre les deux formats de fichiers ?
 
 2. Trier les *reads* alignés suivant l'ordre dans lequel ils apparaissent dans le génome.
