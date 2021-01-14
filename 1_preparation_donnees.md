@@ -20,7 +20,7 @@ $ cd /mnt/c/Users/omics
 
 🔔 Rappels : 
 
-- Ne tapez pas le `$` en début de ligne et faites attention aux majuscules et au minuscules (surtout pour `Users`) !
+- Ne tapez pas le `$` en début de ligne et faites attention aux majuscules et aux minuscules (surtout pour `Users`) !
 - Utilisez le copier / coller.
 - Utiliser la complétation des noms de fichier et de répertoires avec la touche <kbd>Tab</kbd>.
 
