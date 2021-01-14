@@ -89,7 +89,7 @@ $ conda deactivate
 ```
 
 
-## Installer les logiciels utilisés pour l'analyse RNA-seq :
+## Installer les logiciels utilisés pour l'analyse RNA-seq
 
 Il faut avoir pris soin d'activer l'environnement virtuel au préalable.
 
