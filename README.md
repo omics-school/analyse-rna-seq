@@ -24,7 +24,8 @@ Nous utiliserons le cluster de calcul de l'[Institut Français de Bioinformatiqu
 
 ### Conda
 
-[Découvrir conda](conda.md), l'installer ainsi que les logiciels nécessaires pour l'analyse RNA-seq.
+[Découvrir](conda.md) conda, Anaconda, Miniconda & Bioconda.
+
 
 ### Licence
 
