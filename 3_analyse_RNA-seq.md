@@ -232,8 +232,9 @@ Testez le script `script1.sh` sur **un seul** de vos échantillons. Pour cela :
     $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script1.sh
     ```
 
-- Ouvrez le script `script1.sh` avec `nano`. Essayez de comprendre son fonctionnement, notamment l'utilisation des variables.  
-    Sur la deuxième ligne, modifiez la variable `sample` avec votre numéro d'échantillon. Sauvegardez le script (`ctrl + o`) et quittez nano (`ctrl + x`).  
+- Ouvrez le script `script1.sh` avec `nano`. Essayez de comprendre son fonctionnement, notamment l'utilisation des variables.
+
+- Sur la deuxième ligne, modifiez la variable `sample` avec votre numéro d'échantillon. Sauvegardez le script (`ctrl + o`) et quittez nano (`ctrl + x`).  
     Rappel : pas d'espace avant et après le symbole `=` !
 
 - Lancez le script avec la commande :
@@ -321,6 +322,6 @@ vous rappelle que les messages qui apparaissaient habituellement à l'écran ser
 
 Connectez-vous maintenant à votre compte sur Galaxy. Essayez de retrouver les versions des logiciels que vous utilisés (FastQC, Bowtie2, SAMtools, HTSeq).
 
-Pour ce faire, dans votre *History*, cliquez sur le nom d'un résultat d'analyse, puis cliquez sur le petit i entouré (:information_source:) et lisez les informations de la section *Job Dependencies*.
+Pour ce faire, dans votre *History*, cliquez sur le nom d'un résultat d'analyse, puis cliquez sur le petit i entouré (ℹ️) et lisez les informations de la section *Job Dependencies*.
 
 Comparez les versions des logiciels disponibles dans Galaxy et de ceux que vous avez utilisé sur votre machine.
