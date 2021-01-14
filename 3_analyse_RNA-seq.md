@@ -242,7 +242,9 @@ Testez le script `script1.sh` sur **un seul** de vos échantillons. Pour cela :
     $ bash script1.sh
     ```
 
-Vérifiez que le déroulement du script se passe bien. Vous avez le temps de prendre un café (20 ') ☕. Voir plusieurs ☕ 🍪 ☕ 🍪.
+Vérifiez que le déroulement du script se passe bien. Vous avez le temps de prendre un café (~ 20 ') ☕. Voir plusieurs ☕ 🍪 ☕ 🍪.
+
+Évaluer approximativement le temps nécessaire au script 1 pour s'exécuter. ⏱️ À partir de cette valeur, extrapoler le temps nécessaire qu'il faudrait pour analyser les 47 échantillons.
 
 
 ## 3.4 Automatisation de l'analyse : niveau 2
