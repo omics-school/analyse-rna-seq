@@ -2,7 +2,7 @@
 
 #SBATCH --mem=1G
 #SBATCH --cpus-per-task=8
-#SBATCH --array=0-46            # 47 samples in total
+#SBATCH --array=0-46            # 47 samples in total, from index 0 to 46 included
 
 # le script va s'arrêter
 # - à la première erreur
@@ -17,8 +17,6 @@ module load bowtie2/2.3.5
 module load samtools/1.9
 module load htseq/0.11.3
 
-# numéro de l'échantillons à analyser
-sample="10"
 # répertoire contenant les fichiers du génome de référence
 # (séquence et annotations)
 genome_dir="/shared/projects/uparis_duo_2020/data/genome"
