@@ -9,6 +9,7 @@
 set -euo pipefail
 
 
+# chargement des modules nécessaires
 module load fastqc/0.11.9
 module load bowtie2/2.3.5
 module load samtools/1.9

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --mem=1G
-#SBATCH --cpus-per-task=10
-#SBATCH --array=1-2
+#SBATCH --cpus-per-task=8
+#SBATCH --array=0-46            # 47 samples in total
 
 # le script va s'arrêter
 # - à la première erreur
@@ -11,6 +11,7 @@
 set -euo pipefail
 
 
+# chargement des modules nécessaires
 module load fastqc/0.11.9
 module load bowtie2/2.3.5
 module load samtools/1.9

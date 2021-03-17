@@ -5,19 +5,21 @@ license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 ---
 
 
-Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* avec le cluster *National Network of Computational Resources* (NNCR) de l'Institut Français de Bioinformatique (IFB). Ce cluster utilise un système d'exploitation Linux (Centos 7.5).
+Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* avec le cluster *National Network of Computational Resources* (NNCR) de l'Institut Français de Bioinformatique (IFB). Ce cluster utilise un système d'exploitation Linux.
 
 
 # Remarques préables
 
-L'accès au cluster de l'IFB vous est fourni dans le cadre du DU Omique. Cet accès sera révoqué à l'issue de la formation, fin janvier 2020. 
+L'accès au cluster de l'IFB vous est fourni dans le cadre du DU Omique. Cet accès sera révoqué à l'issue de la formation. 
 
-Si vous souhaitez continuer à utiliser ce cluster, faites-en la demande en remplissant le formulaire [IFB core cluster - account request](https://www.france-bioinformatique.fr/fr/ifb-core-cluster-account-request) et en précisant en quelques mots votre projet. Plusieurs utilisateurs peuvent être associées à un même projet et partager des données.
+Si vous souhaitez continuer à utiliser ce cluster pour votre projet, en vous connectant sur votre [interface](https://my.cluster.france-bioinformatique.fr/manager2/project) puis en cliquant sur le bouton *Request A New Project* et en précisant en quelques mots sur votre projet. Plusieurs utilisateurs peuvent être associées à un même projet et partager des données.
 
 Si vous avez besoin d'un logiciel spécifique sur le cluster. N'hésitez pas à le demander sur le site [Cluster Community Support](https://community.cluster.france-bioinformatique.fr/). Les administrateurs sont en général très réactifs.
 
 
-# Connexion 
+# Connexion au cluster
+
+Depuis votre station de travail, ouvrez un terminal Unix.
 
 Connectez-vous en SSH au cluster avec les identifiants (login et mot de passe) que vous avez du recevoir par e-mail.
 
@@ -33,7 +35,7 @@ Si c'est la première fois que vous vous connectez au cluster, répondez `yes` �
 Are you sure you want to continue connecting (yes/no)?
 ```
 
-Vous entrerez ensuite votre mot de passe en aveugle, c'est-à-dire qu'aucun caractère ne sera affiché à l'écran.
+Vous entrerez ensuite votre mot de passe en aveugle, c'est-à-dire qu'aucun caractère ne sera affiché à l'écran. C'est assez déstabilisant la première fois puis on s'habitue.
 
 
 # Découverte de l'environnement
@@ -47,21 +49,88 @@ Un cluster est un ensemble de machines. La machine à laquelle vous venez de vou
 
 ## Stockage des données
 
-Votre répertoire utilisateur sur le noeud de connexion (`/shared/home/login`) ne doit pas contenir vos données car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/du_o_2019/login`. Par la suite, cet espace sera appelé « répertoire de travail ».
+Votre répertoire utilisateur sur le noeud de connexion (`/shared/home/login`) ne doit pas contenir vos données car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/uparis_duo_2020/login`. Par la suite, cet espace sera appelé « répertoire de travail ».
 
-De plus, le répertoire `/shared/projects/du_o_2019/data` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers (pas de modification, d'ajout ou de suppression).
+De plus, le répertoire `/shared/projects/uparis_duo_2020data` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers (pas de modification, d'ajout ou de suppression).
 
 De quels fichiers aviez-vous besoin pour l'analyse des données RNA-seq de *O. tauri* ? 
 
-Vérifiez que tous les fichiers nécessaires sont bien présents dans `/shared/projects/du_o_2019/data`.
+Vérifiez que tous les fichiers nécessaires sont bien présents dans `/shared/projects/uparis_duo_2020/data`.
 
-Essayez de créer un fichier dans les répertoires :
+Vérifiez l'intégrité des fichiers `.fastq.gz` avec les commandes suivantes :
 
--  `/shared/projects/du_o_2019/data`
--  `/shared/projects/du_o_2019/login`
+```
+$ cd /shared/projects/uparis_duo_2020/data/reads
+```
+
+*Rappel : n'entrez pas le symbole $ en début de ligne*
+
+puis 
+
+```
+$ srun md5sum -c md5sum.txt
+```
+
+N'oubliez pas le `srun` en début de commande, sans quoi vous allez recevoir un appel faché de l'administrateur du cluster.
+
 
 
 ## Environnement logiciel 
+
+Par défaut, aucun logiciel de bioinformatique n'est présent. Pour vous en convaincre, essayez de lancer la commande :
+```
+$ bowtie2 --version
+```
+Vous devriez obtenir un message d'erreur du type :
+```
+-bash: bowtie2 : commande introuvable
+```
+
+Chaque logiciel doit donc être chargé individuellement avec l'outil `module`.
+
+Utilisez la commande suivante pour compter le nombre de logiciels disponibles avec `module` :
+```
+$ module avail -1 | wc -l
+```
+
+Chargez ensuite les logiciels `fastqc`, `bowtie2`, `samtools` et `htseq` avec les commandes suivantes :
+```
+$ module load fastqc/0.11.9
+$ module load bowtie2/2.3.5
+$ module load samtools/1.9
+$ module load htseq/0.11.3
+```
+
+érifiez que les logiciels sont bien installés en affichant leurs versions :
+
+```
+$ fastqc --version
+FastQC v0.11.9
+```
+
+```
+$ bowtie2 --version
+/home/duo/miniconda3/envs/rnaseq/bin/bowtie2-align-s version 2.3.5.1
+64-bit
+Built on
+Wed Apr 17 02:40:25 UTC 2019
+[...]
+```
+
+```
+$ samtools --version
+samtools 1.9
+Using htslib 1.9
+Copyright (C) 2018 Genome Research Ltd.
+```
+
+```
+$ htseq-count -h | tail -4
+Written by Simon Anders (sanders@fs.tum.de), European Molecular Biology
+Laboratory (EMBL) and Fabio Zanini (fabio.zanini@stanford.edu), Stanford
+University. (c) 2010-2019. Released under the terms of the GNU General Public
+License v3. Part of the 'HTSeq' framework, version 0.11.3.
+```
 
 L'environnement logiciel nécessaire pour l'analyse RNA-seq a été installé par les administrateurs du cluster.
 

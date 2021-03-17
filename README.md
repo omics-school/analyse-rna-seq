@@ -13,14 +13,20 @@ Tutoriel :
 3. [Analyse RNA-seq](3_analyse_RNA-seq.md)
 
 
-<!--
 ### Analyse de données RNA-seq avec Unix sur un cluster de calcul
 
 Nous utiliserons le cluster de calcul de l'[Institut Français de Bioinformatique](https://www.france-bioinformatique.fr/cluster-ifb-core/) (IFB).
 
-[Diapo](diapo_cluster) / [Tutoriel](cluster_IFB.md)
+Gestion de votre compte utilisateur sur le cluster de calcul de l'[Institut Français de Bioinformatique](https://www.france-bioinformatique.fr/cluster-ifb-core/) (IFB).
 
--->
+- Demande de [création de compte](https://my.cluster.france-bioinformatique.fr/manager2/register) avec rattachement au projet `uparis_duo_2020` (déjà fait)
+- Connexion à votre [espace utilisateur](https://my.cluster.france-bioinformatique.fr/manager2/) (web).
+- Si vous avez oublié votre mot de masse, ouvrez [cette page](https://my.cluster.france-bioinformatique.fr/manager2/), renseignez votre identifiant (*User id*) puis cliquez sur `RESET`. Un nouveau mot de passe vous sera envoyé par mail.
+
+
+[Tutoriel](cluster_IFB.md)
+
+
 
 ### Conda
 
