@@ -17,7 +17,7 @@ module load samtools/1.9
 module load htseq/0.11.3
 
 # numéro de l'échantillons à analyser
-sample="10"
+sample="37"
 # répertoire contenant les fichiers du génome de référence
 # (séquence et annotations)
 genome_dir="/shared/projects/uparis_duo_2020/data/genome"

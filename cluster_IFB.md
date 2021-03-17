@@ -49,9 +49,9 @@ Un cluster est un ensemble de machines. La machine à laquelle vous venez de vou
 
 ## Stockage des données
 
-Votre répertoire utilisateur sur le noeud de connexion (`/shared/home/login`) ne doit pas contenir vos données car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/uparis_duo_2020/login`. Par la suite, cet espace sera appelé « répertoire de travail ».
+Votre répertoire utilisateur sur le noeud de connexion (`/shared/home/login`) ne doit pas contenir vos données car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/uparis_duo_2020/login` (avec `login` votre identifiant sur le cluster). Par la suite, cet espace sera appelé « répertoire de travail ».
 
-De plus, le répertoire `/shared/projects/uparis_duo_2020data` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers (pas de modification, d'ajout ou de suppression).
+De plus, le répertoire `/shared/projects/uparis_duo_2020/data` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers de ce répertoire (pas de modification, d'ajout ou de suppression).
 
 De quels fichiers aviez-vous besoin pour l'analyse des données RNA-seq de *O. tauri* ? 
 
@@ -73,6 +73,10 @@ $ srun md5sum -c md5sum.txt
 
 N'oubliez pas le `srun` en début de commande, sans quoi vous allez recevoir un appel faché de l'administrateur du cluster.
 
+
+Déplacez-vous maintenant dans votre répertoire de travail `/shared/projects/uparis_duo_2020/login` (avec `login` votre identifiant sur le cluster).
+
+Créez le répertoire `rnaseq` et déplacez-vous à l'intérieur. Dorénavant vous ne travaillerez qu'à partir de ce répertoire.
 
 
 ## Environnement logiciel 
@@ -101,7 +105,7 @@ $ module load samtools/1.9
 $ module load htseq/0.11.3
 ```
 
-érifiez que les logiciels sont bien installés en affichant leurs versions :
+Vérifiez que les logiciels sont bien installés en affichant leurs versions :
 
 ```
 $ fastqc --version
@@ -132,186 +136,184 @@ University. (c) 2010-2019. Released under the terms of the GNU General Public
 License v3. Part of the 'HTSeq' framework, version 0.11.3.
 ```
 
-L'environnement logiciel nécessaire pour l'analyse RNA-seq a été installé par les administrateurs du cluster.
+## Analyse d'un échantillon
 
-Pour l'activer, lancer la commande :
+Depuis le cluster de l'IFB, dans le répertoire `rnaseq` de votre répertoire de travail, téléchargez le script `script4.sh` avec la commande :
 ```
-$ module load du_o/2019
-```
-
-Vérifiez que les outils `fastqc`, `bowtie2`, `samtools` et `htseq-count` sont disponibles. 
-
-Quelles sont les versions de ces programmes ? Si besoin, retournez voir le [Tutoriel de l'analyse RNA-seq](analyse_RNA-seq_O_tauri.md) pour retrouver les commandes à exécuter pour obtenir les versions de ces différents logiciels.
-
-Est-ce que ce sont les mêmes versions que sur le serveur du DU ?
-
-Remarque : la commande `module load du_o/2019` met à votre disposition un certain nombre d'outils. En réalité, cette commande charge de manière transparente pour vous un environnement conda. Pour vous en rendre compte, entrez par exemple la commande 
-```
-$ which fastqc
+$ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script4.sh
 ```
 
-
-## Préparation des données
-
-Dans votre répertoire de travail (`/shared/projects/du_o_2019/login`), créez le répertoire `RNAseq`.
-
-Copiez à l'intérieur de ce répertoire les fichiers dont vous aurez besoin pour travailler :
-
-- le génome de référence,
-- les annotations du génome,
-- les 2 ou 3 fichiers de reads.
-
-
-## Commandes manuelles
-
-Depuis le répertoire `RNAseq` de votre répertoire de travail, lancez un contrôle qualité d'un fichier de séquençage avec la commande :
+Lancez ensuite ce script avec la commande :
 ```
-$ srun fastqc nom-fichier-fastq.gz
-```
-où `nom-fichier-fastq.gz` est le fichier contenant l'échantillon que vous avez choisi d'analyser.
-
-La commande `srun` va lancer l'analyse du contrôle qualité (`fastqc nom-fichier-fastq.gz`) sur un des noeuds de calcul du cluster. `srun` est fournit pas SLURM.
-
-FastQC va produire deux fichiers (un fichier avec l'extension `.html` et un autre avec l'extension `.zip`). Copiez le fichier `.html` sur votre machine locale avec le logiciel FileZilla ou la commande `scp`. Visualisez ce fichier avec votre navigateur web.
-
-
-**Rappel** Pour récupérer votre fichier en ligne de commande, il faut lancer la commande `scp` depuis votre machine locale :
-```
-$ scp login@core.cluster.france-bioinformatique.fr:/shared/projects/du_o_2019/login/RNAseq/nom-fichier-fastqc.html .
+$ sbatch script4.sh
 ```
 
-où bien sûr `login` et `nom-fichier-fastqc.html` sont à adapter.
+Notez bien le numéro de job renvoyé.
 
-Si vous êtes sous Windows avec les PC du DU, vous voudriez sans doute faire quelque chose du type 
-```
-$ scp login@core.cluster.france-bioinformatique.fr:/shared/projects/du_o_2019/login/RNAseq/nom-fichier-fastqc.html /mnt/c/Users/omics/
-```
+Vérifiez que votre script est en train de tourner avec la commande :
 
-## Automatisation 1 
-
-Depuis le cluster de l'IFB, dans le répertoire `RNAseq` de votre répertoire de travail, téléchargez le script 3 avec la commande :
 ```
-$ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script3.sh
+$ squeue -u $USER
 ```
 
-Remarquez que c'est exactement le même script qui fonctionnait sur le serveur du DU.
-
-Pour que ce premier test soit assez rapide, ouvrez le script avec l'éditeur `nano` et modifiez la variable `samples` pour qu'elle ne contienne qu'un seul numéro d'échantillon.
-
-Puis lancez-le avec la commande (ou lisez le paragraphe suivant) :
-```
-$ srun bash script3.sh
-```
-
-Pour lancer votre analyse puis fermer votre session (et partir en week-end 😆), utilisez plutôt :
-```
-$ nohup srun bash script3.sh &
-```
-
-Dans les deux cas, la commande `srun` ne va s'exécuter que lorsque des ressources de calcul seront disponibles.
-
-Pour vérifier l'état de votre job, appelez la commande :
-```
-$ squeue -u login
-```
-
-Par exemple :
-```
-             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-            438536      fast     bash ppoulain  R       4:04      1 cpu-node-8
-```
-
-La colonne `ST` indique le statut de votre job. S'il est actif, son statut doit être `R` (pour *running*). La colonne `NODELIST(REASON)` indique sur quel noeud du cluster a été lancé votre job (ici `cpu-node-8`).
-
-**Remarque** Voici quelques statut de job intéressant :
+**Remarque** Voici quelques statuts (colonne `ST`) de job intéressant :
 
 - `CA` (*cancelled*) : le job a été annulé
 - `F` (*failled*) : le job a planté
 - `PD` (*pending*) : le job est en attente que des ressources soient disponibles
 - `R` (*running*) : le job est lancé
 
-Par défaut, la commande `srun` va lancer votre job sur un noeud avec un seul CPU.
 
-Si vous avez besoin d'annuler un de vos jobs, utilisez la commande 
+Et pour avoir plus de détails :
 ```
-$ scancel job-id
+$ sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j jobID
 ```
-
-où `job-id` est l'identifiant de votre job (colonne `JOBID` indiquée par la commande `squeue`).
-
-Supprimez un job que vous avez lancé.
+avec `jobID` le numéro de votre job.
 
 
-## Automatisation 2 (sbatch)
-
-Toujours depuis le cluster de l'IFB, dans le répertoire `RNAseq` de votre répertoire de travail, téléchargez le script 4 avec la commande :
+Annulez votre job avec la commande :
 ```
-$ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script4.sh
+$ scancel jobID
 ```
 
-Identifiez les différences avec le script précédent.
+où `jobID` est le numéro de votre job.
 
-Ouvrez ce fichier avec `nano` puis modifiez-le pour adapter l'adresse e-mail et vos numéros d'échantillons.
-
-Lancez ensuite votre analyse :
+Faites un peu de ménage en supprimant les fichiers créés avec la commande :
 ```
-$ sbatch script4.sh
+$ rm -f bowtie*bam HCA*html HCA*zip count*txt
 ```
 
-Un message équivalent à `Submitted batch job 440893` vous indique que votre job a correctement été lancé et vous indique son numéro d'identification `440893`.
+## Analyse d'un échantillon plus rapide
 
-Vérifiez que votre job est bien lancé avec 
-```
-$ squeue -u login
-```
+L'objectif est maintenant « d'aller plus vite » en attribuant plusieurs coeurs pour l'étape d'alignement des reads sur le génome avec `bowtie2`.
 
-Le fichier `slurm-440893.out` est également créé et contient les sorties du script. Pour le consultez en temps réél, tapez :
-```
-$ tail -f slurm-440893.out
-```
-
-Pour quitter, appuyez sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
-
-
-## Automatisation 3 (sbatch + multi-coeurs)
-
-Toujours depuis le cluster de l'IFB, dans le répertoire `RNAseq` de votre répertoire de travail, téléchargez le script 5 avec la commande :
+Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq` de votre répertoire de travail, téléchargez le script `script5.sh` avec la commande :
 ```
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script5.sh
 ```
 
-L'objectif est maintenant « d'aller plus vite » en attribuant plusieurs coeurs pour les étapes d'indexation du génome (`bowtie2-build`), d'alignement des reads (`bowtie2`) sur le génome et du traitement des résultats (`samtools`). Chaque programme a une option particulière pour la prise en compte de plusieurs coeurs. 
-
-On demande spécifiquement à SLURM d'attribuer 8 coeurs au job avec l'instruction :
-```
-#SBATCH --cpus-per-task=8
-```
-
-Ouvrez le fichier `script5.sh` avec `nano` puis modifiez l'adresse e-mail et vos numéros d'échantillons.
+Identifiez les différences avec le script précédent.
 
 Lancez ensuite votre analyse :
 ```
 $ sbatch script5.sh
 ```
 
-Affichez en temps réel le fichier qui contient la sortie du script. 
+Notez bien le numéro de job renvoyé.
 
-Le traitement de données est normalement beaucoup plus rapide car les outils `bowtie2-build`, `bowtie2` et `samtools` utilisent plusieurs coeurs simultanément.
+Vérifiez que votre job est bien lancé avec la commande :
+```
+$ squeue -u $USER
+```
 
-Remarque : pour 3 échantillons à traiter, le script 4 prendre environ 52 minutes alors que le script 5 seulement 25.
+Le fichier `slurm-jobID.out` est également créé et contient les sorties du script. Pour le consultez en temps réél, tapez :
+```
+$ tail -f slurm-jobID.out
+```
 
+avec `jobID` le numéro de votre job.
+
+Pour quitter, appuyez sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
+
+
+Suivez en temps réel l'exécution de votre job avec la commande :
+```
+$ watch sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j jobID
+```
+avec `jobID` le numéro de votre job.
+
+Remarques : 
+
+- La commande `watch` est utilisée ici pour « surveiller » le résultat de la commande `sacct`.
+- L'affichage est rafraichi toutes les 2 secondes.
+
+Votre job devrait prendre une petite dizaine de minutes pour se terminer. Laissez le cluster travailler et profitez-en pour vous faire un thé ou un café.
+
+Quand les status (colonne `State`) du job et de tous les job steps sont à `COMPLETED`, stoppez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
+
+Vérifiez que les fichiers suivants ont bien été créés dans votre répertoire :
+
+- `HCA-37_R1_fastqc.html`
+- `HCA-37_R1_fastqc.zip`
+- `bowtie-37.sorted.bam`
+- `count-37.txt`
+- `slurm-jobID.out` (avec `jobID` le numéro de votre job)
+
+Vérifiez que la somme de contrôle du fichier `count-37.txt` est bien `cbc9ff7ed002813e16093332c7abfed4`.
+
+## Analyse de plusieurs échantillons
+
+Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq` de votre répertoire de travail, téléchargez le script `script6.sh` avec la commande :
+```
+$ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script6.sh
+```
+
+Nous pourrions analyser d'un seul coup les 47 échantillons (fichiers `.fastq.gz`) mais pour ne pas consommer de trop de ressources sur le cluster, nous allons limiter notre analyse à 4 échantillons.
+
+Lancez votre analyse avec la commande :
+```
+$ sbatch script6.sh
+```
+
+Notez bien le numéro de job renvoyé.
+
+Vous pouvez suivre en temps réel l'exécution de votre job avec la commande :
+```
+$ watch sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j jobID
+```
+avec `jobID` le numéro de votre job.
+
+Patientez une dizaine de minutes que tous les jobs et job steps soient terminées. 
+
+Quand les status (colonne `State`) du job et de tous les job steps sont à `COMPLETED`, stoppez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
 ## L'heure de faire les comptes
 
-Expérimentez les commandes `sacct` et `sreport` pour avoir une idée du déroulement de vos jobs et du temps de calcul consommé :
+Expérimentez la commande `sreport` pour avoir une idée du temps de calcul consommé par tous vos jobs :
 
 ```
-$ sacct --format=User,JobID,Jobname,partition,state,start,elapsed,nnodes,ncpus,nodelist
+$ sreport Cluster UserUtilizationByAccount Start=2020-01-01 Users=$USER
 ```
 
-et
 
+## Récupération des données
+
+### scp
+
+⚠️ Pour récupérer des fichiers sur le cluster en ligne de commande, vous devez lancer la commande `scp` depuis un shell Unix sur votre machine locale. ⚠️
+
+Depuis un shell Unix sur votre machine locale, déplacez-vous dans le répertoire `/mnt/c/Users/omics` et créez le répertoire `rnaseq_cluster`. 
+
+Déplacez-vous dans ce nouveau répertoire.
+
+Utilisez la commande `pwd` pour vérifier que vous êtes bien dans le répertoire `/mnt/c/Users/omics/rnaseq_cluster`. 
+
+Lancez ensuite la commande suivante pour récupérer les fichiers de comptage :
 ```
-$ sreport Cluster UserUtilizationByAccount Start=2019-01-01 Users=login
+$ scp login@core.cluster.france-bioinformatique.fr:/shared/projects/uparis_duo_2020/login/rnaseq/count*.txt .
 ```
+
+où `login` est votre identifiant sur le cluster. Faites bien attention à garder le `.` tout à la fin de la commande.
+
+
+Vérifiez que la somme de contrôle MD5 du fichier `count-37.txt` est bien le même que précédemment.
+
+
+### Filezilla
+
+Lancez le logiciel FileZilla ([comme ceci](img/filezilla.png)).
+
+Puis entrez les informations suivantes :
+
+- Hôte : `sftp://clore.cluster.france-bioinformatique.fr`
+- Identifiant : votre login sur le cluster
+- Mot de passe : votre mot de passe sur le cluster
+
+Cliquez ensuite sur le bouton *Connexion rapide*. Cliquez sur *OK* dans la fenêtre *Clé de l'hôte inconnue*
+
+Une fois connecté, dans le champs texte à coté de *Site distant* (à droite de la fenêtre), entrez le chemin `/shared/projects/uparis_duo_2021/` voire directement votre répertoire de travail `/shared/projects/uparis_duo_2021/login` (avec `login` votre identifiant sur le cluster).
+
+Essayez de transférer des fichiers dans un sens puis dans l'autre. Double-cliquez sur les fichiers pour lancer les transferts.
+
+
 
