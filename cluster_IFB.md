@@ -12,7 +12,7 @@ Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* ave
 
 L'accès au cluster de l'IFB vous est fourni dans le cadre du DU Omiques. Cet accès sera révoqué à l'issue de la formation. 
 
-Si vous souhaitez continuer à utiliser ce cluster pour votre projet, en vous connectant sur votre [interface](https://my.cluster.france-bioinformatique.fr/manager2/project) puis en cliquant sur le bouton *Request A New Project* et en précisant en quelques mots votre projet. Plusieurs utilisateurs peuvent être associées à un même projet et partager des données.
+Si vous souhaitez continuer à utiliser ce cluster pour votre projet, connectez-vous sur votre [interface](https://my.cluster.france-bioinformatique.fr/manager2/project) puis cliquez sur le bouton *Request A New Project* et précisez en quelques mots votre projet. Plusieurs utilisateurs peuvent être associées à un même projet et partager des données.
 
 Si vous avez besoin d'un logiciel spécifique sur le cluster. N'hésitez pas à le demander sur le site [Cluster Community Support](https://community.cluster.france-bioinformatique.fr/). Les administrateurs sont en général très réactifs.
 
