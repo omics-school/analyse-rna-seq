@@ -1,6 +1,8 @@
 #!/bin/bash
 
 #SBATCH --mem=1G
+#SBATCH --cpus-per-task=10
+#SBATCH --array=1-2
 
 # le script va s'arrêter
 # - à la première erreur
@@ -23,17 +25,20 @@ genome_dir="/shared/projects/uparis_duo_2020/data/genome"
 annotations="${genome_dir}/GCF_000214015.3_version_140606_genomic_DUO2.gff"
 # répertoire contenant les fichiers .fastq.gz
 fastq_dir="/shared/projects/uparis_duo_2020/data/reads"
-
+# listes de tous les fichiers .fastq.gz
+fastq_files=(${fastq_dir}/*fastq.gz)
+# extraction du numéro de l'échantillon
+sample=$(basename -s _R1.fastq.gz "${fastq_files[$SLURM_ARRAY_TASK_ID]}" | cut -d "-" -f 2)
 
 echo "=============================================================="
 echo "Contrôle qualité - échantillon ${sample}"
 echo "=============================================================="
-srun fastqc "${fastq_dir}/HCA-${sample}_R1.fastq.gz"  -o .
+srun fastqc "${fastq_dir}/HCA-${sample}_R1.fastq.gz" -o .
 
 echo "=============================================================="
 echo "Alignement des reads sur le génome de référence - échantillon ${sample}"
 echo "=============================================================="
-srun bowtie2 -x "${genome_dir}/O_tauri" -U "${fastq_dir}/HCA-${sample}_R1.fastq.gz" -S "bowtie-${sample}.sam"
+srun bowtie2 --threads="${SLURM_CPUS_PER_TASK}" -x "${genome_dir}/O_tauri" -U "${fastq_dir}/HCA-${sample}_R1.fastq.gz" -S "bowtie-${sample}.sam"
 
 echo "=============================================================="
 echo "Conversion en binaire, tri et indexation des reads alignés - échantillon ${sample}"

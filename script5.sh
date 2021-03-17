@@ -1,10 +1,7 @@
 #!/bin/bash
 
-#SBATCH -n 1
-#SBATCH --cpus-per-task=8
-#SBATCH --partition=fast
-#SBATCH --mail-user=your-email@mail.com
-#SBATCH --mail-type=ALL
+#SBATCH --mem=1G
+#SBATCH --cpus-per-task=10
 
 # le script va s'arrêter
 # - à la première erreur
@@ -12,50 +9,46 @@
 # - si une erreur est recontrée dans un pipe
 set -euo pipefail
 
-# numéro des échantillons à analyser
-# les numéros sont entre guillemets et séparés par un espace
-# faites en sorte que ces numéros correspondant à VOS échantillons
-samples="10 41 7"
-# nom du fichier contenant le génome de référence
-genome=GCF_000214015.3_version_140606_genomic.fna
+
+module load fastqc/0.11.9
+module load bowtie2/2.3.5
+module load samtools/1.9
+module load htseq/0.11.3
+
+# numéro de l'échantillons à analyser
+sample="10"
+# répertoire contenant les fichiers du génome de référence
+# (séquence et annotations)
+genome_dir="/shared/projects/uparis_duo_2020/data/genome"
 # nom du fichier contenant les annotations
-annotations=GCF_000214015.3_version_140606_genomic_DUO2.gff
+annotations="${genome_dir}/GCF_000214015.3_version_140606_genomic_DUO2.gff"
+# répertoire contenant les fichiers .fastq.gz
+fastq_dir="/shared/projects/uparis_duo_2020/data/reads"
 
-for sample in ${samples}
-do
-    echo "=============================================================="
-    echo "Contrôle qualité - échantillon ${sample}"
-    echo "=============================================================="
-    srun fastqc HCA-${sample}_R1.fastq.gz
 
-    echo "=============================================================="
-    echo "Indexation du génome de référence"
-    echo "=============================================================="
-    srun bowtie2-build --threads $SLURM_CPUS_PER_TASK ${genome} O_tauri
+echo "=============================================================="
+echo "Contrôle qualité - échantillon ${sample}"
+echo "=============================================================="
+srun fastqc "${fastq_dir}/HCA-${sample}_R1.fastq.gz"  -o .
 
-    echo "=============================================================="
-    echo "Alignement des reads sur le génome de référence - échantillon ${sample}"
-    echo "=============================================================="
-    srun bowtie2 --threads $SLURM_CPUS_PER_TASK -x O_tauri -U HCA-${sample}_R1.fastq.gz -S bowtie-${sample}.sam 2> bowtie-${sample}.out
+echo "=============================================================="
+echo "Alignement des reads sur le génome de référence - échantillon ${sample}"
+echo "=============================================================="
+srun bowtie2 --threads="${SLURM_CPUS_PER_TASK}" -x "${genome_dir}/O_tauri" -U "${fastq_dir}/HCA-${sample}_R1.fastq.gz" -S "bowtie-${sample}.sam"
 
-    echo "=============================================================="
-    echo "Conversion en binaire, tri et indexation des reads alignés - échantillon ${sample}"
-    echo "=============================================================="
-    srun samtools view -@ $SLURM_CPUS_PER_TASK -b bowtie-${sample}.sam > bowtie-${sample}.bam
-    srun samtools sort -@ $SLURM_CPUS_PER_TASK bowtie-${sample}.bam -o bowtie-${sample}.sorted.bam
-    srun samtools index -@ $SLURM_CPUS_PER_TASK bowtie-${sample}.sorted.bam
+echo "=============================================================="
+echo "Conversion en binaire, tri et indexation des reads alignés - échantillon ${sample}"
+echo "=============================================================="
+srun samtools view -b "bowtie-${sample}.sam" -o "bowtie-${sample}.bam"
+srun samtools sort "bowtie-${sample}.bam" -o "bowtie-${sample}.sorted.bam"
+srun samtools index "bowtie-${sample}.sorted.bam"
 
-    echo "=============================================================="
-    echo "Comptage - échantillon ${sample}"
-    echo "=============================================================="
-    srun htseq-count --stranded=no --type='gene' --idattr='ID' --order=name --format=bam bowtie-${sample}.sorted.bam ${annotations} > count-${sample}.txt
+echo "=============================================================="
+echo "Comptage - échantillon ${sample}"
+echo "=============================================================="
+srun htseq-count --stranded=no --type='gene' --idattr='ID' --order=name --format=bam "bowtie-${sample}.sorted.bam" "${annotations}" > count-${sample}.txt
 
-    echo "=============================================================="
-    echo "Nettoyage des fichiers inutiles - échantillon ${sample}"
-    echo "=============================================================="
-    srun rm -f bowtie-${sample}.sam bowtie-${sample}.bam
-done
-
-# attente de la fin de toutes les étapes intermédiaires (lancée avec srun)
-# avant de cloturer le job
-wait
+echo "=============================================================="
+echo "Nettoyage des fichiers inutiles - échantillon ${sample}"
+echo "=============================================================="
+rm -f "bowtie-${sample}.sam" "bowtie-${sample}.bam" "bowtie-${sample}.sorted.bam.bai"
