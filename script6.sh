@@ -2,7 +2,7 @@
 
 #SBATCH --mem=1G
 #SBATCH --cpus-per-task=8
-#SBATCH --array=0-46            # 47 samples in total, from index 0 to 46 included
+#SBATCH --array=0-3            # limit to 4 samples. Use --array=0-46 for all 47 samples.
 
 # le script va s'arrêter
 # - à la première erreur
