@@ -8,18 +8,18 @@ license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* avec le cluster *National Network of Computational Resources* (NNCR) de l'Institut Français de Bioinformatique (IFB). Ce cluster utilise un système d'exploitation Linux.
 
 
-# Remarques préables
+## Remarques préables
 
-L'accès au cluster de l'IFB vous est fourni dans le cadre du DU Omique. Cet accès sera révoqué à l'issue de la formation. 
+L'accès au cluster de l'IFB vous est fourni dans le cadre du DU Omiques. Cet accès sera révoqué à l'issue de la formation. 
 
-Si vous souhaitez continuer à utiliser ce cluster pour votre projet, en vous connectant sur votre [interface](https://my.cluster.france-bioinformatique.fr/manager2/project) puis en cliquant sur le bouton *Request A New Project* et en précisant en quelques mots sur votre projet. Plusieurs utilisateurs peuvent être associées à un même projet et partager des données.
+Si vous souhaitez continuer à utiliser ce cluster pour votre projet, en vous connectant sur votre [interface](https://my.cluster.france-bioinformatique.fr/manager2/project) puis en cliquant sur le bouton *Request A New Project* et en précisant en quelques mots votre projet. Plusieurs utilisateurs peuvent être associées à un même projet et partager des données.
 
 Si vous avez besoin d'un logiciel spécifique sur le cluster. N'hésitez pas à le demander sur le site [Cluster Community Support](https://community.cluster.france-bioinformatique.fr/). Les administrateurs sont en général très réactifs.
 
 
-# Connexion au cluster
+## 0. Connexion au cluster
 
-Depuis votre station de travail, ouvrez un terminal Unix.
+Depuis votre station de travail, ouvrez un shell Unix.
 
 Connectez-vous en SSH au cluster avec les identifiants (login et mot de passe) que vous avez du recevoir par e-mail.
 
@@ -37,17 +37,12 @@ Are you sure you want to continue connecting (yes/no)?
 
 Vous entrerez ensuite votre mot de passe en aveugle, c'est-à-dire qu'aucun caractère ne sera affiché à l'écran. C'est assez déstabilisant la première fois puis on s'habitue.
 
-
-# Découverte de l'environnement
-
-## Noeud de connexion
-
 Un cluster est un ensemble de machines. La machine à laquelle vous venez de vous connecter est le noeud de connexion. C'est aussi depuis cette machine que vous lancerez vos analyses. 
 
-**Remarque :** Vous lancerez vos calculs **depuis** le noeud de connexion mais pas **sur** la noeud de connexion. Il est interdit de lancer une analyse sur le noeud de connexion sous peine de voir votre compte suspendu.
+**Remarque :** Vous lancerez vos calculs **depuis** le noeud de connexion mais pas **sur** le noeud de connexion. Il est interdit de lancer une analyse sur le noeud de connexion sous peine de voir votre compte suspendu.
 
 
-## Stockage des données
+## 1. Stockage des données
 
 Votre répertoire utilisateur sur le noeud de connexion (`/shared/home/login`) ne doit pas contenir vos données car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/uparis_duo_2020/login` (avec `login` votre identifiant sur le cluster). Par la suite, cet espace sera appelé « répertoire de travail ».
 
@@ -57,7 +52,7 @@ De quels fichiers aviez-vous besoin pour l'analyse des données RNA-seq de *O. t
 
 Vérifiez que tous les fichiers nécessaires sont bien présents dans `/shared/projects/uparis_duo_2020/data`.
 
-Vérifiez l'intégrité des fichiers `.fastq.gz` avec les commandes suivantes :
+Vérifiez l'intégrité des fichiers `.fastq.gz` situés dans le répertoire `/shared/projects/uparis_duo_2020/data/reads` avec les commandes suivantes :
 
 ```
 $ cd /shared/projects/uparis_duo_2020/data/reads
@@ -71,7 +66,7 @@ puis
 $ srun md5sum -c md5sum.txt
 ```
 
-N'oubliez pas le `srun` en début de commande, sans quoi vous allez recevoir un appel faché de l'administrateur du cluster.
+N'oubliez pas le `srun` en début de commande, sans quoi vous allez recevoir un appel énervé de l'administrateur du cluster.
 
 
 Déplacez-vous maintenant dans votre répertoire de travail `/shared/projects/uparis_duo_2020/login` (avec `login` votre identifiant sur le cluster).
@@ -79,7 +74,7 @@ Déplacez-vous maintenant dans votre répertoire de travail `/shared/projects/up
 Créez le répertoire `rnaseq` et déplacez-vous à l'intérieur. Dorénavant vous ne travaillerez qu'à partir de ce répertoire.
 
 
-## Environnement logiciel 
+## 2. Environnement logiciel 
 
 Par défaut, aucun logiciel de bioinformatique n'est présent. Pour vous en convaincre, essayez de lancer la commande :
 ```
@@ -136,7 +131,7 @@ University. (c) 2010-2019. Released under the terms of the GNU General Public
 License v3. Part of the 'HTSeq' framework, version 0.11.3.
 ```
 
-## Analyse d'un échantillon
+## 3.1 Analyse d'un échantillon
 
 Depuis le cluster de l'IFB, dans le répertoire `rnaseq` de votre répertoire de travail, téléchargez le script `script4.sh` avec la commande :
 ```
@@ -183,7 +178,7 @@ Faites un peu de ménage en supprimant les fichiers créés avec la commande :
 $ rm -f bowtie*bam HCA*html HCA*zip count*txt
 ```
 
-## Analyse d'un échantillon plus rapide
+## 3.2 Analyse d'un échantillon plus rapide
 
 L'objectif est maintenant « d'aller plus vite » en attribuant plusieurs coeurs pour l'étape d'alignement des reads sur le génome avec `bowtie2`.
 
@@ -241,7 +236,7 @@ Vérifiez que les fichiers suivants ont bien été créés dans votre répertoir
 
 Vérifiez que la somme de contrôle du fichier `count-37.txt` est bien `cbc9ff7ed002813e16093332c7abfed4`.
 
-## Analyse de plusieurs échantillons
+## 3.3 Analyse de plusieurs échantillons
 
 Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq` de votre répertoire de travail, téléchargez le script `script6.sh` avec la commande :
 ```
@@ -267,7 +262,7 @@ Patientez une dizaine de minutes que tous les jobs et job steps soient terminée
 
 Quand les status (colonne `State`) du job et de tous les job steps sont à `COMPLETED`, stoppez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
-## L'heure de faire les comptes
+## 4. L'heure de faire les comptes
 
 Expérimentez la commande `sreport` pour avoir une idée du temps de calcul consommé par tous vos jobs :
 
@@ -276,9 +271,9 @@ $ sreport Cluster UserUtilizationByAccount Start=2020-01-01 Users=$USER
 ```
 
 
-## Récupération des données
+## 5. Récupération des données
 
-### scp
+### 5.1 scp
 
 ⚠️ Pour récupérer des fichiers sur le cluster en ligne de commande, vous devez lancer la commande `scp` depuis un shell Unix sur votre machine locale. ⚠️
 
@@ -299,7 +294,7 @@ où `login` est votre identifiant sur le cluster. Faites bien attention à garde
 Vérifiez que la somme de contrôle MD5 du fichier `count-37.txt` est bien le même que précédemment.
 
 
-### Filezilla
+### 5.2 Filezilla
 
 Lancez le logiciel FileZilla ([comme ceci](img/filezilla.png)).
 
