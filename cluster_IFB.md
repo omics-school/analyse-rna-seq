@@ -56,7 +56,7 @@ Un cluster est un ensemble de machines. La machine à laquelle vous venez de vou
 
 ## 1. Stockage des données
 
-Votre répertoire utilisateur sur le noeud de connexion (`/shared/home/login`) ne doit pas contenir vos données car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/uparis_duo_2020/login` (avec `login` votre identifiant sur le cluster). Par la suite, cet espace sera appelé « répertoire de travail ».
+Votre répertoire utilisateur sur le noeud de connexion (`/shared/home/login`) ne doit pas contenir de donnée car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/uparis_duo_2020/login` (avec `login` votre identifiant sur le cluster). Par la suite, cet espace sera appelé « répertoire de travail ».
 
 De plus, le répertoire `/shared/projects/uparis_duo_2020/data` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers de ce répertoire (pas de modification, d'ajout ou de suppression).
 
@@ -286,6 +286,8 @@ Expérimentez la commande `sreport` pour avoir une idée du temps de calcul cons
 $ sreport Cluster UserUtilizationByAccount Start=2020-01-01 Users=$USER
 ```
 
+La colonne `Used` indique le nombre de minutes de temps CPU consommées. Ce chiffre est utile pour estimer le « coût CPU » d'un projet.
+ 
 
 ## 5. Récupération des données
 
