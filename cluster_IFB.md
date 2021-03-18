@@ -60,7 +60,7 @@ Votre répertoire utilisateur sur le noeud de connexion (`/shared/home/login`) n
 
 De plus, le répertoire `/shared/projects/uparis_duo_2020/data` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers de ce répertoire (pas de modification, d'ajout ou de suppression).
 
-De quels fichiers aviez-vous besoin pour l'analyse des données RNA-seq de *O. tauri* ? 
+De quels fichiers avez-vous besoin pour l'analyse des données RNA-seq de *O. tauri* ? 
 
 Vérifiez que tous les fichiers nécessaires sont bien présents dans `/shared/projects/uparis_duo_2020/data`.
 
