@@ -31,7 +31,7 @@ $ cd /mnt/c/Users/omics
 
 - Ne tapez pas le `$` en début de ligne et faites attention aux majuscules et aux minuscules (surtout pour `Users`) !
 - Utilisez le copier / coller.
-- Utiliser la complétion des noms de fichier et de répertoires avec la touche <kbd>Tab</kbd>.
+- Utilisez la complétion des noms de fichier et de répertoires avec la touche <kbd>Tab</kbd>.
 
 Connectez-vous en SSH au cluster avec les identifiants (login et mot de passe) que vous avez du recevoir par e-mail.
 
@@ -40,14 +40,14 @@ La syntaxe est de la forme :
 ssh login@core.cluster.france-bioinformatique.fr
 ```
 
-avec `login` votre identifiant. 
+avec `login` votre identifiant sur le cluster. 
 
 Si c'est la première fois que vous vous connectez au cluster, répondez `yes` à la question 
 ```
 Are you sure you want to continue connecting (yes/no)?
 ```
 
-Vous entrerez ensuite votre mot de passe en aveugle, c'est-à-dire qu'aucun caractère ne sera affiché à l'écran. C'est assez déstabilisant la première fois puis on s'habitue.
+Entrez ensuite votre mot de passe en aveugle, c'est-à-dire sans qu'aucun caractère ne soit affiché à l'écran. C'est assez déstabilisant la première fois puis on s'habitue.
 
 Un cluster est un ensemble de machines. La machine à laquelle vous venez de vous connecter est le noeud de connexion. C'est aussi depuis cette machine que vous lancerez vos analyses. 
 
@@ -78,7 +78,7 @@ puis
 $ srun md5sum -c md5sum.txt
 ```
 
-N'oubliez pas le `srun` en début de commande, sans quoi vous allez recevoir un appel énervé de l'administrateur du cluster.
+N'oubliez pas le `srun` en début de commande !
 
 
 Déplacez-vous maintenant dans votre répertoire de travail `/shared/projects/uparis_duo_2020/login` (avec `login` votre identifiant sur le cluster).
@@ -101,7 +101,7 @@ Chaque logiciel doit donc être chargé individuellement avec l'outil `module`.
 
 Utilisez la commande suivante pour compter le nombre de logiciels disponibles avec `module` :
 ```
-$ module avail -1 | wc -l
+$ module avail -l | wc -l
 ```
 
 Chargez ensuite les logiciels `fastqc`, `bowtie2`, `samtools` et `htseq` avec les commandes suivantes :
@@ -112,7 +112,7 @@ $ module load samtools/1.9
 $ module load htseq/0.11.3
 ```
 
-Vérifiez que les logiciels sont bien installés en affichant leurs versions :
+Vérifiez que les logiciels sont bien disponibles en affichant leurs versions :
 
 ```
 $ fastqc --version
@@ -136,7 +136,7 @@ Copyright (C) 2018 Genome Research Ltd.
 ```
 
 ```
-$ htseq-count -h | tail -4
+$ htseq-count -h | tail -n 4
 Written by Simon Anders (sanders@fs.tum.de), European Molecular Biology
 Laboratory (EMBL) and Fabio Zanini (fabio.zanini@stanford.edu), Stanford
 University. (c) 2010-2019. Released under the terms of the GNU General Public
@@ -171,26 +171,26 @@ $ squeue -u $USER
 - `R` (*running*) : le job est lancé
 
 
-Et pour avoir plus de détails :
+Et pour avoir plus de détails, utilisez la commande :
 ```
 $ sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j jobID
 ```
 avec `jobID` le numéro de votre job.
 
 
-Annulez votre job avec la commande :
+Nous allons maintenant améliorer le script d'analyse, annulez votre job avec la commande :
 ```
 $ scancel jobID
 ```
 
 où `jobID` est le numéro de votre job.
 
-Faites un peu de ménage en supprimant les fichiers créés avec la commande :
+Faites aussi un peu de ménage en supprimant les fichiers créés précédemment avec la commande :
 ```
 $ rm -f bowtie*bam HCA*html HCA*zip count*txt
 ```
 
-## 3.2 Analyse d'un échantillon plus rapide
+## 3.2 Analyse plus rapide d'un échantillon
 
 L'objectif est maintenant « d'aller plus vite » en attribuant plusieurs coeurs pour l'étape d'alignement des reads sur le génome avec `bowtie2`.
 
@@ -199,7 +199,10 @@ Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq` de votre répe
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script5.sh
 ```
 
-Identifiez les différences avec le script précédent.
+Identifiez les différences avec le script précédent, par exemple avec la commande `diff` : 
+```
+$ diff script4.sh script5.sh
+```
 
 Lancez ensuite votre analyse :
 ```
@@ -223,7 +226,7 @@ avec `jobID` le numéro de votre job.
 Pour quitter, appuyez sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
 
-Suivez en temps réel l'exécution de votre job avec la commande :
+Suivez également en temps réel l'exécution de votre job avec la commande :
 ```
 $ watch sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j jobID
 ```
@@ -255,7 +258,7 @@ Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq` de votre répe
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script6.sh
 ```
 
-Nous pourrions analyser d'un seul coup les 47 échantillons (fichiers `.fastq.gz`) mais pour ne pas consommer de trop de ressources sur le cluster, nous allons limiter notre analyse à 4 échantillons.
+Nous pourrions analyser d'un seul coup les 47 échantillons (fichiers `.fastq.gz`) mais pour ne pas consommer trop de ressources sur le cluster, nous allons limiter notre analyse à 4 échantillons.
 
 Lancez votre analyse avec la commande :
 ```
@@ -273,6 +276,7 @@ avec `jobID` le numéro de votre job.
 Patientez une dizaine de minutes que tous les jobs et job steps soient terminées. 
 
 Quand les status (colonne `State`) du job et de tous les job steps sont à `COMPLETED`, stoppez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
+
 
 ## 4. L'heure de faire les comptes
 
@@ -303,14 +307,12 @@ $ scp login@core.cluster.france-bioinformatique.fr:/shared/projects/uparis_duo_2
 où `login` est votre identifiant sur le cluster. Faites bien attention à garder le `.` tout à la fin de la commande.
 
 
-Vérifiez que la somme de contrôle MD5 du fichier `count-37.txt` est bien le même que précédemment.
+Vérifiez que la somme de contrôle MD5 du fichier `count-37.txt` est bien la même que précédemment.
 
 
 ### 5.2 Filezilla
 
-Lancez le logiciel FileZilla ([comme ceci](img/filezilla.png)).
-
-Puis entrez les informations suivantes :
+Lancez le logiciel FileZilla ([comme ceci](img/filezilla.png)). Puis entrez les informations suivantes :
 
 - Hôte : `sftp://clore.cluster.france-bioinformatique.fr`
 - Identifiant : votre login sur le cluster

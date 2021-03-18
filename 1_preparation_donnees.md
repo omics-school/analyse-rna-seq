@@ -22,7 +22,7 @@ $ cd /mnt/c/Users/omics
 
 - Ne tapez pas le `$` en début de ligne et faites attention aux majuscules et aux minuscules (surtout pour `Users`) !
 - Utilisez le copier / coller.
-- Utiliser la complétation des noms de fichier et de répertoires avec la touche <kbd>Tab</kbd>.
+- Utilisez la complétion des noms de fichier et de répertoires avec la touche <kbd>Tab</kbd>.
 
 Téléchargez le jeu de données de réduit qui se trouve sur [Zenodo](https://zenodo.org/record/4437683) avec la commande `wget` :
 
