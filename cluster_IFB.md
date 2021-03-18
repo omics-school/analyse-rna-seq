@@ -49,6 +49,9 @@ Are you sure you want to continue connecting (yes/no)?
 
 Entrez ensuite votre mot de passe en aveugle, c'est-à-dire sans qu'aucun caractère ne soit affiché à l'écran. C'est assez déstabilisant la première fois puis on s'habitue.
 
+🔔 Attention 🔔 Le serveur est protégé contre certaines attaques. Si vous entrez un mot de passe erronné plusieurs fois de suite, votre IP va être bannie et vous ne pourrez plus vous connecter (temporairement) au serveur.
+
+
 Pour vous déconnecter du cluster et revenir à votre terminal local, pressez la combinaison de touches <kbd>Ctrl</kbd>+<kbd>D</kbd>.
 
 Un cluster est un ensemble de machines. La machine à laquelle vous venez de vous connecter est le noeud de connexion. C'est aussi depuis cette machine que vous lancerez vos analyses. 
