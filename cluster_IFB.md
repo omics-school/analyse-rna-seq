@@ -49,12 +49,16 @@ Are you sure you want to continue connecting (yes/no)?
 
 Entrez ensuite votre mot de passe en aveugle, c'est-à-dire sans qu'aucun caractère ne soit affiché à l'écran. C'est assez déstabilisant la première fois puis on s'habitue.
 
+Pour vous déconnecter du cluster et revenir à votre terminal local, pressez la combinaison de touches <kbd>Ctrl</kbd>+<kbd>D</kbd>.
+
 Un cluster est un ensemble de machines. La machine à laquelle vous venez de vous connecter est le noeud de connexion. C'est aussi depuis cette machine que vous lancerez vos analyses. 
 
 **Remarque :** Vous lancerez vos calculs **depuis** le noeud de connexion mais pas **sur** le noeud de connexion. Il est interdit de lancer une analyse sur le noeud de connexion sous peine de voir votre compte suspendu.
 
 
 ## 1. Stockage des données
+
+Si vous vous êtes déconnectés du cluster, reconnectez-vous avec la commande `ssh` précédente.
 
 Votre répertoire utilisateur sur le noeud de connexion (`/shared/home/login`) ne doit pas contenir de donnée car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/uparis_duo_2020/login` (avec `login` votre identifiant sur le cluster). Par la suite, cet espace sera appelé « répertoire de travail ».
 
@@ -287,7 +291,7 @@ $ sreport Cluster UserUtilizationByAccount Start=2020-01-01 Users=$USER
 ```
 
 La colonne `Used` indique le nombre de minutes de temps CPU consommées. Ce chiffre est utile pour estimer le « coût CPU » d'un projet.
- 
+
 
 ## 5. Récupération des données
 
