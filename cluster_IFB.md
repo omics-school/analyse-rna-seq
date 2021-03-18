@@ -23,7 +23,7 @@ Sous Windows, ouvrez un terminal Ubuntu. Si vous avez oublié comment faire, con
 
 Déplacez vous ensuite dans le répertoire `/mnt/c/Users/omics` :
 
-```
+```bash
 $ cd /mnt/c/Users/omics
 ```
 
@@ -36,8 +36,8 @@ $ cd /mnt/c/Users/omics
 Connectez-vous en SSH au cluster avec les identifiants (login et mot de passe) que vous avez du recevoir par e-mail.
 
 La syntaxe est de la forme :
-```
-ssh login@core.cluster.france-bioinformatique.fr
+```bash
+$ ssh login@core.cluster.france-bioinformatique.fr
 ```
 
 avec `login` votre identifiant sur le cluster. 
@@ -73,7 +73,7 @@ Vérifiez que tous les fichiers nécessaires sont bien présents dans `/shared/p
 
 Vérifiez l'intégrité des fichiers `.fastq.gz` situés dans le répertoire `/shared/projects/uparis_duo_2020/data/reads` avec les commandes suivantes :
 
-```
+```bahs
 $ cd /shared/projects/uparis_duo_2020/data/reads
 ```
 
@@ -81,7 +81,7 @@ $ cd /shared/projects/uparis_duo_2020/data/reads
 
 puis 
 
-```
+```bash
 $ srun md5sum -c md5sum.txt
 ```
 
@@ -96,23 +96,20 @@ Créez le répertoire `rnaseq` et déplacez-vous à l'intérieur. Dorénavant vo
 ## 2. Environnement logiciel 
 
 Par défaut, aucun logiciel de bioinformatique n'est présent. Pour vous en convaincre, essayez de lancer la commande :
-```
+```bash
 $ bowtie2 --version
 ```
-Vous devriez obtenir un message d'erreur du type :
-```
--bash: bowtie2 : commande introuvable
-```
+Vous devriez obtenir un message d'erreur du type : `-bash: bowtie2 : commande introuvable`
 
 Chaque logiciel doit donc être chargé individuellement avec l'outil `module`.
 
 Utilisez la commande suivante pour compter le nombre de logiciels disponibles avec `module` :
-```
+```bash
 $ module avail -l | wc -l
 ```
 
 Chargez ensuite les logiciels `fastqc`, `bowtie2`, `samtools` et `htseq` avec les commandes suivantes :
-```
+```bash
 $ module load fastqc/0.11.9
 $ module load bowtie2/2.3.5
 $ module load samtools/1.9
@@ -121,12 +118,12 @@ $ module load htseq/0.11.3
 
 Vérifiez que les logiciels sont bien disponibles en affichant leurs versions :
 
-```
+```bash
 $ fastqc --version
 FastQC v0.11.9
 ```
 
-```
+```bash
 $ bowtie2 --version
 /home/duo/miniconda3/envs/rnaseq/bin/bowtie2-align-s version 2.3.5.1
 64-bit
@@ -135,14 +132,14 @@ Wed Apr 17 02:40:25 UTC 2019
 [...]
 ```
 
-```
+```bash
 $ samtools --version
 samtools 1.9
 Using htslib 1.9
 Copyright (C) 2018 Genome Research Ltd.
 ```
 
-```
+```bash
 $ htseq-count -h | tail -n 4
 Written by Simon Anders (sanders@fs.tum.de), European Molecular Biology
 Laboratory (EMBL) and Fabio Zanini (fabio.zanini@stanford.edu), Stanford
@@ -153,12 +150,12 @@ License v3. Part of the 'HTSeq' framework, version 0.11.3.
 ## 3.1 Analyse d'un échantillon
 
 Depuis le cluster de l'IFB, dans le répertoire `rnaseq` de votre répertoire de travail, téléchargez le script `script4.sh` avec la commande :
-```
+```bash
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script4.sh
 ```
 
 Lancez ensuite ce script avec la commande :
-```
+```bash
 $ sbatch script4.sh
 ```
 
@@ -166,7 +163,7 @@ Notez bien le numéro de job renvoyé.
 
 Vérifiez que votre script est en train de tourner avec la commande :
 
-```
+```bash
 $ squeue -u $USER
 ```
 
@@ -179,22 +176,22 @@ $ squeue -u $USER
 
 
 Et pour avoir plus de détails, utilisez la commande :
-```
+```bash
 $ sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j jobID
 ```
 avec `jobID` le numéro de votre job.
 
 
 Nous allons maintenant améliorer le script d'analyse, annulez votre job avec la commande :
-```
+```bash
 $ scancel jobID
 ```
 
 où `jobID` est le numéro de votre job.
 
 Faites aussi un peu de ménage en supprimant les fichiers créés précédemment avec la commande :
-```
-$ rm -f bowtie*bam HCA*html HCA*zip count*txt
+```bash
+$ rm -f bowtie*bam bowtie*bam HCA*html HCA*zip count*txt
 ```
 
 ## 3.2 Analyse plus rapide d'un échantillon
@@ -202,39 +199,37 @@ $ rm -f bowtie*bam HCA*html HCA*zip count*txt
 L'objectif est maintenant « d'aller plus vite » en attribuant plusieurs coeurs pour l'étape d'alignement des reads sur le génome avec `bowtie2`.
 
 Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq` de votre répertoire de travail, téléchargez le script `script5.sh` avec la commande :
-```
+```bash
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script5.sh
 ```
 
 Identifiez les différences avec le script précédent, par exemple avec la commande `diff` : 
-```
+```bash
 $ diff script4.sh script5.sh
 ```
 
 Lancez ensuite votre analyse :
-```
+```bash
 $ sbatch script5.sh
 ```
 
 Notez bien le numéro de job renvoyé.
 
 Vérifiez que votre job est bien lancé avec la commande :
-```
+```bash
 $ squeue -u $USER
 ```
 
-Le fichier `slurm-jobID.out` est également créé et contient les sorties du script. Pour le consultez en temps réél, tapez :
-```
-$ tail -f slurm-jobID.out
+Le fichier `slurm-jobID.out` est également créé et contient les sorties du script. Pour le consultez, tapez :
+```bash
+$ cat slurm-jobID.out
 ```
 
 avec `jobID` le numéro de votre job.
 
-Pour quitter, appuyez sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
-
 
 Suivez également en temps réel l'exécution de votre job avec la commande :
-```
+```bash
 $ watch sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j jobID
 ```
 avec `jobID` le numéro de votre job.
@@ -261,21 +256,21 @@ Vérifiez que la somme de contrôle du fichier `count-37.txt` est bien `cbc9ff7e
 ## 3.3 Analyse de plusieurs échantillons
 
 Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq` de votre répertoire de travail, téléchargez le script `script6.sh` avec la commande :
-```
+```bash
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script6.sh
 ```
 
 Nous pourrions analyser d'un seul coup les 47 échantillons (fichiers `.fastq.gz`) mais pour ne pas consommer trop de ressources sur le cluster, nous allons limiter notre analyse à 4 échantillons.
 
 Lancez votre analyse avec la commande :
-```
+```bash
 $ sbatch script6.sh
 ```
 
 Notez bien le numéro de job renvoyé.
 
 Vous pouvez suivre en temps réel l'exécution de votre job avec la commande :
-```
+```bash
 $ watch sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j jobID
 ```
 avec `jobID` le numéro de votre job.
@@ -289,7 +284,7 @@ Quand les status (colonne `State`) de tous les jobs et job steps sont à `COMPLE
 
 Expérimentez la commande `sreport` pour avoir une idée du temps de calcul consommé par tous vos jobs :
 
-```
+```bash
 $ sreport -t hour Cluster UserUtilizationByAccount Start=2020-01-01 End=$(date --iso-8601)T23:59:59 Users=$USER
 ```
 
@@ -297,7 +292,7 @@ La colonne `Used` indique le nombre d'heures de temps CPU consommées. Cette val
 
 Voici un exemple de rapport produit par `sreport` :
 
-```
+```bash
 $ sreport -t hour Cluster UserUtilizationByAccount Start=2020-01-01 End=$(date --iso-8601)T23:59:59 Users=$USER
 --------------------------------------------------------------------------------
 Cluster/User/Account Utilization 2020-01-01T00:00:00 - 2021-03-18T21:59:59 (38268000 secs)
@@ -327,7 +322,7 @@ Déplacez-vous dans ce nouveau répertoire.
 Utilisez la commande `pwd` pour vérifier que vous êtes bien dans le répertoire `/mnt/c/Users/omics/rnaseq_cluster`. 
 
 Lancez ensuite la commande suivante pour récupérer les fichiers de comptage :
-```
+```bash
 $ scp login@core.cluster.france-bioinformatique.fr:/shared/projects/uparis_duo_2020/login/rnaseq/count*.txt .
 ```
 
