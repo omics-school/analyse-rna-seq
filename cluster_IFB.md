@@ -320,7 +320,7 @@ Vérifiez que la somme de contrôle MD5 du fichier `count-37.txt` est bien la m�
 
 Lancez le logiciel FileZilla ([comme ceci](img/filezilla.png)). Puis entrez les informations suivantes :
 
-- Hôte : `sftp://clore.cluster.france-bioinformatique.fr`
+- Hôte : `sftp://core.cluster.france-bioinformatique.fr`
 - Identifiant : votre login sur le cluster
 - Mot de passe : votre mot de passe sur le cluster
 
