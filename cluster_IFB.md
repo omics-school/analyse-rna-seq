@@ -220,7 +220,7 @@ Vérifiez que votre job est bien lancé avec la commande :
 $ squeue -u $USER
 ```
 
-Le fichier `slurm-jobID.out` est également créé et contient les sorties du script. Pour le consultez, tapez :
+Le fichier `slurm-jobID.out` est également créé et contient les sorties du script. Pour consulter son contenu, tapez :
 ```bash
 $ cat slurm-jobID.out
 ```
