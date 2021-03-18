@@ -287,28 +287,28 @@ Quand les status (colonne `State`) de tous les jobs et job steps sont à `COMPLE
 Expérimentez la commande `sreport` pour avoir une idée du temps de calcul consommé par tous vos jobs :
 
 ```
-$ sreport Cluster UserUtilizationByAccount Start=2020-01-01 Users=$USER
+$ sreport -t hour Cluster UserUtilizationByAccount Start=2020-01-01 End=$(date --iso-8601)T23:59:59 Users=$USER
 ```
 
-La colonne `Used` indique le nombre de minutes de temps CPU consommées. Ce chiffre est utile pour estimer le « coût CPU » d'un projet.
+La colonne `Used` indique le nombre d'heures de temps CPU consommées. Cette valeur est utile pour estimer le « coût CPU » d'un projet.
 
-Si c'est la première fois que vous vous connectez au cluster et que vous l'utilisez, il est possible que `sreport` ne vous renvoie rien car les données sont mises à jour tous les jours. Reconnectez-vous demain pour obtenir votre consommation.
-
-Voici néanmoins un exemple de rapport produit par `sreport` :
+Voici un exemple de rapport produit par `sreport` :
 
 ```
-$ sreport Cluster UserUtilizationByAccount Start=2020-01-01 Users=$USER
+$ sreport -t hour Cluster UserUtilizationByAccount Start=2020-01-01 End=$(date --iso-8601)T23:59:59 Users=$USER
 --------------------------------------------------------------------------------
-Cluster/User/Account Utilization 2020-01-01T00:00:00 - 2021-03-17T23:59:59 (38188800 secs)
-Usage reported in CPU Minutes
+Cluster/User/Account Utilization 2020-01-01T00:00:00 - 2021-03-18T21:59:59 (38268000 secs)
+Usage reported in CPU Hours
 --------------------------------------------------------------------------------
   Cluster     Login     Proper Name         Account     Used   Energy 
 --------- --------- --------------- --------------- -------- -------- 
-     core  ppoulain  Pierre Poulain       dubii2021    24025        0 
-     core  ppoulain  Pierre Poulain     du_bii_2019    14745        0 
-     core  ppoulain  Pierre Poulain uparis_duo_2020     7065        0 
-     core  ppoulain  Pierre Poulain        minomics      284        0 
+     core  ppoulain  Pierre Poulain       dubii2021      400        0 
+     core  ppoulain  Pierre Poulain     du_bii_2019      246        0 
+     core  ppoulain  Pierre Poulain uparis_duo_2020      129        0 
+     core  ppoulain  Pierre Poulain        minomics        5        0 
 ```
+
+Ainsi, l'utilisateur `ppoulain` a déjà consommé 129 heures de temps CPU sur le projet `uparis_duo_2020`.
 
 
 ## 5. Récupération des données
