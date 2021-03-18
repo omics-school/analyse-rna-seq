@@ -273,9 +273,9 @@ $ watch sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j job
 ```
 avec `jobID` le numéro de votre job.
 
-Patientez une dizaine de minutes que tous les jobs et job steps soient terminées. 
+Patientez une dizaine de minutes que tous les jobs et job steps soient terminés. 
 
-Quand les status (colonne `State`) du job et de tous les job steps sont à `COMPLETED`, stoppez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
+Quand les status (colonne `State`) de tous les jobs et job steps sont à `COMPLETED`, stoppez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
 
 ## 4. L'heure de faire les comptes
