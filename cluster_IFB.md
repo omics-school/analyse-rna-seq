@@ -342,7 +342,7 @@ Lancez le logiciel FileZilla ([comme ceci](img/filezilla.png)). Puis entrez les 
 
 Cliquez ensuite sur le bouton *Connexion rapide*. Cliquez sur *OK* dans la fenêtre *Clé de l'hôte inconnue*
 
-Une fois connecté, dans le champs texte à coté de *Site distant* (à droite de la fenêtre), entrez le chemin `/shared/projects/uparis_duo_2021/` voire directement votre répertoire de travail `/shared/projects/uparis_duo_2021/login` (avec `login` votre identifiant sur le cluster).
+Une fois connecté, dans le champs texte à coté de *Site distant* (à droite de la fenêtre), entrez le chemin `/shared/projects/uparis_duo_2020/` voire directement votre répertoire de travail `/shared/projects/uparis_duo_2020/login` (avec `login` votre identifiant sur le cluster).
 
 Essayez de transférer des fichiers dans un sens puis dans l'autre. Double-cliquez sur les fichiers pour lancer les transferts.
 
