@@ -6,7 +6,15 @@ license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 
 L'objectif de cette partie est de télécharger et contrôler les données RNA-seq de *O. tauri* nécessaires à l'analyse.
 
-Le jeu de données initial, publié en [2016](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-016-2666-6), est constitué de 47 fichiers *.fastq.gz* (format *.fastq* compressé) pour un total de 24 Go. Pour que cette activité se déroule dans un temps raisonnable, nous allons travailler sur un jeu de données réduit, composé de 3 fichiers *.fastq.gz* uniquement, correspondant aux 3 réplicats de la condition S2 (échantillons 3, 4 et 5). Le jeu de données réduit réprésente 1,2 Go de données.
+Le jeu de données initial, publié en [2016](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-016-2666-6), est constitué de 47 fichiers *.fastq.gz* (format *.fastq* compressé) pour un total de 24 Go. 
+
+Pour que cette activité se déroule dans un temps raisonnable, nous travaillerons sur un jeu de données réduit correspondant à la condition S2, c'est-à-dire :
+- « Condition 1 Short-term adaptative response of cells »
+- Iron (+ Fe)
+- Light
+- 3 hours
+
+Ce jeu de données est composé de 3 fichiers *.fastq.gz*, correspondant aux 3 réplicats de la condition S3. Le jeu de données réduit réprésente 1,2 Go de données.
 
 ## 1.1 Téléchargement du jeu de données
 

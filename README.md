@@ -8,9 +8,9 @@
 
 Tutoriel :
 
-1. [Préparation des données](1_preparation_donnees.md)
-2. [Préparation de l'environnement logiciel](2_preparation_env_logiciel.md)
-3. [Analyse RNA-seq](3_analyse_RNA-seq.md)
+1. [Préparation de l'environnement logiciel](1_preparation_env_logiciel.md)
+1. [Préparation des données](2_preparation_donnees.md)
+1. [Analyse RNA-seq](3_analyse_RNA-seq.md)
 
 
 ### Analyse de données RNA-seq avec Unix sur un cluster de calcul
