@@ -7,7 +7,8 @@ annotations=genome/GCF_000214015.3_version_140606.gff
 
 
 echo "Contrôle qualité"
-fastqc reads/${sample}.fastq.gz
+mkdir -f reads_qc
+fastqc reads/${sample}.fastq.gz --outdir reads_qc
 
 echo "Indexation du génome de référence"
 mkdir -p index
@@ -18,7 +19,7 @@ mkdir -p map
 bowtie2 -p 2 -x index/O_tauri -U reads/${sample}.fastq.gz -S map/bowtie-${sample}.sam
 
 echo "Conversion en binaire, tri et indexation des reads alignés"
-samtools view -@ 2 -b map/bowtie-${sample}.sam > map/bowtie-${sample}.bam
+samtools view -@ 2 -b map/bowtie-${sample}.sam -o map/bowtie-${sample}.bam
 samtools sort -@ 2 map/bowtie-${sample}.bam -o map/bowtie-${sample}.sorted.bam
 samtools index map/bowtie-${sample}.sorted.bam
 

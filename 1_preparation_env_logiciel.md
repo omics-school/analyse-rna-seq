@@ -135,9 +135,22 @@ and Fabio Zanini (fabio.zanini@unsw.edu.au), UNSW Sydney. (c) 2010-2020. Release
 the GNU General Public License v3. Part of the 'HTSeq' framework, version 1.99.2.
 ```
 
-Bravo ✨
-
-Vous avez installé Miniconda, créé un environnement conda et installé tous les logiciels nécessaires.
+Bravo ✨ Vous avez installé Miniconda, créé un environnement conda et installé tous les logiciels nécessaires.
 
 Vous pouvez passer à l'étape suivante : [➡️](2_preparation_donnees.md)
 
+
+Remarque : dans un environnement conda, on peut accéder rapidement aux versions des logicels installés avec la commande `conda list`.
+L'utilisation de `grep` filtre ensuite le résultat. Par exemple
+
+```bash
+$ conda list | grep htseq
+htseq                     1.99.2           py39haf81c86_0    bioconda
+```
+
+ou
+
+```bash
+$ conda list | grep sra
+sra-tools                 2.11.0          pl5262h314213e_1    bioconda
+```

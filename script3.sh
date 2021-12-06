@@ -27,7 +27,8 @@ do
     echo "=============================================================="
     echo "Contrôle qualité - échantillon ${sample}"
     echo "=============================================================="
-    fastqc reads/${sample}.fastq.gz
+    mkdir -f reads_qc
+    fastqc reads/${sample}.fastq.gz --outdir reads_qc
 
     echo "=============================================================="
     echo "Alignement des reads sur le génome de référence - échantillon ${sample}"
@@ -38,7 +39,7 @@ do
     echo "=============================================================="
     echo "Conversion en binaire, tri et indexation des reads alignés - échantillon ${sample}"
     echo "=============================================================="
-    samtools view -@ 2 -b map/bowtie-${sample}.sam > map/bowtie-${sample}.bam
+    samtools view -@ 2 -b map/bowtie-${sample}.sam -o map/bowtie-${sample}.bam
     samtools sort -@ 2 map/bowtie-${sample}.bam -o map/bowtie-${sample}.sorted.bam
     samtools index map/bowtie-${sample}.sorted.bam
 
