@@ -64,15 +64,15 @@ Nous souhaitons maintenant installer tous les logiciels nécessaires à l'analys
 Nous allons donc créer un environnement conda dédié pour notre analyse RNA-seq. Sans grande originalité, nous appellerons cet environnement `rnaseq` :
 
 ```
-$ conda create -n rnaseq -y
+$ conda create -n rnaseq-env -y
 ```
 
 Une fois l'environnement créé, il faut l'activer (c'est-à-dire l'utiliser) :
 ```
-$ conda activate rnaseq
+$ conda activate rnaseq-env
 ```
 
-Le `(base)` à gauche de votre invite de commande est maintenant remplacé par `(rnaseq)` (comme [ici](img/conda_rnaseq.png)).
+Le `(base)` à gauche de votre invite de commande est maintenant remplacé par `(rnaseq-env)` (comme [ici](img/conda_rnaseq.png)).
 
 
 ## 2.4 Installation des logiciels nécessaires
