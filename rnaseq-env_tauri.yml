@@ -1,4 +1,4 @@
-name: du_o_2019
+name: rnaseq-env
 # channels priority
 # see https://bioconda.github.io/
 # conda-forge has highest prioriy
