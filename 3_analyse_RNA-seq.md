@@ -15,17 +15,17 @@ Voici une vue d'ensemble des étapes pour analyser les données de séquençage 
 
 Sous Windows, ouvrez un terminal Ubuntu.
 
-Déplacez-vous dans le répertoire `/mnt/c/Users/omics/rnaseq_sample` :
+Déplacez-vous dans le répertoire `/mnt/c/Users/omics/rnaseq_tauri` :
 ```
-$ cd /mnt/c/Users/omics/rnaseq_sample
-```
-
-Activez l'environnement conda *rnaseq* :
-```
-$ conda activate rnaseq
+$ cd /mnt/c/Users/omics/rnaseq_tauri
 ```
 
-Remarque : contrôlez que le nom de l'environnement conda apparait bien à gauche de l'invite de commande `(rnaseq)`.
+Activez l'environnement conda *rnaseq-env* :
+```
+$ conda activate rnaseq-env
+```
+
+Remarque : contrôlez que le nom de l'environnement conda apparait bien à gauche de l'invite de commande sous la forme : `(rnaseq-env)`.
 
 Vous êtes maintenant prêt à analyser des données RNA-seq 🤠
 
@@ -34,47 +34,58 @@ Vous êtes maintenant prêt à analyser des données RNA-seq 🤠
 
 Pour cette première analyse, choisissez un **seul échantillon** contenant des *reads*, c'est-à-dire un fichier parmi :
 ```
-reads/HCA-3_R1.fastq.gz
-reads/HCA-4_R1.fastq.gz
-reads/HCA-5_R1.fastq.gz
+reads/SRR2960338.fastq.gz
+reads/SRR2960341.fastq.gz
+reads/SRR2960343.fastq.gz
 ```
 
 ### Contrôle qualité
 
+Créez le répertoire `reads_qc` qui va contenir les fichiers produits par le contrôle qualité des fichiers fastq.gz :
+
+```bash
+$ mkdir -f reads_qc
+```
+
 Lancez FastQC avec la commande :
 
-```
-$ fastqc reads/nom-fichier.fastq.gz
+```bash
+$ fastqc reads/nom-fichier.fastq.gz --outdir reads_qc
 ```
 où `nom-fichier.fastq.gz` est le fichier contenant l'échantillon que vous avez choisi.
 
-FastQC va produire deux fichiers (un fichier avec l'extension `.html` et un autre avec l'extension `.zip`) dans le répertoire `reads`. Si par exemple, vous avez analysé le fichier `reads/HCA-3_R1.fastq.gz`, vous obtiendrez les fichiers `reads/HCA-3_R1_fastqc.html` et `reads/HCA-3_R1_fastqc.zip`.
+FastQC va produire deux fichiers (un fichier avec l'extension `.html` et un autre avec l'extension `.zip`) dans le répertoire `reads_qc`. Si par exemple, vous avez analysé le fichier `reads/SRR2960338.fastq.gz`, vous obtiendrez les fichiers `reads_qc/SRR2960338_fastqc.html` et `reads_qc/SRR2960338_fastqc.zip`.
 
 En utilisant l'explorateur de fichiers de Windows, ouvrez le fichier `.html` ainsi créé avec Firefox (en cliquant sur le fichier). Analysez le rapport de FastQC.
 
 
 ### Indexation du génome de référence
 
-Toujours depuis votre shell Ubuntu et dans le répertoire `/mnt/c/Users/omics/rnaseq_sample`, créez le répertoire `index` :
+L'indexation du génome de référence est une étape indispensable pour accélérer l'alignement des reads sur le génome.
 
-```
+Toujours depuis votre shell Ubuntu et dans le répertoire `/mnt/c/Users/omics/rnaseq_tauri`, créez le répertoire `index` :
+
+```bash
 $ mkdir -p index
 ```
 
 Lancez l'indexation du génome de référence.
-```
+
+```bash
 $ bowtie2-build genome/GCF_000214015.3_version_140606.fna index/O_tauri
 ```
+
 Les index sont stockés dans des fichiers dont le nom débute par `O_tauri` dans le répertoire `index`.
 
 Calculez la taille total des fichiers index avec la commande :
-```
+
+```bash
 $ du -ch index/O_tauri*
 ```
 
 Comparez la taille totale des index à la taille du fichier contenant le genome (`genome/GCF_000214015.3_version_140606.fna`).
 
-L'indexation du génome n'est à faire qu'une seule fois.
+L'indexation du génome n'est à faire qu'une seule fois pour chaque logiciel d'alignement.
 
 
 ### Alignements des *reads* sur le génome de référence
@@ -91,7 +102,7 @@ $ bowtie2 -p 2 -x index/O_tauri -U reads/nom-fichier.fastq.gz -S map/bowtie.sam
 
 Ici :
 - `genome/O_tauri` désigne les fichiers index du génome de référence,
-- `reads/nom-fichier.fastq.gz` est le fichier contenant l'échantillon que vous avez choisi
+- `reads/nom-fichier.fastq.gz` est le fichier contenant l'échantillon. Adaptez-le au nom de l'échantillon que vous avez choisi.
 - et `reads/bowtie.sam` est le fichier qui va contenir l'alignement produit par Bowtie2.
 
 Comme votre machine dispose de 4 coeurs, nous en utilisons 2 (`-p 2`) pour accélérer le calcul.
@@ -145,7 +156,7 @@ Vous allez maintenant utiliser SAMtools pour :
 
 Le comptage des *reads* alignés sur les gènes se fait avec HTSeq.
 
-Toujours depuis votre shell Ubuntu et dans le répertoire `/mnt/c/Users/omics/rnaseq_sample`, créez le répertoire `count` :
+Toujours depuis votre shell Ubuntu et dans le répertoire `/mnt/c/Users/omics/rnaseq_tauri`, créez le répertoire `count` :
 ```
 $ mkdir -p count
 ```
@@ -187,7 +198,7 @@ Pour répondre à ces deux problèmes, de gestion de données et d'automatisatio
 
 Mais d'abord, faites un peu de ménage en supprimant les fichiers créés précédemment :
 ```
-$ rm -f reads/*fastqc* index/*bt2 map/bowtie* count/count*
+$ rm -f reads_qc/*fastqc* index/*bt2 map/bowtie* count/count*
 ```
 
 💣 Attention à l'utilisation de la commande `rm` qui supprime définitivement les fichiers.
@@ -198,25 +209,30 @@ $ rm -f reads/*fastqc* index/*bt2 map/bowtie* count/count*
 Une variable va simplement contenir de l'information qui sera utilisable autant de fois que nécessaire.
 
 Création de variables :
-```
+
+```bash
 $ toto=33
 $ t="salut"
 ```
-Il faut coller le nom de la variable et son contenu au symbole `=`.
+
+Attention : Il faut coller le nom de la variable et son contenu au symbole `=`.
 
 Affichage de variables :
-```
+
+```bash
 $ echo $toto
 33
 $ echo "$t Pierre"
 salut Pierre
 ```
+
 La commande `echo` affiche une chaîne de caractère, une variable, ou les deux.
 
 Pour utiliser une variable (et accéder à son contenu), il faut précéder son nom du caractère `$`. Attention, ce symbole n'est pas à confondre avec celui qui désigne l'invite de commande de votre *shell* Linux.
 
 Enfin, une bonne pratique consiste à utiliser une variable avec le symbole `$` et son nom entre accolades :
-```
+
+```bash
 $ echo ${toto}
 33
 $ echo "${t} Pierre"
@@ -225,7 +241,7 @@ salut Pierre
 
 ### Script
 
-Un script est un fichier texte qui contient des instructions Bash. Par convention, il porte l'extension `.sh`.
+Un script est un fichier texte qui contient des instructions Bash. Par convention, il porte l'extension `.sh`. L'objectif premier d'un script Bash est d'automatisr l'exécution de plusieurs commandes Bash, la plupart du temps pour manipuler ou analyser des fichiers.
 
 Dans un script Bash, tout ce qui suit le symbole `#` est considéré comme un commentaire et n'est donc pas traité par Bash.
 
@@ -234,7 +250,7 @@ Dans un script Bash, tout ce qui suit le symbole `#` est considéré comme un co
 
 Testez le script `script1.sh` sur **un seul** de vos échantillons. Pour cela :
 
-- Téléchargez le script `script1.sh` dans votre répertoire `rnaseq_sample` avec la commande :
+- Téléchargez le script `script1.sh` dans votre répertoire `rnaseq_tauri` avec la commande :
     ```
     $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script1.sh
     ```
@@ -251,9 +267,9 @@ Testez le script `script1.sh` sur **un seul** de vos échantillons. Pour cela :
 
 Vérifiez que le déroulement du script se passe bien. Vous avez le temps de prendre un café (~ 20 ') ☕. Voir plusieurs ☕ 🍪 ☕ 🍪.
 
-Évaluer approximativement le temps nécessaire au script 1 pour s'exécuter. ⏱️ À partir de cette valeur, extrapoler le temps nécessaire qu'il faudrait pour analyser les 47 échantillons.
+Évaluez approximativement le temps nécessaire au script 1 pour s'exécuter. ⏱️ À partir de cette valeur, extrapoler le temps nécessaire qu'il faudrait pour analyser les 3 échantillons.
 
-Utilisez enfin la commande `tree` pour contempler votre travail (ici avec l'échantllon 3) :
+Utilisez enfin la commande `tree` pour contempler votre travail (ici avec l'échantillon SRR2960338) :
 ```
 $ tree
 .
