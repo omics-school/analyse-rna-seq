@@ -6,7 +6,7 @@ license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 
 L'objectif de cette partie est d'installer conda et les logiciels nécessaires à l'analyse RNA-seq des données *O. tauri*.
 
-## 1.1 Installation de conda
+## 1.1 Installer conda
 
 Conda est un gestionnaire de logiciels et d'environnements très utilisé en bioinformatique. [Miniconda](https://docs.conda.io/en/latest/miniconda.html) est une distribution qui permet d'installer conda. Puisque nous travaillons sous Linux (sous Windows 10 certes, mais nous vous rappelons que WSL est un système Linux), nous allons installer la version **Linux** de Miniconda.
 
@@ -47,7 +47,7 @@ $ conda --version
 Si vous obtenez `conda 4.10.3` ou une version supérieure : bravo 🎉
 
 
-## 1.2 Installation de mamba
+## 1.2 Installer mamba
 
 Conda est parfois lent à installer un environnement, c'est-à-dire l'ensemble des outils nécessaires pour une tâche particulière, ici une analyse RNA-seq.
 
@@ -57,7 +57,7 @@ Nous vous conseillons d'installer [mamba](https://github.com/mamba-org/mamba) qu
 $ conda install mamba -n base -c conda-forge
 ```
 
-## 1.3 Création de l'environnement rnaseq
+## 1.3 Créer l'environnement rnaseq-env
 
 Nous souhaitons maintenant installer tous les logiciels nécessaires à l'analyse RNA-seq. Nous pourrions le faire dans l'environnement par défaut de Miniconda (qui s'appelle *base* comme l'indique le `(base)` à gauche de votre invite de commande) mais ce serait une très mauvaise pratique.
 
@@ -75,7 +75,7 @@ $ conda activate rnaseq-env
 Le `(base)` à gauche de votre invite de commande est maintenant remplacé par `(rnaseq-env)` (comme [ici](img/conda_rnaseq.png)).
 
 
-## 1.4 Installation des logiciels nécessaires
+## 1.4 Installer les logiciels nécessaires
 
 Voici la liste des logiciels dont nous avons besoin :
 
