@@ -118,17 +118,18 @@ Nous vous présentons ici une solution alternative pour télécharger des fichie
 
 Le site [SRA EXplorer](https://sra-explorer.info/) est très pratique.
 
-- Sur ce site, indiquez d'abord le numéro de projet, ici PRJNA304086, puis cliquez sur le petite loupe pour lancer la recherche.
+- Sur ce site, indiquez d'abord le numéro du projet, ici PRJNA304086, puis cliquez sur le petite loupe pour lancer la recherche.
 - Vous obtenez ensuite 47 réponses qui correspondent au 47 fichiers / échantillons.
 - Vous pouvez raffiner les réponses en tapant par exemple « *Iron* ».
 - Sélectionnez ensuite les 3 échantillons correspondant à « *Condition 1, Iron, Light, 3H* ».
 - Cliquez ensuite sur le bouton « *Add 3 to collection* ».
-- Cliquez ensuite en haut à droite sur le bouton « *3 saved datasets* »
+- Cliquez ensuite en haut à droite sur le bouton « *3 saved datasets* ».
 - Cliquez ensuite sur « *Bash script for downloading FastQ files* ». Vous obtenez un script Bash qui contient les commandes pour télécharger directement vos fichiers fastq compressés.
 
 ⚠️ **Ne lancez pas les commandes ci-dessus car vous avez déjà téléchargé vos données.**
 
 Remarque : nous reviendrons sur la notion de script un peu plus tard.
+
 ## 2.5 Télécharger le génome de référence
 
 Le génome de référence de *Ostreococcus tauri* et ses annotations sont disponibles sur la [page dédiée](https://www.ncbi.nlm.nih.gov/genome/373?genome_assembly_id=352933) sur le site du NCBI :
@@ -163,6 +164,7 @@ Et enfin un fichier de somme de contrôle :
 ```bash
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/md5sum.txt -P genome/
 ```
+
 
 ## 2.6 Contrôler l'intégrité des fichiers
 
