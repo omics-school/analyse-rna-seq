@@ -99,8 +99,10 @@ Les fichiers .fastq occupent plus de 5 Go de données ce qui est assez conséque
 $ gzip reads/*
 ```
 
-Cette commande va prendre quelques minutes et faire chauffer votre machine. 
-C'est tout à fait normal, les outils de compression sont toujours consommateurs de CPU.
+Cette commande va prendre 5 à 6 minutes et faire chauffer votre machine. 
+C'est tout à fait normal, les outils de compression / décompression consomment beaucoup de CPU. Patientez encore quelques minutes.
+
+Remarque : la commande `gzip` n'affiche rien. C'est normal.
 
 Vérifiez maintenant le gain obtenu :
 
@@ -108,7 +110,7 @@ Vérifiez maintenant le gain obtenu :
 $ du -ch reads/*
 ```
 
-L'espace disque occupé est désormais oins de 1,5 Go pour les 3 fichiers, ce qui est déjà plus raisonnable.
+L'espace disque occupé est désormais moins de 1,5 Go pour les 3 fichiers, ce qui est déjà plus raisonnable.
 
 Remarque : cette étape de compression des données n'est pertinente que parce que les outils que nous utiliserons ensuite savent manipuler ce genre de fichiers.
 
@@ -136,7 +138,7 @@ Le génome de référence de *Ostreococcus tauri* et ses annotations sont dispon
 - [génome de référence](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/214/015/GCF_000214015.3_version_140606/GCF_000214015.3_version_140606_genomic.fna.gz)
 - [annotations](ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/214/015/GCF_000214015.3_version_140606/GCF_000214015.3_version_140606_genomic.gff.gz). Nous avons légèrement modifié le fichier d'annotations pour ne prendre en compte que les gènes et alléger la visualisation dans IGV.
 
-Vérifiez que vous ếtes toujours dans le bon répertoire :
+Vérifiez que vous êtes toujours dans le bon répertoire :
 
 ```bash
 $ pwd
@@ -159,7 +161,7 @@ Les annotations :
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/GCF_000214015.3_version_140606.gff -P genome/
 ```
 
-Et enfin un fichier de somme de contrôle :
+Et enfin un fichier de sommes de contrôle :
 
 ```bash
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/md5sum.txt -P genome/
@@ -171,7 +173,7 @@ $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/md5
 Affichez le contenu du fichier `genome/md5sum.txt` que vous venez de télécharger avec la commande `cat` :
 
 ```bash
-$ cat genome/md5sum.txt 
+$ cat genome/md5sum.txt
 bfef14688f9cbcca45d794ec0348aa2e  genome/GCF_000214015.3_version_140606.gff
 046b6e933274c884428a7d5929090f5d  genome/GCF_000214015.3_version_140606.fna
 ```
@@ -188,7 +190,7 @@ Normalement, vous devriez obtenir cela :
 
 
 ```bash
-$ md5sum -c genome/md5sum.txt 
+$ md5sum -c genome/md5sum.txt
 genome/GCF_000214015.3_version_140606.gff: Réussi
 genome/GCF_000214015.3_version_140606.fna: Réussi
 ```

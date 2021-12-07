@@ -11,24 +11,28 @@ L'objectif de cette partie est d'installer conda et les logiciels nécessaires �
 Conda est un gestionnaire de logiciels et d'environnements très utilisé en bioinformatique. [Miniconda](https://docs.conda.io/en/latest/miniconda.html) est une distribution qui permet d'installer conda. Puisque nous travaillons sous Linux (sous Windows 10 certes, mais nous vous rappelons que WSL est un système Linux), nous allons installer la version **Linux** de Miniconda.
 
 Pour cette étape, déplacez-vous dans votre répertoire utilisateur Unix :
-```
+
+```bash
 $ cd
 ```
 
 Vérifiez que la commande `pwd` renvoie bien `/home/duo`.
 
 Téléchargez ensuite miniconda :
-```
+
+```bash
 $ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 ```
 
 Installez miniconda :
-```
+
+```bash
 $ bash Miniconda3-latest-Linux-x86_64.sh -b -f
 ```
 
 Puis initialisez conda :
-```
+
+```bash
 $ ./miniconda3/bin/conda init
 ```
 
@@ -63,12 +67,13 @@ Nous souhaitons maintenant installer tous les logiciels nécessaires à l'analys
 
 Nous allons donc créer un environnement conda dédié pour notre analyse RNA-seq. Sans grande originalité, nous appellerons cet environnement `rnaseq` :
 
-```
+```bash
 $ conda create -n rnaseq-env -y
 ```
 
 Une fois l'environnement créé, il faut l'activer (c'est-à-dire l'utiliser) :
-```
+
+```bash
 $ conda activate rnaseq-env
 ```
 
@@ -86,7 +91,8 @@ Voici la liste des logiciels dont nous avons besoin :
 - [HTSeq](https://htseq.readthedocs.io/en/latest/) pour le comptage du nombre de *reads* alignés sur chaque gène.
 
 Installons ces logiciels dans l'environnement conda *rnaseq* que nous venons de créer. Pour accéler l'installation, nous utilisons ici mamba :
-```
+
+```bash
 $ mamba install -c conda-forge -c bioconda sra-tools fastqc bowtie2 samtools htseq -y
 ```
 
@@ -102,15 +108,15 @@ $ fasterq-dump --version
 "fasterq-dump" version 2.11.0
 ```
 
-*Remarque : `fasterq-dump` est un outil fourni par SRA Tools*.
+*Remarque : `fasterq-dump` est un outil fourni par SRA Toolkit*.
 
 
-```
+```bash
 $ fastqc --version
 FastQC v0.11.9
 ```
 
-```
+```bash
 $ bowtie2 --version
 /home/pierre/.soft/miniconda3/envs/rnaseq/bin/bowtie2-align-s version 2.4.4
 64-bit
@@ -119,7 +125,7 @@ Mon May 24 01:26:39 UTC 2021
 [...]
 ```
 
-```
+```bash
 $ samtools --version
 samtools 1.14
 Using htslib 1.14
@@ -127,7 +133,7 @@ Copyright (C) 2021 Genome Research Ltd.
 [...]
 ```
 
-```
+```bash
 $ htseq-count -h
 [...]
 Written by Simon Anders (sanders@fs.tum.de), European Molecular Biology Laboratory (EMBL) 

@@ -7,7 +7,7 @@ annotations=genome/GCF_000214015.3_version_140606.gff
 
 
 echo "Contrôle qualité"
-mkdir -f reads_qc
+mkdir -p reads_qc
 fastqc reads/${sample}.fastq.gz --outdir reads_qc
 
 echo "Indexation du génome de référence"
