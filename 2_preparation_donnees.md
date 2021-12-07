@@ -122,11 +122,20 @@ Le site [SRA EXplorer](https://sra-explorer.info/) est très pratique.
 
 - Sur ce site, indiquez d'abord le numéro du projet, ici PRJNA304086, puis cliquez sur le petite loupe pour lancer la recherche.
 - Vous obtenez ensuite 47 réponses qui correspondent au 47 fichiers / échantillons.
-- Vous pouvez raffiner les réponses en tapant par exemple « *Iron* ».
-- Sélectionnez ensuite les 3 échantillons correspondant à « *Condition 1, Iron, Light, 3H* ».
-- Cliquez ensuite sur le bouton « *Add 3 to collection* ».
+- Vous pouvez raffiner les réponses en tapant par exemple « *Iron* » dans le champ « *Filter results:* ».
+- Sélectionnez les 3 échantillons correspondant à « *Condition 1, Iron, Light, 3H* ».
+- Cliquez sur le bouton « *Add 3 to collection* ».
 - Cliquez ensuite en haut à droite sur le bouton « *3 saved datasets* ».
-- Cliquez ensuite sur « *Bash script for downloading FastQ files* ». Vous obtenez un script Bash qui contient les commandes pour télécharger directement vos fichiers fastq compressés.
+- Cliquez enfin sur « *Bash script for downloading FastQ files* ».
+
+Vous obtenez un script Bash qui contient les commandes pour télécharger directement vos fichiers fastq compressés :
+
+```bash
+#!/usr/bin/env bash
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR296/003/SRR2960343/SRR2960343.fastq.gz -o SRR2960343_Condition1_Iron_Light_3H.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR296/001/SRR2960341/SRR2960341.fastq.gz -o SRR2960341_Condition_1_Iron_Light_3H.fastq.gz
+curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR296/008/SRR2960338/SRR2960338.fastq.gz -o SRR2960338_Condition_1_Iron_Light_3H.fastq.gz
+```
 
 ⚠️ **Ne lancez pas les commandes ci-dessus car vous avez déjà téléchargé vos données.**
 
