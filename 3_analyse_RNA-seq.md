@@ -56,7 +56,7 @@ où `reads/ECHANTILLON.fastq.gz` est le fichier contenant l'échantillon que vou
 
 FastQC va produire deux fichiers (un fichier avec l'extension `.html` et un autre avec l'extension `.zip`) dans le répertoire `reads_qc`. Si par exemple, vous avez analysé le fichier `reads/SRR2960338.fastq.gz`, vous obtiendrez les fichiers `reads_qc/SRR2960338_fastqc.html` et `reads_qc/SRR2960338_fastqc.zip`.
 
-Utilisez l'explorateur de fichiers de Windows pour vous déplacer dans le bon répertoire. Ouvrez ensuite le fichier `.html` ainsi créé avec Firefox (en double-cliquant sur le fichier). Analysez le rapport créé par FastQC.
+Utilisez l'explorateur de fichiers de Windows pour vous déplacer dans le bon répertoire (voir [exemple](img/navigation_explorateur_windows.png)). Ouvrez ensuite le fichier `.html` ainsi créé avec Firefox (en double-cliquant sur le fichier). Analysez le rapport créé par FastQC.
 
 
 ### 3.2.2 Indexer le génome de référence
