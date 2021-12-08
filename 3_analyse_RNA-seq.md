@@ -6,7 +6,7 @@ license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 
 L'objectif de cette partie est d'analyser les données RNA-seq de *O. tauri* sur votre machine Unix locale.
 
-Voici une vue d'ensemble des étapes pour analyser les données de séquençage haut débit :
+Voici une vue d'ensemble des étapes pour analyser ces données de séquençage haut débit :
 
 ![](pipeline_RNA_seq_O_tauri.svg)
 
@@ -25,7 +25,7 @@ Activez l'environnement conda *rnaseq-env* :
 $ conda activate rnaseq-env
 ```
 
-Remarque : contrôlez que le nom de l'environnement conda apparait bien à gauche de l'invite de commande sous la forme : `(rnaseq-env)`.
+*Remarque : contrôlez que le nom de l'environnement conda apparait bien à gauche de l'invite de commande sous la forme : `(rnaseq-env)`.*
 
 Vous êtes maintenant prêt à analyser des données RNA-seq 🤠
 
@@ -52,11 +52,11 @@ Lancez FastQC avec la commande :
 ```bash
 $ fastqc reads/ECHANTILLON.fastq.gz --outdir reads_qc
 ```
-où `ECHANTILLON.fastq.gz` est le fichier contenant l'échantillon que vous avez choisi.
+où `reads/ECHANTILLON.fastq.gz` est le fichier contenant l'échantillon que vous avez choisi. Pensez à l'adapter avant de lancer votre commande !
 
 FastQC va produire deux fichiers (un fichier avec l'extension `.html` et un autre avec l'extension `.zip`) dans le répertoire `reads_qc`. Si par exemple, vous avez analysé le fichier `reads/SRR2960338.fastq.gz`, vous obtiendrez les fichiers `reads_qc/SRR2960338_fastqc.html` et `reads_qc/SRR2960338_fastqc.zip`.
 
-En utilisant l'explorateur de fichiers de Windows, ouvrez le fichier `.html` ainsi créé avec Firefox (en double-cliquant sur le fichier). Analysez le rapport de FastQC.
+Utilisez l'explorateur de fichiers de Windows pour vous déplacer dans le bon répertoire. Ouvrez ensuite le fichier `.html` ainsi créé avec Firefox (en double-cliquant sur le fichier). Analysez le rapport créé par FastQC.
 
 
 ### 3.2.2 Indexer le génome de référence
@@ -111,7 +111,7 @@ Les options utilisées sont :
 
 Toutes les options de Bowtie2 sont détaillées dans la [documentation](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml).
 
-Cette étape peut prendre plusieurs minutes. **Bowtie n'affiche rien à l'écran lorsqu'il fonctionne**. Soyez patient.
+Cette étape peut prendre 6 ou 7 minutes. **Bowtie n'affiche rien à l'écran lorsqu'il fonctionne**. Soyez patient.
 
 À la fin de l'alignement, Bowtie2 renvoie des informations qui ressemblent à :
 
@@ -131,7 +131,7 @@ On obtient ainsi :
 - le nombre de *reads* alignés plus d'une fois (`369351`, soit `6.75%` du nombre total de *reads*)
 - un taux d'alignement global (`90.90%`)
 
-Il faut être prudent si le nombre de *reads* non alignés est trop important (> 20%).
+Il faut être prudent si le nombre de *reads* non alignés est trop important (par exemple supérieur à 20%).
 
 
 ### 3.2.4 Convertir en binaire, trier et indexer les *reads* alignés
@@ -143,13 +143,13 @@ Vous allez maintenant utiliser SAMtools pour :
     $ samtools view -@ 2 -b map/bowtie.sam -o map/bowtie.bam
     ```
     Cette étape va prendre plusieurs minutes. Comme votre machine dispose de 4 coeurs, nous allons en utiliser 2 (`-@ 2`) pour accélérer le calcul.  
-    Comparez la taille deux fichiers `map/bowtie.sam` et `map/bowtie.bam`. Quel est le ratio de compression entre les deux formats de fichiers ?
+    Avec la commande `du` et les bonnes options, comparez la taille deux fichiers `map/bowtie.sam` et `map/bowtie.bam`. Quel est le ratio de compression entre les deux formats de fichiers ?
 
 2. Trier les *reads* alignés suivant l'ordre dans lequel ils apparaissent dans le génome.
     ```bash
     $ samtools sort -@ 2 map/bowtie.bam -o map/bowtie.sorted.bam
     ```
-    Cette étape va prendre plusieurs minutes.
+    Cette étape va prendre ici encore quelques minutes.
 
 3. Indexer le fichier `.bam`. Cette étape est **indispensable** pour visualiser l'alignement avec IGV.
     ```bash
@@ -173,15 +173,15 @@ Puis lancez la commande (en une seule ligne) pour compter les *reads* alignés :
 $ htseq-count --stranded=no --type="gene" --idattr="ID" --order=name --format=bam map/bowtie.sorted.bam genome/GCF_000214015.3_version_140606.gff > count/count.txt
 ```
 
-HTSeq renvoie le nombre d'annotations trouvées dans le fichier `.gff` puis affiche une progression de l'analyse. Les options du programme `htseq-count` sont décrites dans la [documentation](http://gensoft.pasteur.fr/docs/HTSeq/0.9.1/count.html).
+HTSeq renvoie le nombre d'annotations trouvées dans le fichier `.gff` (7659) puis affiche une progression de l'analyse. Les options du programme `htseq-count` sont décrites dans la [documentation](https://htseq.readthedocs.io/en/master/htseqcount.html).
 
-Déterminez le nombre de *reads* alignés sur le gène `ostta18g01980`. Pour cela, lancez la commande :
+Déterminez le nombre de *reads* alignés sur le gène `ostta18g01980` avec la commande :
 
 ```bash
 $ grep ostta18g01980 count/count.txt
 ```
 
-Vous pouvez aussi ouvrir le fichier `count/count.txt` avec la commande `less` puis chercher le gène `ostta18g01980` en tapant `/ostta18g01980` puis la touche <kbd>Entrée</kbd> (et enfin la touche <kbd>Q</kbd> pour quitter).
+Vous pouvez également ouvrir le fichier `count/count.txt` avec la commande `less` puis chercher le gène `ostta18g01980` en tapant `/ostta18g01980` puis la touche <kbd>Entrée</kbd> (et enfin la touche <kbd>Q</kbd> pour quitter).
 
 
 ### 3.2.6 Visualiser les *reads* alignés avec IGV
@@ -211,7 +211,7 @@ Mais d'abord, faites un peu de ménage en supprimant les fichiers créés préc�
 $ rm -f reads_qc/*fastqc* index/*bt2 map/bowtie* count/count*
 ```
 
-💣 Attention à l'utilisation de la commande `rm` qui supprime définitivement les fichiers.
+*💣 Attention à l'utilisation de la commande `rm` qui supprime définitivement les fichiers. 💣*
 
 
 ### 3.3.1 Variables
@@ -225,7 +225,7 @@ $ toto=33
 $ t="salut"
 ```
 
-Attention : Il faut coller le nom de la variable et son contenu au symbole `=`.
+*Attention : Il faut coller le nom de la variable et son contenu au symbole `=`.*
 
 Affichage de variables :
 
@@ -260,6 +260,8 @@ Dans un script Bash, tout ce qui suit le symbole `#` est considéré comme un co
 
 Testez le script `script1.sh` sur **un seul** de vos échantillons. Pour cela :
 
+- Vérifiez que vous êtes bien toujours dans le répertoire `/mnt/c/Users/omics/rnaseq_tauri`.
+
 - Téléchargez le script `script1.sh` dans votre répertoire `rnaseq_tauri` avec la commande :
     ```bash
     $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script1.sh
@@ -267,7 +269,7 @@ Testez le script `script1.sh` sur **un seul** de vos échantillons. Pour cela :
 
 - Ouvrez le script `script1.sh` avec `nano`. Essayez de comprendre son fonctionnement, notamment l'utilisation des variables.
 
-- Sur la deuxième ligne, modifiez la variable `sample` avec votre numéro d'échantillon. Sauvegardez le script (<kbd>Ctrl</kbd> + <kbd>O</kbd>`) et quittez nano (<kbd>Ctrl</kbd> + <kbd>X</kbd>).  
+- Sur la deuxième ligne, modifiez la variable `sample` avec votre numéro d'échantillon. Sauvegardez le script (<kbd>Ctrl</kbd> + <kbd>O</kbd>) et quittez nano (<kbd>Ctrl</kbd> + <kbd>X</kbd>).  
     Rappel : pas d'espace avant et après le symbole `=` !
 
 - Lancez le script avec la commande :
@@ -275,7 +277,7 @@ Testez le script `script1.sh` sur **un seul** de vos échantillons. Pour cela :
     $ bash script1.sh
     ```
 
-Vérifiez que le déroulement du script se passe bien. Vous avez le temps de prendre un café (~ 15 ') ☕. Voir plusieurs ☕ 🍪 ☕ 🍪.
+Vérifiez que le déroulement du script se passe bien. Vous avez le temps de prendre un café (~ 15 '), voir plusieurs ☕ 🍪 ☕ 🍪.
 
 Évaluez approximativement le temps nécessaire au script 1 pour s'exécuter. ⏱️ À partir de cette valeur, extrapoler le temps nécessaire qu'il faudrait pour analyser les 3 échantillons.
 
@@ -323,7 +325,7 @@ Le [script 2](script2.sh) répond à ce problème. Téléchargez-le avec la comm
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script2.sh
 ```
 
-Ouvrez ce script avec `nano`. Vous remarquerez que la solution proposée pour conserver les informations liées à l'alignement est un peu particulière. Nous allons en discuter, mais dans un premier temps essayer de comprendre l'explication donnée [ici](https://stackoverflow.com/questions/876239/how-can-i-redirect-and-append-both-stdout-and-stderr-to-a-file-with-bash).
+Ouvrez ce script avec `nano`. Vous remarquerez que la solution proposée pour conserver les informations liées à l'alignement est un peu particulière (`2> map/bowtie-${sample}.out`). Nous allons en discuter, mais dans un premier temps essayer de comprendre l'explication donnée [ici](https://stackoverflow.com/questions/876239/how-can-i-redirect-and-append-both-stdout-and-stderr-to-a-file-with-bash).
 
 
 ## 3.5 Automatiser l'analyse : niveau 3 (ninja)
@@ -356,9 +358,9 @@ Salut pierre !
 
 Notez l'utilisation du symbole `;` pour séparer les différents éléments de la boucle.
 
-Une leçon de Software Carpentry aborde la notion de [boucle](https://swcarpentry.github.io/shell-novice/05-loop/index.html). Prenez quelques minutes pour la parcourir et faire les exercices.
+Une leçon de Software Carpentry aborde la notion de [boucle](https://swcarpentry.github.io/shell-novice/05-loop/index.html). Prenez quelques minutes pour parcourir cette leçon et comprendre de quoi il s'agit.
 
-Le script 3 utilise une boucle pour automatiser l'analyse de plusieurs échantillons. Téléchargez-le avec la commande :
+Le [script 3](script3.sh) utilise une boucle pour automatiser l'analyse de plusieurs échantillons. Téléchargez-le avec la commande :
 
 ```bash
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script3.sh
@@ -373,10 +375,7 @@ La ligne `set -euo pipefail` tout au début du script va arrêter celui-ci :
 
 C'est une mesure de sécurité importante pour votre script. Si vous le souhaitez, vous pouvez lire l'article de Aaron Maxwell à ce sujet : [Use the Unofficial Bash Strict Mode (Unless You Looove Debugging)](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
 
-
-Toujours avec `nano`, modifiez le script 3 avec les numéros d'échantillons que vous avez à analyser. Faites bien attention à la variable concernée et à sa syntaxe.
-
-Si vous pensez en avoir le temps, lancez le script 3. Comme ce script va automatiser toute l'analyse, il va fonctionner plusieurs dizaines de minutes et vous aurez peut-être besoin de fermez votre terminal. Pour ne pas arrêter brutalement l'analyse, lancez le script de cette manière :
+Si vous pensez en avoir le temps, lancez le script 3. Comme ce script va automatiser toute l'analyse, il va fonctionner environ 45 minutes et vous aurez peut-être besoin de fermer votre terminal. Pour ne pas arrêter brutalement l'analyse, lancez le script de cette manière :
 
 ```bash
 $ nohup bash script3.sh &
@@ -394,8 +393,8 @@ vous rappelle que les messages qui apparaissaient habituellement à l'écran ser
 
 ##  3.6 Comparer les versions des logiciels utilisés dans Galaxy (si vous avez du temps)
 
-Connectez-vous maintenant à votre compte sur Galaxy. Essayez de retrouver les versions des logiciels que vous utilisés (FastQC, Bowtie2, SAMtools, HTSeq).
+Connectez-vous maintenant à votre compte sur Galaxy. Essayez de retrouver les versions des logiciels que vous avez utilisés (FastQC, Bowtie2, SAMtools, HTSeq).
 
 Pour ce faire, dans votre *History*, cliquez sur le nom d'un résultat d'analyse, puis cliquez sur le petit i entouré (ℹ️) et lisez les informations de la section *Job Dependencies*.
 
-Comparez les versions des logiciels disponibles dans Galaxy et de ceux que vous avez utilisé sur votre machine.
+Comparez les versions des logiciels disponibles dans Galaxy et de ceux que vous avez utilisés sur votre machine.
