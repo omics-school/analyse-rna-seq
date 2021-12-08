@@ -8,7 +8,7 @@ L'objectif de cette partie est d'installer conda et les logiciels nécessaires �
 
 ## 1.1 Installer conda
 
-Conda est un gestionnaire de logiciels et d'environnements très utilisé en bioinformatique. [Miniconda](https://docs.conda.io/en/latest/miniconda.html) est une distribution qui permet d'installer conda. Puisque nous travaillons sous Linux (sous Windows 10 certes, mais nous vous rappelons que WSL est un système Linux), nous allons installer la version **Linux** de Miniconda.
+Conda est un gestionnaire de logiciels et d'environnements très utilisé en bioinformatique. [Miniconda](https://docs.conda.io/en/latest/miniconda.html) est une distribution qui permet d'installer conda sous Windows, Mac OSX et Linux. Puisque nous travaillons sous Linux (sous Windows 10 certes, mais nous vous rappelons que WSL est un système Linux), nous allons installer la version **Linux** de Miniconda.
 
 Pour cette étape, déplacez-vous dans votre répertoire utilisateur Unix :
 
