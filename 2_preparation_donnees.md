@@ -47,7 +47,7 @@ Créez ensuite vos répertoires de travail avec la commande :
 $ mkdir -p rnaseq_tauri/{genome,reads}
 ```
 
-*Explications : cette commande crée les répertoires `rnaseq_tauri`, `rnaseq_tauri/genome` et `rnaseq_tauri/reads` en une seule opération. L'option `-p` ne génère pas d'erreur si les répertoires existent déjà et autorise la création de répertoires imbriqués (par exemple le répertoire `genome` dans le répertoire `rnaseq_tauri`).
+*Explications : cette commande crée les répertoires `rnaseq_tauri`, `rnaseq_tauri/genome` et `rnaseq_tauri/reads` en une seule opération. L'option `-p` ne génère pas d'erreur si les répertoires existent déjà et autorise la création de répertoires imbriqués (par exemple le répertoire `genome` dans le répertoire `rnaseq_tauri`).*
 
 Déplacez-vous dans le répertoire `rnaseq` :
 
@@ -221,4 +221,4 @@ Nous avons vérifié ici l'intégrité de 2 fichiers en une opération, mais il 
 
 Dans cette étape, vous avez préparé votre arboscence de travail et téléchargé les données nécessaires pour votre analyses RNA-seq. Félicitation 🥳
 
-Vous pouvez passer à l'étape suivante : [➡️](3_analyse_RNA-seq.md)
+Vous pouvez fermer votre terminal et passer à l'étape suivante : [➡️](3_analyse_RNA-seq.md)
