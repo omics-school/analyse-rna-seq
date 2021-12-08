@@ -34,13 +34,15 @@ Installez miniconda :
 $ bash Miniconda3-latest-Linux-x86_64.sh -b -f
 ```
 
-Puis initialisez conda :
+Cette étape va prendre quelques secondes. 
+
+Initialisez ensuite conda :
 
 ```bash
 $ ./miniconda3/bin/conda init
 ```
 
-Attention, la commande débute bien par un point `.`
+Attention, la commande débute par un point `.`
 
 Fermez enfin votre terminal.
 
@@ -57,31 +59,31 @@ Si vous obtenez `conda 4.10.3` ou une version supérieure : bravo 🎉
 
 ## 1.2 Installer mamba
 
-Conda est parfois lent à installer un environnement, c'est-à-dire l'ensemble des outils nécessaires pour une tâche particulière, ici une analyse RNA-seq.
+Conda est parfois lent à installer un environnement, c'est-à-dire à installer l'ensemble des outils nécessaires pour une tâche particulière, ici notre analyse RNA-seq.
 
-Nous vous conseillons d'installer [mamba](https://github.com/mamba-org/mamba) qui vous permettra d'accélérer conda avec la commande :
+Nous allons installer [mamba](https://github.com/mamba-org/mamba) qui accélerera l'installation des autres logiciels  :
 
 ```bash
-$ conda install mamba -n base -c conda-forge
+$ conda install mamba -n base -c conda-forge -y
 ```
 
 ## 1.3 Créer l'environnement rnaseq-env
 
 Nous souhaitons maintenant installer tous les logiciels nécessaires à l'analyse RNA-seq. Nous pourrions le faire dans l'environnement par défaut de Miniconda (qui s'appelle *base* comme l'indique le `(base)` à gauche de votre invite de commande) mais ce serait une très mauvaise pratique.
 
-Nous allons donc créer un environnement conda dédié pour notre analyse RNA-seq. Sans grande originalité, nous appellerons cet environnement `rnaseq` :
+Nous allons donc créer un environnement conda dédié à notre analyse RNA-seq. Sans grande originalité, nous appellerons cet environnement `rnaseq-env` :
 
 ```bash
 $ conda create -n rnaseq-env -y
 ```
 
-Une fois l'environnement créé, il faut l'activer (c'est-à-dire l'utiliser) :
+Une fois l'environnement créé, il faut l'activer, c'est-à-dire dire explicitement à conda que voulons l'utiliser :
 
 ```bash
 $ conda activate rnaseq-env
 ```
 
-Le `(base)` à gauche de votre invite de commande est maintenant remplacé par `(rnaseq-env)` (comme [ici](img/conda_rnaseq.png)).
+L'indication `(base)` à gauche de votre invite de commande est maintenant remplacé par `(rnaseq-env)` (comme [ici](img/conda_rnaseq.png)).
 
 
 ## 1.4 Installer les logiciels nécessaires
@@ -94,7 +96,7 @@ Voici la liste des logiciels dont nous avons besoin :
 - [SAMtools](http://samtools.sourceforge.net/) pour la manipulation des fichiers d'alignements (conversion en binaire, tri et indexation).
 - [HTSeq](https://htseq.readthedocs.io/en/latest/) pour le comptage du nombre de *reads* alignés sur chaque gène.
 
-Installons ces logiciels dans l'environnement conda *rnaseq* que nous venons de créer. Pour accéler l'installation, nous utilisons ici mamba :
+Installons ces logiciels dans l'environnement conda *rnaseq-env* que nous venons de créer. Pour accélérer l'installation, nous utilisons ici mamba :
 
 ```bash
 $ mamba install -c conda-forge -c bioconda sra-tools fastqc bowtie2 samtools htseq -y
@@ -138,17 +140,15 @@ Copyright (C) 2021 Genome Research Ltd.
 ```
 
 ```bash
-$ htseq-count -h
-[...]
-Written by Simon Anders (sanders@fs.tum.de), European Molecular Biology Laboratory (EMBL) 
-and Fabio Zanini (fabio.zanini@unsw.edu.au), UNSW Sydney. (c) 2010-2020. Released under the terms of
-the GNU General Public License v3. Part of the 'HTSeq' framework, version 1.99.2.
+$ htseq-count --version
+1.99.2
 ```
 
-Bravo ✨ Vous avez installé Miniconda, créé un environnement conda et installé tous les logiciels nécessaires.
+Bravo ✨ Vous avez installé Miniconda, créé un environnement conda et installé tous les logiciels nécessaires pour votre analyse RNA-seq.
 
 Vous pouvez passer à l'étape suivante : [➡️](2_preparation_donnees.md)
 
+---
 
 Remarque : dans un environnement conda, on peut accéder rapidement aux versions des logicels installés avec la commande `conda list`.
 L'utilisation de `grep` filtre ensuite le résultat. Par exemple
