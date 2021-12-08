@@ -93,7 +93,7 @@ La même commande aurait pu s'écrire :
 $ fasterq-dump -e 3 -p -O reads SRR2960338 SRR2960341 SRR2960343
 ```
 
-L'utilisation des versions longues des options est souvent plus explicite. Essayez de comprendre la signification de ces différentes options. N'hésitez pas à consulter l'aide de `fasterq-dump` en lançant la commande `fasterq-dump --help` dans un autre terminal.
+L'utilisation des versions longues des options est souvent plus explicite. Essayez de comprendre la signification de ces différentes options. N'hésitez pas à consulter l'aide de `fasterq-dump` en lançant la commande `fasterq-dump --help` dans un autre terminal (après avoir chargé l'environnement conda *rnaseq-env*).
 
 Le téléchargement des données va prendre une dizaine de minutes. Soyez patient et profitez-en pour prendre un café ou un thé.
 
