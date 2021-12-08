@@ -123,7 +123,7 @@ $ du -ch reads/*
 
 L'espace disque occupé est désormais inférieur à 1,5 Go pour les 3 fichiers, ce qui est déjà plus raisonnable.
 
-Remarque : cette étape de compression des données n'est pertinente que parce que les outils que nous utiliserons ensuite savent manipuler ce genre de fichiers.
+*Remarque : cette étape de compression des données n'est pertinente que parce que les outils que nous utiliserons ensuite savent manipuler ce genre de fichiers.*
 
 ## 2.4 Télécharger les fichiers Fastq (solution alternative)
 
