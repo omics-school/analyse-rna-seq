@@ -47,7 +47,7 @@ Créez le répertoire `reads_qc` qui va contenir les fichiers produits par le co
 $ mkdir -p reads_qc
 ```
 
-Lancez FastQC avec la commande :
+Lancez FastQC avec la commande *(attention, modifiez cette commande)* :
 
 ```bash
 $ fastqc reads/ECHANTILLON.fastq.gz --outdir reads_qc
