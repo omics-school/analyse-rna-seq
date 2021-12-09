@@ -186,6 +186,8 @@ Vous pouvez également ouvrir le fichier `count/count.txt` avec la commande `les
 
 ### 3.2.6 Visualiser les *reads* alignés avec IGV
 
+*Cette rubrique est facultative. Passez à la section suivante si vous n'avez pas installé IGV et visionné la vidéo correspondante.*
+
 Pour visualiser l'alignement des *reads* sur le génome de référence avec IGV, vous avez besoin des fichiers suivants :
 - Le génome de référence (`genome/GCF_000214015.3_version_140606.fna`).
 - Les annotations du génome de référence (`genome/GCF_000214015.3_version_140606.gff`).
