@@ -95,7 +95,7 @@ $ fasterq-dump -e 3 -p -O reads SRR2960338 SRR2960341 SRR2960343
 
 L'utilisation des versions longues des options est souvent plus explicite. Essayez de comprendre la signification de ces différentes options. N'hésitez pas à consulter l'aide de `fasterq-dump` en lançant la commande `fasterq-dump --help` dans un autre terminal (après avoir chargé l'environnement conda *rnaseq-env*).
 
-Le téléchargement des données va prendre une dizaine de minutes. Soyez patient et profitez-en pour prendre un café ou un thé.
+Le téléchargement des données va prendre 20 à 25 minutes. Soyez patient et profitez-en pour prendre un café ou un thé.
 
 Calculez la taille occupée par les fichiers téléchargés avec la commande `du` :
 
@@ -148,7 +148,7 @@ curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR296/001/SRR2960341/SRR2960341.fast
 curl -L ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR296/008/SRR2960338/SRR2960338.fastq.gz -o SRR2960338_Condition_1_Iron_Light_3H.fastq.gz
 ```
 
-⚠️ **Ne lancez pas les commandes ci-dessus car vous avez déjà téléchargé vos données.**
+⚠️ **Ne lancez pas les commandes ci-dessus car vous avez déjà téléchargé vos données.** ⚠️
 
 Remarque : nous reviendrons sur la notion de script un peu plus tard.
 
