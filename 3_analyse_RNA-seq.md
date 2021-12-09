@@ -314,6 +314,19 @@ $ tree
 6 directories, 18 files
 ```
 
+Affichez ensuite la taille occupée par chaque sous-répertoire ainsi que la taille totale avec la commande :
+
+```bash
+$ du -csh *
+140K    count
+14M     genome
+26M     index
+315M    map
+1,3G    reads
+1,1M    reads_qc
+4,0K    script1.sh
+1,7G    total
+```
 
 ## 3.4 Automatiser l'analyse : niveau 2
 
