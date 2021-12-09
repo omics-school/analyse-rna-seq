@@ -84,13 +84,13 @@ $ conda activate rnaseq-env
 Téléchargez les 3 fichiers fastq avec la commande suivante :
 
 ```bash
-$ fasterq-dump --threads 3 --progress --outdir reads SRR2960338 SRR2960341 SRR2960343
+$ fasterq-dump --progress --outdir reads SRR2960338 SRR2960341 SRR2960343
 ```
 
 La même commande aurait pu s'écrire :
 
 ```bash
-$ fasterq-dump -e 3 -p -O reads SRR2960338 SRR2960341 SRR2960343
+$ fasterq-dump -p -O reads SRR2960338 SRR2960341 SRR2960343
 ```
 
 L'utilisation des versions longues des options est souvent plus explicite. Essayez de comprendre la signification de ces différentes options. N'hésitez pas à consulter l'aide de `fasterq-dump` en lançant la commande `fasterq-dump --help` dans un autre terminal (après avoir chargé l'environnement conda *rnaseq-env*).
