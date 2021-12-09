@@ -99,7 +99,7 @@ $ mkdir -p map
 Lancez l'alignement :
 
 ```bash
-$ bowtie2 -p 2 -x index/O_tauri -U reads/nom-fichier.fastq.gz -S map/bowtie.sam
+$ bowtie2 -p 2 -x index/O_tauri -U reads/ECHANTILLON.fastq.gz -S map/bowtie.sam
 ```
 
 Les options utilisées sont :
