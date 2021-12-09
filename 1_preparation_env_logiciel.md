@@ -12,7 +12,7 @@ Conda est un gestionnaire de logiciels et d'environnements très utilisé en bio
 
 [Miniconda](https://docs.conda.io/en/latest/miniconda.html) est une distribution qui permet d'installer conda sous Windows, Mac OSX et Linux. Puisque nous travaillons sous Linux (sous Windows 10 certes, mais nous vous rappelons que WSL est un système Linux), nous allons installer la version **Linux** de Miniconda.
 
-Sous Windows, ouvrez un terminal Ubuntu. Si vous avez oublié comment faire, consultez le [tutoriel Unix](https://omics-school.github.io/unix-tutorial/tutoriel/README).
+Sous Windows, ouvrez un terminal **Ubuntu**. Si vous avez oublié comment faire, consultez le [tutoriel Unix](https://omics-school.github.io/unix-tutorial/tutoriel/README).
 
 Déplacez-vous ensuite dans votre répertoire utilisateur Unix :
 
