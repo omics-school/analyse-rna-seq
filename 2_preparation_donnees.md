@@ -173,7 +173,7 @@ Téléchargez ensuite le génome de référence :
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/GCF_000214015.3_version_140606.fna -P genome/
 ```
 
-L'option `-P` précise où enregistrer le fichier téléchargé.
+L'option `-P` (`--directory-prefix` en version longue) précise où enregistrer le fichier téléchargé.
 
 Les annotations :
 
