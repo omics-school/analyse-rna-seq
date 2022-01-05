@@ -322,6 +322,10 @@ $ tree
 
 Vérifiez que la somme de contrôle du fichier `count/count-SRR2960338.txt` est bien `36fc86a522ee152c89fd77430e9b56a5`.
 
+Faites maintenant un peu de ménage en supprimant les fichiers créés précédemment avec la commande :
+```bash
+$ rm -rf map/ reads_qc/ count/ slurm*.out
+```
 
 ## 3.3 Analyse de plusieurs échantillons
 
@@ -334,28 +338,39 @@ Nous pourrions analyser d'un seul coup les 47 échantillons (fichiers `.fastq.gz
 
 Lancez votre analyse avec la commande :
 ```bash
-$ sbatch script6.sh
+$ sbatch -A form_2021_29 script6.sh
 ```
 
 Notez bien le numéro de job renvoyé.
 
 Vous pouvez suivre en temps réel l'exécution de votre job avec la commande :
 ```bash
-$ watch sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j jobID
+$ watch sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j JOBID
 ```
-avec `jobID` le numéro de votre job.
+avec `JOBID` le numéro de votre job.
 
-Patientez une dizaine de minutes que tous les jobs et job steps soient terminés. 
+Remarquez que la ligne indiquant `script6.sh` pour « *JobName* » est présente 4 fois. Cela indique que le script `script6.sh` est exécutée 4 fois, en parallèle.
+
+Patientez une dizaine de minutes que tous les jobs et *job steps* soient terminés. 
 
 Quand les status (colonne `State`) de tous les jobs et job steps sont à `COMPLETED`, stoppez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
+Vous remarquerez que l'exécution de `script6.sh` aura pris environ le même temps que celle de `script5.sh`. C'est toute la puissance du calcule distribué 🚀 Vous comprenez qu'il est relativement simple d'analyser 4, 10 ou 47 échantillons.
+
+Une dernière fois, vérifiez que tous vos fichiers sont présents :
+
+```bash
+$ tree
+
+
+```
 
 ## 4. L'heure de faire les comptes
 
 Expérimentez la commande `sreport` pour avoir une idée du temps de calcul consommé par tous vos jobs :
 
 ```bash
-$ sreport -t hour Cluster UserUtilizationByAccount Start=2020-01-01 End=$(date --iso-8601)T23:59:59 Users=$USER
+$ sreport -t hour Cluster UserUtilizationByAccount Start=2022-01-01 End=$(date --iso-8601)T23:59:59 Users=$USER
 ```
 
 La colonne `Used` indique le nombre d'heures de temps CPU consommées. Cette valeur est utile pour estimer le « coût CPU » d'un projet.
@@ -363,7 +378,7 @@ La colonne `Used` indique le nombre d'heures de temps CPU consommées. Cette val
 Voici un exemple de rapport produit par `sreport` :
 
 ```bash
-$ sreport -t hour Cluster UserUtilizationByAccount Start=2020-01-01 End=$(date --iso-8601)T23:59:59 Users=$USER
+$ sreport -t hour Cluster UserUtilizationByAccount Start=2022-01-01 End=$(date --iso-8601)T23:59:59 Users=$USER
 --------------------------------------------------------------------------------
 Cluster/User/Account Utilization 2020-01-01T00:00:00 - 2021-03-18T21:59:59 (38268000 secs)
 Usage reported in CPU Hours
@@ -377,6 +392,8 @@ Usage reported in CPU Hours
 ```
 
 Ainsi, l'utilisateur `ppoulain` a déjà consommé 129 heures de temps CPU sur le projet `uparis_duo_2020`.
+
+Attention, `sreport` ne prend pas en compte les heures immédiatement consommées. Il lui faut un peu de temps pour consolider les données.
 
 
 ## 5. Récupération des données
