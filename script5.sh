@@ -38,7 +38,7 @@ srun fastqc "${fastq_dir}/${sample}.fastq.gz" --outdir reads_qc
 echo "=============================================================="
 echo "Alignement des reads sur le génome de référence - échantillon ${sample}"
 echo "=============================================================="
-srun bowtie2 --threads="${SLURM_CPUS_PER_TASK}" -x "${genome_dir}/O_tauri" -U "${fastq_dir}/HCA-${sample}_R1.fastq.gz" -S "map/bowtie-${sample}.sam"
+srun bowtie2 --threads="${SLURM_CPUS_PER_TASK}" -x "${genome_dir}/O_tauri" -U "${fastq_dir}/${sample}.fastq.gz" -S "map/bowtie-${sample}.sam"
 
 echo "=============================================================="
 echo "Conversion en binaire, tri et indexation des reads alignés - échantillon ${sample}"
