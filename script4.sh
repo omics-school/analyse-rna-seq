@@ -17,13 +17,15 @@ module load htseq/0.11.3
 
 # numéro de l'échantillons à analyser
 sample="SRR2960338"
+# répertoire de base
+base_dir="/shared/projects/form_2021_29/data/rnaseq_tauri"
 # répertoire contenant les fichiers du génome de référence
 # (séquence et annotations)
-genome_dir="/shared/projects/form_2021_29/data/rnaseq_tauri/genome"
+genome_dir="${base_dir}/genome"
 # nom du fichier contenant les annotations
 annotations="${genome_dir}/GCF_000214015.3_version_140606_genomic_DUO2.gff"
 # répertoire contenant les fichiers .fastq.gz
-fastq_dir="/shared/projects/form_2021_29/data/rnaseq_tauri/reads"
+fastq_dir="${base_dir}/reads"
 
 
 echo "=============================================================="

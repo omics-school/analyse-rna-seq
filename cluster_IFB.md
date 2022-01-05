@@ -159,8 +159,6 @@ $ pwd
 avec `LOGIN` votre identifiant sur le cluster. 🆘 Appelez à l'aide si vous ne parvenez pas à être dans le bon répertoire.
 
 
-
-
 ## 3.1 Analyse d'un échantillon
 
 **Remarque préalable** : l'indexation du génome de référence avec le logiciel `bowtie2` a déjà été effectué pour vous. Pour vous en convraincre, affichez le contenu du répertoire `/shared/projects/form_2021_29/data/rnaseq_tauri/genome` et vérifiez l'existence de fichiers avec l'extension `.bt2`, spécifiques des fichiers index créés par `bowtie2`.
@@ -179,7 +177,9 @@ Lancez ce script avec la commande :
 $ sbatch -A form_2021_29 script4.sh
 ```
 
-Notez bien le numéro de job renvoyé.
+Vous devriez obtenir un message du type `Submitted batch job 20716345`. Ici, `20716345` correspond au numéro du job.
+
+Notez bien le numéro de votre job.
 
 Vérifiez que votre script est en train de tourner avec la commande :
 
@@ -201,8 +201,42 @@ $ sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j JOBID
 ```
 avec `JOBID` (en fin de ligne) le numéro de votre job à remplacer par le vôtre.
 
+Voici un exemple de sortie que vous pourriez obtenir :
 
-Nous allons maintenant améliorer le script d'analyse, annulez votre job avec la commande :
+```bash
+$ sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j 20716345
+       JobID    JobName      State               Start    Elapsed    CPUTime        NodeList 
+------------ ---------- ---------- ------------------- ---------- ---------- --------------- 
+20716345     script4.sh    RUNNING 2022-01-05T23:37:36   00:08:58   00:08:58     cpu-node-24 
+20716345.ba+      batch    RUNNING 2022-01-05T23:37:36   00:08:58   00:08:58     cpu-node-24 
+20716345.0       fastqc    RUNNING 2022-01-05T23:37:37   00:00:54   00:00:34     cpu-node-24 
+```
+
+Si vous affichez le contenu de votre répertoire courant, vous devriez voir l'apparition d'un fichier `slurm-JOBID.out` où `JOBID` est le numéro de votre job. Ce fichier contient la sortie, c'est-à-dire le *log* de votre script.
+
+Affichez son contenu avec la commande `cat`. Par exemple :
+
+```bash
+$ cat slurm-JOBID.out
+```
+
+avec `JOBID` le numéro de votre job.
+
+Si vous attendez 1 ou 2 minutes et relancez la commande `sacct` précédente, votre job a du passer à une nouvelle étape.
+
+Par exemple :
+
+```bash
+$ sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j 20716345
+       JobID    JobName      State               Start    Elapsed    CPUTime        NodeList 
+------------ ---------- ---------- ------------------- ---------- ---------- --------------- 
+20716345     script4.sh    RUNNING 2022-01-05T23:37:36   00:05:22   00:05:22     cpu-node-24 
+20716345.ba+      batch    RUNNING 2022-01-05T23:37:36   00:05:22   00:05:22     cpu-node-24 
+20716345.0       fastqc  COMPLETED 2022-01-05T23:37:37   00:00:54   00:00:54     cpu-node-24 
+20716345.1      bowtie2    RUNNING 2022-01-05T23:38:31   00:04:27   00:04:27     cpu-node-24 
+```
+
+Nous allons maintenant améliorer le script d'analyse. Annulez votre job en cours avec la commande :
 ```bash
 $ scancel JOBID
 ```
@@ -211,14 +245,14 @@ où `JOBID` est le numéro de votre job.
 
 Faites aussi un peu de ménage en supprimant les fichiers créés précédemment avec la commande :
 ```bash
-$ rm -f bowtie*bam bowtie*bam HCA*html HCA*zip count*txt
+$ rm -rf map/ reads_qc/ count/ slurm*.out
 ```
 
 ## 3.2 Analyse plus rapide d'un échantillon
 
 L'objectif est maintenant « d'aller plus vite » en attribuant plusieurs coeurs pour l'étape d'alignement des reads sur le génome avec `bowtie2`.
 
-Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq` de votre répertoire de travail, téléchargez le script `script5.sh` avec la commande :
+Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq_tauri` de votre répertoire de travail, téléchargez le script `script5.sh` avec la commande :
 ```bash
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script5.sh
 ```
@@ -230,7 +264,7 @@ $ diff script4.sh script5.sh
 
 Lancez ensuite votre analyse :
 ```bash
-$ sbatch script5.sh
+$ sbatch -A form_2021_29 script5.sh
 ```
 
 Notez bien le numéro de job renvoyé.
@@ -240,30 +274,31 @@ Vérifiez que votre job est bien lancé avec la commande :
 $ squeue -u $USER
 ```
 
-Le fichier `slurm-jobID.out` est également créé et contient les sorties du script. Pour consulter son contenu, tapez :
+Le fichier `slurm-JOBID.out` est également créé et contient les sorties du script. Pour consulter son contenu, tapez :
 ```bash
-$ cat slurm-jobID.out
+$ cat slurm-JOBID.out
 ```
 
-avec `jobID` le numéro de votre job.
+avec `JOBID` le numéro de votre job.
 
 
 Suivez également en temps réel l'exécution de votre job avec la commande :
 ```bash
-$ watch sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j jobID
+$ watch sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j JOBID
 ```
-avec `jobID` le numéro de votre job.
+avec `JOBID` le numéro de votre job.
 
 Remarques : 
 
 - La commande `watch` est utilisée ici pour « surveiller » le résultat de la commande `sacct`.
 - L'affichage est rafraichi toutes les 2 secondes.
 
-Votre job devrait prendre une petite dizaine de minutes pour se terminer. Laissez le cluster travailler et profitez-en pour vous faire un thé ou un café.
+Votre job devrait prendre une petite dizaine de minutes pour se terminer. Laissez le cluster travailler et profitez-en pour vous préparer un thé ou un café.
 
 Quand les status (colonne `State`) du job et de tous les job steps sont à `COMPLETED`, stoppez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
-Vérifiez que les fichiers suivants ont bien été créés dans votre répertoire :
+Vérifiez avec la commande `tree` que les fichiers suivants ont bien été créés :
+
 
 - `HCA-37_R1_fastqc.html`
 - `HCA-37_R1_fastqc.zip`
