@@ -38,6 +38,7 @@ srun fastqc "${fastq_dir}/${sample}.fastq.gz" --outdir reads_qc
 echo "=============================================================="
 echo "Alignement des reads sur le génome de référence - échantillon ${sample}"
 echo "=============================================================="
+mkdir -p map
 srun bowtie2 --threads="${SLURM_CPUS_PER_TASK}" -x "${genome_dir}/O_tauri" -U "${fastq_dir}/${sample}.fastq.gz" -S "map/bowtie-${sample}.sam"
 
 echo "=============================================================="
