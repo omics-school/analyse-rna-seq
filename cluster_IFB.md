@@ -12,9 +12,9 @@ Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* ave
 
 L'accès au cluster de l'IFB vous est fourni dans le cadre du DU Omiques. Cet accès sera révoqué à l'issue de la formation. 
 
-Si vous souhaitez continuer à utiliser ce cluster pour votre projet, connectez-vous sur votre [interface](https://my.cluster.france-bioinformatique.fr/manager2/project) puis cliquez sur le bouton *Request A New Project* et précisez en quelques mots votre projet. Plusieurs utilisateurs peuvent être associées à un même projet et partager des données.
+Si à l'issue de cette formation, vous souhaitez continuer à utiliser ce cluster pour votre projet de recherche, connectez-vous sur votre [interface](https://my.cluster.france-bioinformatique.fr/manager2/project) puis cliquez sur le bouton *Request A New Project* et précisez en quelques mots votre projet. Plusieurs utilisateurs peuvent être associées à un même projet et partager des données.
 
-Si vous avez besoin d'un logiciel spécifique sur le cluster. N'hésitez pas à le demander sur le site [Cluster Community Support](https://community.cluster.france-bioinformatique.fr/). Les administrateurs sont en général très réactifs.
+Si vous avez besoin d'un logiciel spécifique sur le cluster. N'hésitez pas à le demander gentillement sur le site [Cluster Community Support](https://community.cluster.france-bioinformatique.fr/). Les administrateurs sont en général très réactifs.
 
 
 ## 0. Connexion au cluster
@@ -37,17 +37,17 @@ Connectez-vous en SSH au cluster avec les identifiants (login et mot de passe) q
 
 La syntaxe est de la forme :
 ```bash
-$ ssh login@core.cluster.france-bioinformatique.fr
+$ ssh LOGIN@core.cluster.france-bioinformatique.fr
 ```
 
-avec `login` votre identifiant sur le cluster. 
+avec `LOGIN` votre identifiant sur le cluster. 
 
 Si c'est la première fois que vous vous connectez au cluster, répondez `yes` à la question 
 ```
 Are you sure you want to continue connecting (yes/no)?
 ```
 
-Entrez ensuite votre mot de passe en aveugle, c'est-à-dire sans qu'aucun caractère ne soit affiché à l'écran. C'est assez déstabilisant la première fois puis on s'habitue.
+Entrez ensuite votre mot de passe en **aveugle**, c'est-à-dire sans qu'aucun caractère ne soit affiché à l'écran. C'est assez déstabilisant la première fois puis on s'habitue.
 
 🔔 **Attention** 🔔 Le cluster est protégé contre certaines attaques. Si vous entrez un mot de passe erronné plusieurs fois de suite, votre IP va être bannie et vous ne pourrez plus vous connecter (temporairement) au serveur.
 
@@ -59,41 +59,9 @@ Un cluster est un ensemble de machines. La machine à laquelle vous venez de vou
 **Remarque :** Vous lancerez vos calculs **depuis** le noeud de connexion mais pas **sur** le noeud de connexion. Il est interdit de lancer une analyse sur le noeud de connexion sous peine de voir votre compte suspendu.
 
 
-## 1. Stockage des données
+## 1. Environnement logiciel 
 
 Si vous vous êtes déconnectés du cluster, reconnectez-vous avec la commande `ssh` précédente.
-
-Votre répertoire utilisateur sur le noeud de connexion (`/shared/home/login`) ne doit pas contenir de donnée car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/uparis_duo_2020/login` (avec `login` votre identifiant sur le cluster). Par la suite, cet espace sera appelé « répertoire de travail ».
-
-De plus, le répertoire `/shared/projects/uparis_duo_2020/data` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers de ce répertoire (pas de modification, d'ajout ou de suppression).
-
-De quels fichiers avez-vous besoin pour l'analyse des données RNA-seq de *O. tauri* ? 
-
-Vérifiez que tous les fichiers nécessaires sont bien présents dans `/shared/projects/uparis_duo_2020/data`.
-
-Vérifiez l'intégrité des fichiers `.fastq.gz` situés dans le répertoire `/shared/projects/uparis_duo_2020/data/reads` avec les commandes suivantes :
-
-```bahs
-$ cd /shared/projects/uparis_duo_2020/data/reads
-```
-
-*Rappel : n'entrez pas le symbole $ en début de ligne*
-
-puis 
-
-```bash
-$ srun md5sum -c md5sum.txt
-```
-
-N'oubliez pas le `srun` en début de commande !
-
-
-Déplacez-vous maintenant dans votre répertoire de travail `/shared/projects/uparis_duo_2020/login` (avec `login` votre identifiant sur le cluster).
-
-Créez le répertoire `rnaseq` et déplacez-vous à l'intérieur. Dorénavant vous ne travaillerez qu'à partir de ce répertoire.
-
-
-## 2. Environnement logiciel 
 
 Par défaut, aucun logiciel de bioinformatique n'est présent. Pour vous en convaincre, essayez de lancer la commande :
 ```bash
@@ -147,16 +115,68 @@ University. (c) 2010-2019. Released under the terms of the GNU General Public
 License v3. Part of the 'HTSeq' framework, version 0.11.3.
 ```
 
+## 2. Stockage des données
+
+Votre répertoire utilisateur sur le noeud de connexion (`/shared/home/LOGIN`) ne doit pas contenir de donnée car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/form_2021_29/LOGIN` (avec `LOGIN` votre identifiant sur le cluster). Par la suite, cet espace sera appelé « répertoire de travail ».
+
+De plus, le répertoire `/shared/projects/form_2021_29/data/rnaseq_tauri` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers de ce répertoire (pas de modification, d'ajout ou de suppression).
+
+De quels fichiers avez-vous besoin pour l'analyse des données RNA-seq de *O. tauri* ? 
+
+Vérifiez que tous les fichiers nécessaires sont bien présents dans `/shared/projects/form_2021_29/data/rnaseq_tauri`.
+
+Vérifiez l'intégrité des fichiers `.fastq.gz` situés dans le répertoire `/shared/projects/form_2021_29/data/rnaseq_tauri/reads` avec les commandes suivantes :
+
+```bash
+$ cd /shared/projects/form_2021_29/data/rnaseq_tauri
+```
+
+*Rappel : n'entrez pas le symbole $ en début de ligne*
+
+puis 
+
+```bash
+$ srun -A form_2021_29 md5sum -c reads_md5sum.txt
+```
+
+N'oubliez pas le `srun -A form_2021_29` en début de commande :
+
+- L'instruction `srun` est spécifique au cluster. 
+- L'option `-A form_2021_29` spécifie quel projet utiliser (facturer) pour cette commande. Un même utilisateur peut appartenir à plusieurs projets. Le nombre d'heures de calcul attribuées à un projet étant limité, il est important de savoir quel projet imputé pour telle ou telle commande. Pensez-y pour vos futurs projets.
+
+
+Déplacez-vous maintenant dans votre répertoire de travail `/shared/projects/form_2021_29/LOGIN` (avec `LOGIN` votre identifiant sur le cluster).
+
+Créez le répertoire `rnaseq_tauri` et déplacez-vous à l'intérieur. Dorénavant vous ne travaillerez plus qu'à partir de ce répertoire.
+
+La commande `pwd` devrait vous renvoyer quelque chose du type :
+
+```bash
+$ pwd
+/shared/projects/form_2021_29/LOGIN/rnaseq_tauri`
+```
+
+avec `LOGIN` votre identifiant sur le cluster. 🆘 Appelez à l'aide si vous ne parvenez pas à être dans le bon répertoire.
+
+
+
+
 ## 3.1 Analyse d'un échantillon
 
-Depuis le cluster de l'IFB, dans le répertoire `rnaseq` de votre répertoire de travail, téléchargez le script `script4.sh` avec la commande :
+**Remarque préalable** : l'indexation du génome de référence avec le logiciel `bowtie2` a déjà été effectué pour vous. Pour vous en convraincre, affichez le contenu du répertoire `/shared/projects/form_2021_29/data/rnaseq_tauri/genome` et vérifiez l'existence de fichiers avec l'extension `.bt2`, spécifiques des fichiers index créés par `bowtie2`.
+
+Depuis le cluster de l'IFB, vérifiez que vous êtes toujours dans votre répertoire `/shared/projects/form_2021_29/LOGIN/rnaseq_tauri`.
+
+Téléchargez ensuite le script `script4.sh` avec la commande :
+
 ```bash
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script4.sh
 ```
 
-Lancez ensuite ce script avec la commande :
+Lancez ce script avec la commande :
+
 ```bash
-$ sbatch script4.sh
+$ sbatch -A form_2021_29 script4.sh
 ```
 
 Notez bien le numéro de job renvoyé.
@@ -177,17 +197,17 @@ $ squeue -u $USER
 
 Et pour avoir plus de détails, utilisez la commande :
 ```bash
-$ sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j jobID
+$ sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j JOBID
 ```
-avec `jobID` le numéro de votre job.
+avec `JOBID` (en fin de ligne) le numéro de votre job à remplacer par le vôtre.
 
 
 Nous allons maintenant améliorer le script d'analyse, annulez votre job avec la commande :
 ```bash
-$ scancel jobID
+$ scancel JOBID
 ```
 
-où `jobID` est le numéro de votre job.
+où `JOBID` est le numéro de votre job.
 
 Faites aussi un peu de ménage en supprimant les fichiers créés précédemment avec la commande :
 ```bash
