@@ -49,7 +49,7 @@ echo "=============================================================="
 echo "Comptage - échantillon ${sample}"
 echo "=============================================================="
 mkdir -p count
-srun htseq-count --stranded=no --type="gene" --idattr="ID" --order=name --format=bam "map/bowtie-${sample}.sorted.bam" "${annotations}" > count-${sample}.txt
+srun htseq-count --stranded=no --type="gene" --idattr="ID" --order=name --format=bam "map/bowtie-${sample}.sorted.bam" "${annotations}" > "count/count-${sample}.txt"
 
 echo "=============================================================="
 echo "Nettoyage des fichiers inutiles - échantillon ${sample}"
