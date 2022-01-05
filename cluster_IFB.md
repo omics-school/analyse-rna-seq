@@ -262,7 +262,12 @@ Identifiez les différences avec le script précédent, par exemple avec la comm
 $ diff script4.sh script5.sh
 ```
 
-Lancez ensuite votre analyse :
+Les lignes qui débutent par `<` viennent de `script4.sh` et celles qui débutent par `>` viennent de `script5.sh`.
+
+Les différences majeures avec `script4.sh` résident dans l'utilisation de plusieurs coeurs pour les commandes `bowtie2`, `samtools view` et `samtools sort`. Cela est permis par la déclaration `#SBATCH --cpus-per-task=8` au tout début de `script5.sh`.
+
+Lancez maintenant le script d'analyse `script5.sh` :
+
 ```bash
 $ sbatch -A form_2021_29 script5.sh
 ```
@@ -293,29 +298,39 @@ Remarques :
 - La commande `watch` est utilisée ici pour « surveiller » le résultat de la commande `sacct`.
 - L'affichage est rafraichi toutes les 2 secondes.
 
-Votre job devrait prendre une petite dizaine de minutes pour se terminer. Laissez le cluster travailler et profitez-en pour vous préparer un thé ou un café.
+Votre job devrait prendre une petite dizaine de minutes pour se terminer. Laissez le cluster travailler et profitez-en pour vous préparer un thé ou un café bien mérité.
 
-Quand les status (colonne `State`) du job et de tous les job steps sont à `COMPLETED`, stoppez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
+Quand les status (colonne `State`) du job et de tous ses « *job steps* » sont à `COMPLETED`, stoppez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
-Vérifiez avec la commande `tree` que les fichiers suivants ont bien été créés :
+Vérifiez avec la commande `tree` que vous obtenez une arborescence équivalente à celle ci-dessous :
 
+```
+$ tree
+.
+├── count
+│   └── count-SRR2960338.txt
+├── map
+│   ├── bowtie-SRR2960338.sorted.bam
+│   └── bowtie-SRR2960338.sorted.bam.bai
+├── reads_qc
+│   ├── SRR2960338_fastqc.html
+│   └── SRR2960338_fastqc.zip
+├── script4.sh
+├── script5.sh
+└── slurm-20716384.out
+```
 
-- `HCA-37_R1_fastqc.html`
-- `HCA-37_R1_fastqc.zip`
-- `bowtie-37.sorted.bam`
-- `count-37.txt`
-- `slurm-jobID.out` (avec `jobID` le numéro de votre job)
+Vérifiez que la somme de contrôle du fichier `count/count-SRR2960338.txt` est bien `36fc86a522ee152c89fd77430e9b56a5`.
 
-Vérifiez que la somme de contrôle du fichier `count-37.txt` est bien `cbc9ff7ed002813e16093332c7abfed4`.
 
 ## 3.3 Analyse de plusieurs échantillons
 
-Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq` de votre répertoire de travail, téléchargez le script `script6.sh` avec la commande :
+Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq_tauri` de votre répertoire de travail, téléchargez le script `script6.sh` avec la commande :
 ```bash
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script6.sh
 ```
 
-Nous pourrions analyser d'un seul coup les 47 échantillons (fichiers `.fastq.gz`) mais pour ne pas consommer trop de ressources sur le cluster, nous allons limiter notre analyse à 4 échantillons.
+Nous pourrions analyser d'un seul coup les 47 échantillons (fichiers `.fastq.gz`) mais pour ne pas consommer trop de ressources sur le cluster, nous allons limiter notre analyse à 4 échantillons seulement. Si vous le souhaitez vous pourrez modifier ce script pour analyser les 47 échantillons 💪.
 
 Lancez votre analyse avec la commande :
 ```bash
