@@ -180,7 +180,7 @@ avec `LOGIN` votre identifiant sur le cluster.
 🛑 Si vous ne parvenez pas à être dans le bon répertoire, n'allez pas plus loin et appelez à l'aide 🆘.
 
 
-## 3.1 Analyse d'un échantillon
+## 3.1 Analyse d'un seul échantillon
 
 En guise d'introduction, vous affichez tous les jobs en cours d'exécution sur le cluster avec la commande :
 
@@ -232,12 +232,12 @@ Vérifiez que votre script est en train de tourner avec la commande :
 $ squeue -u $USER
 ```
 
-**Remarque** : Voici quelques statuts (colonne `ST`) de job intéressant :
+**Remarque** : Voici quelques statuts (colonne `ST`) de job intéressants :
 
 - `CA` (*cancelled*) : le job a été annulé
 - `F` (*failed*) : le job a planté
 - `PD` (*pending*) : le job est en attente que des ressources soient disponibles
-- `R` (*running*) : le job est lancé
+- `R` (*running*) : le job est en cours d'exécution
 
 
 Et pour avoir plus de détails, utilisez la commande :
@@ -290,7 +290,7 @@ $ scancel JOBID
 
 où `JOBID` est le numéro de votre job.
 
-Faites aussi un peu de ménage en supprimant les fichiers créés précédemment avec la commande :
+Faites aussi un peu de ménage en supprimant les fichiers créés précédemment :
 
 ```bash
 $ rm -rf map/ reads_qc/ count/ slurm*.out
@@ -316,14 +316,14 @@ Les lignes qui débutent par `<` viennent de `script4.sh` et celles qui débuten
 
 La différence majeure avec `script4.sh` réside dans l'utilisation de plusieurs coeurs pour la commande `bowtie2` avec l'option `--threads="${SLURM_CPUS_PER_TASK}"`. L'utilisation de plusieurs coeurs est permise par la déclaration `#SBATCH --cpus-per-task=8` au tout début de `script5.sh`.
 
-**Remarque** : nous aurions également pu attribuer plusieurs coeurs pour les commandes `samtools view` et `samtools sort`, mais nos tests ont montré qu'il n'y avait pas, pour ce cas précis, de gain significatif en terme de temps de calcul. Pour information, les lignes de commande à utiliser auraient été :
+**Remarque** : nous aurions également pu attribuer plusieurs coeurs pour les commandes `samtools view` et `samtools sort`, mais nos tests ont montré qu'il n'y avait pas, pour ce cas précis, de gain significatif en terme de temps de calcul. Pour information, les lignes de commande à utiliser seraient :
 
 ```bash
 srun samtools view --threads="${SLURM_CPUS_PER_TASK}" -b "map/bowtie-${sample}.sam" -o "map/bowtie-${sample}.bam"
 srun samtools sort --threads="${SLURM_CPUS_PER_TASK}" "map/bowtie-${sample}.bam" -o "map/bowtie-${sample}.sorted.bam"
 ```
 
-Notez que tous les outils ne peuvent utiliser plusieurs coeurs. Consultez toujours la documentation de l'outil considéré.
+Notez que tous les logiciels ne peuvent utiliser plusieurs coeurs. Consultez toujours la documentation de l'outil considéré.
 
 Lancez maintenant le script d'analyse `script5.sh` :
 
@@ -360,7 +360,7 @@ Remarques :
 - L'affichage est rafraichi toutes les 2 secondes.
 - Vous pouvez également afficher la mémoire vive maximale consommée à chaque étape avec la commande `sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,MaxRSS,NodeList -j JOBID`
 
-Votre job devrait prendre une petite dizaine de minutes pour se terminer. Laissez le cluster travailler et profitez-en pour vous préparer un thé ou un café bien mérité.
+Votre job devrait prendre une dizaine de minutes pour s'exécuter. Laissez le cluster travailler et profitez-en pour vous préparer un thé ou un café bien mérité.
 
 Quand les statuts (colonne `State`) du job et de tous ses « *job steps* » sont à `COMPLETED`, quittez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
@@ -513,17 +513,19 @@ Quand vous lancez un job qui sera potentiellement long, n'hésitez pas à ajoute
 Vous recevrez alors automatiquement un e-mail lorsque le job se termine ou si celui-ci plante.
 
 
-## 6. Récupération des données
+## 6. Sur place ou à emmporter ?
+
+Nous allons maintenant utiliser deux stratégies pour récupérer les résultats de l'analyse RNA-seq et copier les données depuis le cluster vers notre machine locale.
 
 ### 5.1 scp
 
 ⚠️ Pour récupérer des fichiers sur le cluster en ligne de commande, vous devez lancer la commande `scp` depuis un shell Unix sur votre machine locale. ⚠️
 
-Depuis un shell Unix sur votre machine locale, déplacez-vous dans le répertoire `/mnt/c/Users/omics` et créez le répertoire `rnaseq_cluster`. 
+Depuis un shell Unix sur votre machine locale, déplacez-vous dans le répertoire `/mnt/c/Users/omics` et créez le répertoire `rnaseq_tauri_cluster`. 
 
 Déplacez-vous dans ce nouveau répertoire.
 
-Utilisez la commande `pwd` pour vérifier que vous êtes bien dans le répertoire `/mnt/c/Users/omics/rnaseq_cluster`. 
+Utilisez la commande `pwd` pour vérifier que vous êtes bien dans le répertoire `/mnt/c/Users/omics/rnaseq_tauri_cluster`. 
 
 Lancez ensuite la commande suivante pour récupérer les fichiers de comptage :
 
@@ -531,7 +533,9 @@ Lancez ensuite la commande suivante pour récupérer les fichiers de comptage :
 $ scp LOGIN@core.cluster.france-bioinformatique.fr:/shared/projects/form_2021_29/LOGIN/rnaseq_tauri/count/count*.txt .
 ```
 
-où `LOGIN` est votre identifiant sur le cluster. Faites bien attention à garder le `.` tout à la fin de la commande.
+où `LOGIN` est votre identifiant sur le cluster. Faites bien attention à garder le `.` à la fin de la ligne de commande.
+
+Comme d'habitude, entrez votre mot de passe du cluster en aveugle.
 
 Vérifiez que la somme de contrôle MD5 du fichier `count-SRR2960338.txt` est bien la même que précédemment (`36fc86a522ee152c89fd77430e9b56a5`).
 
