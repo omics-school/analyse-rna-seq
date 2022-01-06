@@ -12,7 +12,7 @@ Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* ave
 
 L'accès au cluster de l'IFB vous est fourni dans le cadre du DU Omiques. Cet accès sera révoqué à l'issue de la formation. 
 
-Si, à l'issue de cette formation, vous souhaitez continuer à utiliser ce cluster pour votre projet de recherche, connectez-vous sur votre [interface](https://my.cluster.france-bioinformatique.fr/manager2/project) puis cliquez sur le bouton *Request A New Project* et précisez en quelques mots votre projet. Plusieurs utilisateurs peuvent être associées à un même projet et partager des données. Selon la quantité de ressources que vous demanderez, la création d'un projet pourra être associée à un coût. Au 06/01/2022, la grille tarifaire n'est pas encore connue.
+Si, à l'issue de cette formation, vous souhaitez continuer à utiliser ce cluster pour votre projet de recherche, connectez-vous sur à l'[interface de gestion de votre compte IFB](https://my.cluster.france-bioinformatique.fr/manager2/project) puis cliquez sur le bouton *Request A New Project* et détaillez en quelques mots votre projet. Plusieurs utilisateurs peuvent être associées à un même projet et partager des données. Selon la quantité de ressources que vous demanderez, la création d'un projet pourra être associée à un coût. Au 06/01/2022, la grille tarifaire n'est pas encore connue.
 
 Si vous avez besoin d'un logiciel spécifique sur le cluster. N'hésitez pas à le demander gentillement sur le site [Cluster Community Support](https://community.cluster.france-bioinformatique.fr/). Les administrateurs sont en général très réactifs.
 
@@ -361,7 +361,6 @@ $ rm -rf map/ reads_qc/ count/ slurm*.out
 ```
 
 
-
 ## 3.3 Analyse de plusieurs échantillons
 
 Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq_tauri` de votre répertoire de travail, téléchargez le script `script6.sh` avec la commande :
@@ -391,7 +390,7 @@ Remarquez que la ligne indiquant `script6.sh` pour « *JobName* » est présente
 
 Patientez une dizaine de minutes que tous les jobs et *job steps* soient terminés. 
 
-Quand les status (colonne `State`) de tous les jobs et job steps sont à `COMPLETED`, quittez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
+Quand les status (colonne `State`) de tous les jobs et *job steps* sont à `COMPLETED`, quittez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
 Notez que l'exécution de `script6.sh` aura pris environ le même temps que celle de `script5.sh`. C'est toute la puissance du calcul distribué 🚀 Vous comprenez qu'il est possible d'analyser 4, 10 ou 47 échantillons dans un temps raisonnable.
 
