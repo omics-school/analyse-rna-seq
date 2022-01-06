@@ -557,7 +557,10 @@ Lancez le logiciel FileZilla ([comme ceci](img/filezilla.png)). Puis entrez les 
 
 Cliquez ensuite sur le bouton *Connexion rapide*. Cliquez sur *OK* dans la fenêtre *Clé de l'hôte inconnue*
 
-Une fois connecté, dans le champs texte à coté de *Site distant* (à droite de la fenêtre), entrez le chemin `/shared/projects/form_2021_29/` voire directement votre répertoire de travail `/shared/projects/form_2021_29/LOGIN/` (avec `LOGIN` votre identifiant sur le cluster).
+Une fois connecté :
+
+- Dans le champ texte à côté de *Site local* (à gauche de la fenêtre), entrez le chemin `C:\Users\omics\rnaseq_tauri_cluster`.
+- Dans le champ texte à coté de *Site distant* (à droite de la fenêtre), entrez le chemin `/shared/projects/form_2021_29/` voire directement votre répertoire de travail `/shared/projects/form_2021_29/LOGIN/` (avec `LOGIN` votre identifiant sur le cluster).
 
 Essayez de transférer des fichiers dans un sens puis dans l'autre. Double-cliquez sur les fichiers pour lancer les transferts.
 
