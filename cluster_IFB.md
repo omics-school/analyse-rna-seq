@@ -355,15 +355,46 @@ Patientez une dizaine de minutes que tous les jobs et *job steps* soient termin�
 
 Quand les status (colonne `State`) de tous les jobs et job steps sont à `COMPLETED`, stoppez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
-Vous remarquerez que l'exécution de `script6.sh` aura pris environ le même temps que celle de `script5.sh`. C'est toute la puissance du calcule distribué 🚀 Vous comprenez qu'il est relativement simple d'analyser 4, 10 ou 47 échantillons.
+Vous remarquerez que l'exécution de `script6.sh` aura pris environ le même temps que celle de `script5.sh`. C'est toute la puissance du calcule distribué 🚀 Vous comprenez qu'il est possible d'analyser 4, 10 ou 47 échantillons dans un temps raisonnable.
 
 Une dernière fois, vérifiez que tous vos fichiers sont présents :
 
 ```bash
 $ tree
-
-
+.
+├── count
+│  ├── count-SRR2960338.txt
+│   ├── count-SRR2960341.txt
+│   ├── count-SRR2960343.txt
+│   └── count-SRR2960356.txt
+├── map
+│   ├── bowtie-SRR2960338.sorted.bam
+│   ├── bowtie-SRR2960338.sorted.bam.bai
+│   ├── bowtie-SRR2960341.sorted.bam
+│   ├── bowtie-SRR2960341.sorted.bam.bai
+│   ├── bowtie-SRR2960343.sorted.bam
+│   ├── bowtie-SRR2960343.sorted.bam.bai
+│   ├── bowtie-SRR2960356.sorted.bam
+│   └── bowtie-SRR2960356.sorted.bam.bai
+├── reads_qc
+│   ├── SRR2960338_fastqc.html
+│   ├── SRR2960338_fastqc.zip
+│   ├── SRR2960341_fastqc.html
+│   ├── SRR2960341_fastqc.zip
+│   ├── SRR2960343_fastqc.html
+│   ├── SRR2960343_fastqc.zip
+│   ├── SRR2960356_fastqc.html
+│   └── SRR2960356_fastqc.zip
+├── script4.sh
+├── script5.sh
+├── script6.sh
+├── slurm-20716400_0.out
+├── slurm-20716400_1.out
+├── slurm-20716400_2.out
+└── slurm-20716400_3.out
 ```
+
+Comme vous avez lancé 4 sous-jobs indépendants, SLURM crée également 4 fichiers de sortie distincts.
 
 ## 4. L'heure de faire les comptes
 
@@ -410,13 +441,13 @@ Utilisez la commande `pwd` pour vérifier que vous êtes bien dans le répertoir
 
 Lancez ensuite la commande suivante pour récupérer les fichiers de comptage :
 ```bash
-$ scp login@core.cluster.france-bioinformatique.fr:/shared/projects/uparis_duo_2020/login/rnaseq/count*.txt .
+$ scp LOGIN@core.cluster.france-bioinformatique.fr:/shared/projects/form_2021_29/LOGIN/rnaseq_tauri/count/count*.txt .
 ```
 
-où `login` est votre identifiant sur le cluster. Faites bien attention à garder le `.` tout à la fin de la commande.
+où `LOGIN` est votre identifiant sur le cluster. Faites bien attention à garder le `.` tout à la fin de la commande.
 
 
-Vérifiez que la somme de contrôle MD5 du fichier `count-37.txt` est bien la même que précédemment.
+Vérifiez que la somme de contrôle MD5 du fichier `count-SRR2960338.txt` est bien la même que précédemment (`36fc86a522ee152c89fd77430e9b56a5`).
 
 
 ### 5.2 Filezilla
@@ -429,7 +460,7 @@ Lancez le logiciel FileZilla ([comme ceci](img/filezilla.png)). Puis entrez les 
 
 Cliquez ensuite sur le bouton *Connexion rapide*. Cliquez sur *OK* dans la fenêtre *Clé de l'hôte inconnue*
 
-Une fois connecté, dans le champs texte à coté de *Site distant* (à droite de la fenêtre), entrez le chemin `/shared/projects/uparis_duo_2020/` voire directement votre répertoire de travail `/shared/projects/uparis_duo_2020/login` (avec `login` votre identifiant sur le cluster).
+Une fois connecté, dans le champs texte à coté de *Site distant* (à droite de la fenêtre), entrez le chemin `/shared/projects/form_2021_29/` voire directement votre répertoire de travail `/shared/projects/form_2021_29/LOGIN/` (avec `LOGIN` votre identifiant sur le cluster).
 
 Essayez de transférer des fichiers dans un sens puis dans l'autre. Double-cliquez sur les fichiers pour lancer les transferts.
 
