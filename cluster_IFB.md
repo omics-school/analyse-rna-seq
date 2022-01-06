@@ -393,7 +393,7 @@ Patientez une dizaine de minutes que tous les jobs et *job steps* soient termin�
 
 Quand les status (colonne `State`) de tous les jobs et job steps sont à `COMPLETED`, quittez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
-Notez que l'exécution de `script6.sh` aura pris environ le même temps que celle de `script5.sh`. C'est toute la puissance du calcule distribué 🚀 Vous comprenez qu'il est possible d'analyser 4, 10 ou 47 échantillons dans un temps raisonnable.
+Notez que l'exécution de `script6.sh` aura pris environ le même temps que celle de `script5.sh`. C'est toute la puissance du calcul distribué 🚀 Vous comprenez qu'il est possible d'analyser 4, 10 ou 47 échantillons dans un temps raisonnable.
 
 Une dernière fois, vérifiez que tous vos fichiers sont présents dans les bons répertoires :
 
