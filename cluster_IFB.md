@@ -71,10 +71,18 @@ Vous devriez obtenir un message d'erreur du type : `-bash: bowtie2 : commande in
 
 Chaque logiciel doit donc être chargé individuellement avec l'outil `module`.
 
-Utilisez la commande suivante pour compter le nombre de logiciels disponibles avec `module` :
+Utilisez la commande suivante pour compter le nombre de logiciels et de versions disponibles avec `module` :
 ```bash
 $ module avail -l | wc -l
 ```
+
+Vérifiez maintenant si la version 2.3.6 de `bowtie2` est disponible avec la commande :
+
+```bash
+$ module avail -l bowtie2
+```
+
+Si un jour vous avez besoin d'un logiciel dans une version spécifique, n'hésitez pas à le demander au [support communautaire](https://community.france-bioinformatique.fr/c/ifb-core-cluster/) du cluster.
 
 Chargez ensuite les logiciels `fastqc`, `bowtie2`, `samtools` et `htseq` avec les commandes suivantes :
 ```bash
@@ -117,7 +125,9 @@ License v3. Part of the 'HTSeq' framework, version 0.11.3.
 
 ## 2. Stockage des données
 
-Votre répertoire utilisateur sur le noeud de connexion (`/shared/home/LOGIN`) ne doit pas contenir de donnée car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/form_2021_29/LOGIN` (avec `LOGIN` votre identifiant sur le cluster). Par la suite, cet espace sera appelé « répertoire de travail ».
+Votre répertoire utilisateur sur le noeud de connexion est : `/shared/home/LOGIN` (avec `LOGIN` votre identifiant sur le cluster).
+
+Ce répertoire ne doit pas contenir de donnée volumineuse car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/form_2021_29/LOGIN` . Par la suite, cet espace sera appelé « répertoire de travail ».
 
 De plus, le répertoire `/shared/projects/form_2021_29/data/rnaseq_tauri` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers de ce répertoire (pas de modification, d'ajout ou de suppression).
 
@@ -264,7 +274,9 @@ $ diff script4.sh script5.sh
 
 Les lignes qui débutent par `<` viennent de `script4.sh` et celles qui débutent par `>` viennent de `script5.sh`.
 
-Les différences majeures avec `script4.sh` résident dans l'utilisation de plusieurs coeurs pour les commandes `bowtie2`, `samtools view` et `samtools sort`. Cela est permis par la déclaration `#SBATCH --cpus-per-task=8` au tout début de `script5.sh`.
+Les différences majeures avec `script4.sh` résident dans l'utilisation de plusieurs coeurs pour la commande `bowtie2`. Cela est permis par la déclaration `#SBATCH --cpus-per-task=8` au tout début de `script5.sh`.
+
+**Remarque** : nous aurions également pu attribuer plusieurs coeurs pour les commandes `samtools view` et `samtools sort`, mais nos tests nous ont montré qu'il n'y avait pas de gain significatif en terme de temps de calcul.
 
 Lancez maintenant le script d'analyse `script5.sh` :
 
@@ -326,6 +338,8 @@ Faites maintenant un peu de ménage en supprimant les fichiers créés précéde
 ```bash
 $ rm -rf map/ reads_qc/ count/ slurm*.out
 ```
+
+
 
 ## 3.3 Analyse de plusieurs échantillons
 

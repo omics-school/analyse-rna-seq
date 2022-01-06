@@ -44,8 +44,8 @@ srun bowtie2 --threads="${SLURM_CPUS_PER_TASK}" -x "${genome_dir}/O_tauri" -U "$
 echo "=============================================================="
 echo "Conversion en binaire, tri et indexation des reads alignés - échantillon ${sample}"
 echo "=============================================================="
-srun samtools view --threads="${SLURM_CPUS_PER_TASK}" -b "map/bowtie-${sample}.sam" -o "map/bowtie-${sample}.bam"
-srun samtools sort --threads="${SLURM_CPUS_PER_TASK}" "map/bowtie-${sample}.bam" -o "map/bowtie-${sample}.sorted.bam"
+srun samtools view -b "map/bowtie-${sample}.sam" -o "map/bowtie-${sample}.bam"
+srun samtools sort "map/bowtie-${sample}.bam" -o "map/bowtie-${sample}.sorted.bam"
 srun samtools index "map/bowtie-${sample}.sorted.bam"
 
 echo "=============================================================="
