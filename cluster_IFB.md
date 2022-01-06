@@ -207,7 +207,7 @@ Vérifiez que votre script est en train de tourner avec la commande :
 $ squeue -u $USER
 ```
 
-**Remarque** Voici quelques statuts (colonne `ST`) de job intéressant :
+**Remarque** : Voici quelques statuts (colonne `ST`) de job intéressant :
 
 - `CA` (*cancelled*) : le job a été annulé
 - `F` (*failled*) : le job a planté
@@ -232,7 +232,7 @@ $ sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j 20716345
 20716345.0       fastqc    RUNNING 2022-01-05T23:37:37   00:00:54   00:00:34     cpu-node-24 
 ```
 
-Si vous affichez le contenu de votre répertoire courant, vous devriez voir l'apparition d'un fichier `slurm-JOBID.out` où `JOBID` est le numéro de votre job. Ce fichier contient la sortie, c'est-à-dire le *log* de votre script.
+Si vous affichez le contenu de votre répertoire courant, vous devriez observer un fichier `slurm-JOBID.out` où `JOBID` est le numéro de votre job. Ce fichier contient la sortie, c'est-à-dire le *log* de votre script.
 
 Affichez son contenu avec la commande `cat`. Par exemple :
 
@@ -279,7 +279,7 @@ Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq_tauri` de votre
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script5.sh
 ```
 
-Identifiez les différences avec le script précédent, par exemple avec la commande `diff` :
+Identifiez les différences avec le script précédent avec la commande `diff` :
 
 ```bash
 $ diff script4.sh script5.sh
@@ -287,7 +287,7 @@ $ diff script4.sh script5.sh
 
 Les lignes qui débutent par `<` viennent de `script4.sh` et celles qui débutent par `>` viennent de `script5.sh`.
 
-La différence majeure avec `script4.sh` réside dans l'utilisation de plusieurs coeurs pour la commande `bowtie2` avec l'option `--threads="${SLURM_CPUS_PER_TASK}"`. L'utilisation de plusieurs coeurs est permis par la déclaration `#SBATCH --cpus-per-task=8` au tout début de `script5.sh`.
+La différence majeure avec `script4.sh` réside dans l'utilisation de plusieurs coeurs pour la commande `bowtie2` avec l'option `--threads="${SLURM_CPUS_PER_TASK}"`. L'utilisation de plusieurs coeurs est permise par la déclaration `#SBATCH --cpus-per-task=8` au tout début de `script5.sh`.
 
 **Remarque** : nous aurions également pu attribuer plusieurs coeurs pour les commandes `samtools view` et `samtools sort`, mais nos tests ont montré qu'il n'y avait pas, pour ce cas précis, de gain significatif en terme de temps de calcul. Pour information, les lignes de commande à utiliser auraient été :
 
@@ -332,7 +332,7 @@ Remarques :
 
 Votre job devrait prendre une petite dizaine de minutes pour se terminer. Laissez le cluster travailler et profitez-en pour vous préparer un thé ou un café bien mérité.
 
-Quand les status (colonne `State`) du job et de tous ses « *job steps* » sont à `COMPLETED`, stoppez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
+Quand les statuts (colonne `State`) du job et de tous ses « *job steps* » sont à `COMPLETED`, quittez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
 Vérifiez avec la commande `tree` que vous obtenez une arborescence équivalente à celle ci-dessous :
 
@@ -380,7 +380,7 @@ $ sbatch -A form_2021_29 script6.sh
 
 Notez bien le numéro de job renvoyé.
 
-Vous pouvez suivre en temps réel l'exécution de votre job avec la commande :
+Suivez en temps réel l'exécution de votre job avec la commande :
 
 ```bash
 $ watch sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j JOBID
@@ -391,11 +391,11 @@ Remarquez que la ligne indiquant `script6.sh` pour « *JobName* » est présente
 
 Patientez une dizaine de minutes que tous les jobs et *job steps* soient terminés. 
 
-Quand les status (colonne `State`) de tous les jobs et job steps sont à `COMPLETED`, stoppez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
+Quand les status (colonne `State`) de tous les jobs et job steps sont à `COMPLETED`, quittez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
-Vous remarquerez que l'exécution de `script6.sh` aura pris environ le même temps que celle de `script5.sh`. C'est toute la puissance du calcule distribué 🚀 Vous comprenez qu'il est possible d'analyser 4, 10 ou 47 échantillons dans un temps raisonnable.
+Notez que l'exécution de `script6.sh` aura pris environ le même temps que celle de `script5.sh`. C'est toute la puissance du calcule distribué 🚀 Vous comprenez qu'il est possible d'analyser 4, 10 ou 47 échantillons dans un temps raisonnable.
 
-Une dernière fois, vérifiez que tous vos fichiers sont présents :
+Une dernière fois, vérifiez que tous vos fichiers sont présents dans les bons répertoires :
 
 ```bash
 $ tree
@@ -432,7 +432,7 @@ $ tree
 └── slurm-20716400_3.out
 ```
 
-Comme vous avez lancé 4 sous-jobs indépendants, SLURM crée également 4 fichiers de sortie distincts.
+Comme vous avez lancé 4 sous-jobs indépendants, SLURM a également créé 4 fichiers de sortie distincts.
 
 ## 4. L'heure de faire les comptes
 
