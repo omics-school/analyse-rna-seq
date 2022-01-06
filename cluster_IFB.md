@@ -533,11 +533,11 @@ Lancez ensuite la commande suivante pour récupérer les fichiers de comptage :
 $ scp LOGIN@core.cluster.france-bioinformatique.fr:/shared/projects/form_2021_29/LOGIN/rnaseq_tauri/count/count*.txt .
 ```
 
-où `LOGIN` est votre identifiant sur le cluster. Faites bien attention à garder le `.` à la fin de la ligne de commande.
+où `LOGIN` est votre identifiant sur le cluster (qui apparait deux fois dans la ligne de commande ci-dessus). Faites bien attention à garder le `.` à la fin de la ligne de commande.
 
 Comme d'habitude, entrez votre mot de passe du cluster en aveugle.
 
-Vérifiez que la somme de contrôle MD5 du fichier `count-SRR2960338.txt` est bien la même que précédemment (`36fc86a522ee152c89fd77430e9b56a5`).
+Une fois que vous avez récupéré les résultats de comptage, vérifiez que la somme de contrôle MD5 du fichier `count-SRR2960338.txt` est bien la même que précédemment (`36fc86a522ee152c89fd77430e9b56a5`).
 
 Pour récupérer directement le répertoire `count` sur le cluster, vous auriez pu utiliser la commande :
 
@@ -545,6 +545,7 @@ Pour récupérer directement le répertoire `count` sur le cluster, vous auriez 
 $ scp -r LOGIN@core.cluster.france-bioinformatique.fr:/shared/projects/form_2021_29/LOGIN/rnaseq_tauri/count .
 ```
 
+Notez l'option `-r` qui indique qu'on transfère un répertoire.
 
 ### 5.2 FileZilla
 
