@@ -49,7 +49,7 @@ Are you sure you want to continue connecting (yes/no)?
 
 Entrez ensuite votre mot de passe en **aveugle**, c'est-à-dire sans qu'aucun caractère ne soit affiché à l'écran. C'est assez déstabilisant la première fois puis on s'habitue.
 
-🔔 **Attention** 🔔 Le cluster est protégé contre certaines attaques. Si vous entrez un mot de passe erronné plusieurs fois de suite, votre IP va être bannie et vous ne pourrez plus vous connecter (temporairement) au serveur.
+🔔 **Attention** 🔔 Le cluster est protégé contre certaines attaques. Si vous entrez un mot de passe erronné plusieurs fois de suite, votre adresse IP va être bannie et vous ne pourrez plus vous connecter (temporairement) au serveur.
 
 
 Pour vous déconnecter du cluster et revenir à votre terminal local, pressez la combinaison de touches <kbd>Ctrl</kbd>+<kbd>D</kbd>.
@@ -64,6 +64,7 @@ Un cluster est un ensemble de machines. La machine à laquelle vous venez de vou
 Si vous vous êtes déconnectés du cluster, reconnectez-vous avec la commande `ssh` précédente.
 
 Par défaut, aucun logiciel de bioinformatique n'est présent. Pour vous en convaincre, essayez de lancer la commande :
+
 ```bash
 $ bowtie2 --version
 ```
@@ -72,6 +73,7 @@ Vous devriez obtenir un message d'erreur du type : `-bash: bowtie2 : commande in
 Chaque logiciel doit donc être chargé individuellement avec l'outil `module`.
 
 Utilisez la commande suivante pour compter le nombre de logiciels et de versions disponibles avec `module` :
+
 ```bash
 $ module avail -l | wc -l
 ```
@@ -85,6 +87,7 @@ $ module avail -l bowtie2
 Si un jour vous avez besoin d'un logiciel dans une version spécifique, n'hésitez pas à le demander au [support communautaire](https://community.france-bioinformatique.fr/c/ifb-core-cluster/) du cluster.
 
 Chargez ensuite les logiciels `fastqc`, `bowtie2`, `samtools` et `htseq` avec les commandes suivantes :
+
 ```bash
 $ module load fastqc/0.11.9
 $ module load bowtie2/2.3.5
@@ -247,6 +250,7 @@ $ sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j 20716345
 ```
 
 Nous allons maintenant améliorer le script d'analyse. Annulez votre job en cours avec la commande :
+
 ```bash
 $ scancel JOBID
 ```
@@ -263,20 +267,27 @@ $ rm -rf map/ reads_qc/ count/ slurm*.out
 L'objectif est maintenant « d'aller plus vite » en attribuant plusieurs coeurs pour l'étape d'alignement des reads sur le génome avec `bowtie2`.
 
 Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq_tauri` de votre répertoire de travail, téléchargez le script `script5.sh` avec la commande :
+
 ```bash
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script5.sh
 ```
 
-Identifiez les différences avec le script précédent, par exemple avec la commande `diff` : 
+Identifiez les différences avec le script précédent, par exemple avec la commande `diff` :
+
 ```bash
 $ diff script4.sh script5.sh
 ```
 
 Les lignes qui débutent par `<` viennent de `script4.sh` et celles qui débutent par `>` viennent de `script5.sh`.
 
-Les différences majeures avec `script4.sh` résident dans l'utilisation de plusieurs coeurs pour la commande `bowtie2`. Cela est permis par la déclaration `#SBATCH --cpus-per-task=8` au tout début de `script5.sh`.
+La différence majeure avec `script4.sh` réside dans l'utilisation de plusieurs coeurs pour la commande `bowtie2` avec l'option `--threads="${SLURM_CPUS_PER_TASK}"`. L'utilisation de plusieurs coeurs est permis par la déclaration `#SBATCH --cpus-per-task=8` au tout début de `script5.sh`.
 
-**Remarque** : nous aurions également pu attribuer plusieurs coeurs pour les commandes `samtools view` et `samtools sort`, mais nos tests nous ont montré qu'il n'y avait pas de gain significatif en terme de temps de calcul.
+**Remarque** : nous aurions également pu attribuer plusieurs coeurs pour les commandes `samtools view` et `samtools sort`, mais nos tests ont montré qu'il n'y avait pas, pour ce cas précis, de gain significatif en terme de temps de calcul. Pour information, les lignes de commande à utiliser auraient été :
+
+```bash
+srun samtools view --threads="${SLURM_CPUS_PER_TASK}" -b "map/bowtie-${sample}.sam" -o "map/bowtie-${sample}.bam"
+srun samtools sort --threads="${SLURM_CPUS_PER_TASK}" "map/bowtie-${sample}.bam" -o "map/bowtie-${sample}.sorted.bam"
+```
 
 Lancez maintenant le script d'analyse `script5.sh` :
 
@@ -292,6 +303,7 @@ $ squeue -u $USER
 ```
 
 Le fichier `slurm-JOBID.out` est également créé et contient les sorties du script. Pour consulter son contenu, tapez :
+
 ```bash
 $ cat slurm-JOBID.out
 ```
@@ -300,6 +312,7 @@ avec `JOBID` le numéro de votre job.
 
 
 Suivez également en temps réel l'exécution de votre job avec la commande :
+
 ```bash
 $ watch sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j JOBID
 ```
@@ -307,7 +320,7 @@ avec `JOBID` le numéro de votre job.
 
 Remarques : 
 
-- La commande `watch` est utilisée ici pour « surveiller » le résultat de la commande `sacct`.
+- La commande `watch` est utilisée ici pour « surveiller » en quasi-temps réel le résultat de la commande `sacct`.
 - L'affichage est rafraichi toutes les 2 secondes.
 
 Votre job devrait prendre une petite dizaine de minutes pour se terminer. Laissez le cluster travailler et profitez-en pour vous préparer un thé ou un café bien mérité.
@@ -335,6 +348,7 @@ $ tree
 Vérifiez que la somme de contrôle du fichier `count/count-SRR2960338.txt` est bien `36fc86a522ee152c89fd77430e9b56a5`.
 
 Faites maintenant un peu de ménage en supprimant les fichiers créés précédemment avec la commande :
+
 ```bash
 $ rm -rf map/ reads_qc/ count/ slurm*.out
 ```
@@ -344,6 +358,7 @@ $ rm -rf map/ reads_qc/ count/ slurm*.out
 ## 3.3 Analyse de plusieurs échantillons
 
 Toujours depuis le cluster de l'IFB, dans le répertoire `rnaseq_tauri` de votre répertoire de travail, téléchargez le script `script6.sh` avec la commande :
+
 ```bash
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script6.sh
 ```
@@ -351,6 +366,7 @@ $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/scr
 Nous pourrions analyser d'un seul coup les 47 échantillons (fichiers `.fastq.gz`) mais pour ne pas consommer trop de ressources sur le cluster, nous allons limiter notre analyse à 4 échantillons seulement. Si vous le souhaitez vous pourrez modifier ce script pour analyser les 47 échantillons 💪.
 
 Lancez votre analyse avec la commande :
+
 ```bash
 $ sbatch -A form_2021_29 script6.sh
 ```
@@ -358,6 +374,7 @@ $ sbatch -A form_2021_29 script6.sh
 Notez bien le numéro de job renvoyé.
 
 Vous pouvez suivre en temps réel l'exécution de votre job avec la commande :
+
 ```bash
 $ watch sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j JOBID
 ```
@@ -454,6 +471,7 @@ Déplacez-vous dans ce nouveau répertoire.
 Utilisez la commande `pwd` pour vérifier que vous êtes bien dans le répertoire `/mnt/c/Users/omics/rnaseq_cluster`. 
 
 Lancez ensuite la commande suivante pour récupérer les fichiers de comptage :
+
 ```bash
 $ scp LOGIN@core.cluster.france-bioinformatique.fr:/shared/projects/form_2021_29/LOGIN/rnaseq_tauri/count/count*.txt .
 ```
