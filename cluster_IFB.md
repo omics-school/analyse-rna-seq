@@ -471,16 +471,16 @@ Voici un exemple de rapport produit par `sreport` :
 ```bash
 $ sreport -t hour Cluster UserUtilizationByAccount Start=2022-01-01 End=$(date --iso-8601)T23:59:59 Users=$USER
 --------------------------------------------------------------------------------
-Cluster/User/Account Utilization 2022-01-01T00:00:00 - 2022-01-06T15:59:59 (489600 secs)
+Cluster/User/Account Utilization 2022-01-01T00:00:00 - 2022-01-06T17:59:59 (496800 secs)
 Usage reported in CPU Hours
 --------------------------------------------------------------------------------
   Cluster     Login     Proper Name         Account     Used   Energy 
 --------- --------- --------------- --------------- -------- -------- 
-     core  ppoulain  Pierre Poulain    form_2021_29       15        0 
+     core  ppoulain  Pierre Poulain    form_2021_29       93        0 
      core  ppoulain  Pierre Poulain          gonseq        5        0 
 ```
 
-Ainsi, l'utilisateur `ppoulain` a déjà consommé 15 heures de temps CPU sur le projet `form_2021_29`.
+Ainsi, l'utilisateur `ppoulain` a déjà consommé 93 heures de temps CPU sur le projet `form_2021_29`.
 
 Attention, `sreport` ne prend pas en compte les heures immédiatement consommées. Il lui faut un peu de temps pour consolider les données.
 
