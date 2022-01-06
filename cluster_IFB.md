@@ -523,6 +523,12 @@ où `LOGIN` est votre identifiant sur le cluster. Faites bien attention à garde
 
 Vérifiez que la somme de contrôle MD5 du fichier `count-SRR2960338.txt` est bien la même que précédemment (`36fc86a522ee152c89fd77430e9b56a5`).
 
+Pour récupérer directement le répertoire `count` sur le cluster, vous auriez pu utiliser la commande :
+
+```bash
+$ scp -r LOGIN@core.cluster.france-bioinformatique.fr:/shared/projects/form_2021_29/LOGIN/rnaseq_tauri/count .
+```
+
 
 ### 5.2 FileZilla
 
