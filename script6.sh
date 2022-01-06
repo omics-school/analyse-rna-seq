@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --mem=4G
+#SBATCH --mem=2G
 #SBATCH --cpus-per-task=8
 #SBATCH --array=0-3            # limit to 4 samples. Use --array=0-46 for all 47 samples.
 

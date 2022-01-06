@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --mem=4G
+#SBATCH --mem=2G
 
 # le script va s'arrêter
 # - à la première erreur

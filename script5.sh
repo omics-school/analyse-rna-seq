@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --mem=4G
+#SBATCH --mem=2G
 #SBATCH --cpus-per-task=8
 
 # le script va s'arrêter
