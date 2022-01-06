@@ -517,7 +517,7 @@ Nous allons maintenant utiliser deux stratégies pour récupérer les résultats
 
 Une [vidéo](https://youtu.be/1UTPzK-zeA8) illustrant ces deux approches est également disponible.
 
-### 5.1 scp
+### 6.1 scp
 
 ⚠️ Pour récupérer des fichiers sur le cluster en ligne de commande, vous devez lancer la commande `scp` depuis un shell Unix sur votre machine locale. ⚠️
 
@@ -547,7 +547,7 @@ $ scp -r LOGIN@core.cluster.france-bioinformatique.fr:/shared/projects/form_2021
 
 Notez l'option `-r` qui indique qu'on transfère un répertoire.
 
-### 5.2 FileZilla
+### 6.2 FileZilla
 
 Lancez le logiciel FileZilla ([comme ceci](img/filezilla.png)). Puis entrez les informations suivantes :
 
