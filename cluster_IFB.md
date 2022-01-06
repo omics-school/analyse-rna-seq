@@ -346,6 +346,7 @@ Remarques :
 
 - La commande `watch` est utilisée ici pour « surveiller » en quasi-temps réel le résultat de la commande `sacct`.
 - L'affichage est rafraichi toutes les 2 secondes.
+- Vous pouvez également afficher la mémoire vive maximale consommée à chaque étape avec la commande `sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,MaxRSS,NodeList -j JOBID`
 
 Votre job devrait prendre une petite dizaine de minutes pour se terminer. Laissez le cluster travailler et profitez-en pour vous préparer un thé ou un café bien mérité.
 
@@ -409,7 +410,12 @@ Patientez une dizaine de minutes que tous les jobs et *job steps* soient termin�
 
 Quand les status (colonne `State`) de tous les jobs et *job steps* sont à `COMPLETED`, quittez la commande `watch` en appuyant sur la combinaison de touches <kbd>Ctrl</kbd> + <kbd>C</kbd>.
 
-Notez que l'exécution de `script6.sh` aura pris environ le même temps que celle de `script5.sh`. C'est toute la puissance du calcul distribué 🚀 Vous comprenez qu'il est possible d'analyser 4, 10 ou 47 échantillons dans un temps raisonnable.
+**Remarques**: 
+
+- Notez que l'exécution de `script6.sh` aura pris environ le même temps que celle de `script5.sh`. C'est toute la puissance du calcul distribué 🚀. 
+- Vous comprenez qu'il est possible d'analyser 4, 10 ou 47 échantillons dans un temps raisonnable. Cependant, si vous lancez une telle analyse sur un grand nombre d'échantillons, il est possible que tous vos jobs ne partent pas en même temps et que certains aient le statut *PENDING*, le temps que les ressources nécessairent se libèrent sur le cluster.
+- L'analyse de la totalité des 47 échantillons (fichiers .fastq.gz) génère environ 18 Go de données.
+
 
 Une dernière fois, vérifiez que tous vos fichiers sont présents dans les bons répertoires :
 
@@ -465,21 +471,37 @@ Voici un exemple de rapport produit par `sreport` :
 ```bash
 $ sreport -t hour Cluster UserUtilizationByAccount Start=2022-01-01 End=$(date --iso-8601)T23:59:59 Users=$USER
 --------------------------------------------------------------------------------
-Cluster/User/Account Utilization 2022-01-01T00:00:00 - 2022-01-06T14:59:59 (486000 secs)
+Cluster/User/Account Utilization 2022-01-01T00:00:00 - 2022-01-06T15:59:59 (489600 secs)
 Usage reported in CPU Hours
 --------------------------------------------------------------------------------
   Cluster     Login     Proper Name         Account     Used   Energy 
 --------- --------- --------------- --------------- -------- -------- 
-     core  ppoulain  Pierre Poulain    form_2021_29        9        0 
+     core  ppoulain  Pierre Poulain    form_2021_29       15        0 
      core  ppoulain  Pierre Poulain          gonseq        5        0 
 ```
 
-Ainsi, l'utilisateur `ppoulain` a déjà consommé 9 heures de temps CPU sur le projet `form_2021_29`.
+Ainsi, l'utilisateur `ppoulain` a déjà consommé 15 heures de temps CPU sur le projet `form_2021_29`.
 
 Attention, `sreport` ne prend pas en compte les heures immédiatement consommées. Il lui faut un peu de temps pour consolider les données.
 
 
-## 5. Récupération des données
+## 5. Derniers conseils
+
+L'analyse RNA-seq présentée ici tourne en 10-15', c'est très rapide car le génome d'*O. tauri* est relativement petit. Les temps d'analyse seront plus longs avec des génomes plus gros.
+
+Procédez toujours par itérations successives. Testez votre script d'analyse RNA-seq pour 1 échantillon, puis 2 ou 3 puis la totalité.
+
+Quand vous lancez un job qui sera potentiellement long, n'hésitez pas à ajouter les directives ci-dessous au début de votre script :
+
+```
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=votre-adresse-mail@email.fr
+```
+
+Vous recevrez alors automatiquement un e-mail lorsque le job se termine ou si celui-ci plante.
+
+
+## 6. Récupération des données
 
 ### 5.1 scp
 
