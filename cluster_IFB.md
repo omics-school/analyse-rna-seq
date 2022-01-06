@@ -511,7 +511,7 @@ Quand vous lancez un job qui sera potentiellement long, n'hésitez pas à ajoute
 Vous recevrez alors automatiquement un e-mail lorsque le job se termine ou si celui-ci plante.
 
 
-## 6. Sur place ou à emmporter ?
+## 6. Sur place ou à emporter ?
 
 Nous allons maintenant utiliser deux stratégies pour récupérer les résultats de l'analyse RNA-seq et copier les données depuis le cluster vers notre machine locale.
 
