@@ -5,16 +5,16 @@ license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 ---
 
 
-Dans cette activité, vous allez analyser les données RNA-seq de *O. tauri* avec le cluster *National Network of Computational Resources* (NNCR) de l'Institut Français de Bioinformatique (IFB). Ce cluster utilise un système d'exploitation Linux.
+Dans cette activité, vous allez analyser des données RNA-seq de *O. tauri* avec le cluster *National Network of Computational Resources* (NNCR) de l'[Institut Français de Bioinformatique]((https://www.france-bioinformatique.fr/) (IFB). Ce cluster utilise un système d'exploitation Linux.
 
 
 ## Remarques préables
 
-L'accès au cluster de l'IFB vous est fourni dans le cadre du DU Omiques. Cet accès sera révoqué à l'issue de la formation. 
+L'accès au cluster de l'IFB vous est fourni dans le cadre pédagogique du DU Omiques. Cet accès sera révoqué à l'issue de la formation. 
 
 Si, à l'issue de cette formation, vous souhaitez continuer à utiliser ce cluster pour votre projet de recherche, connectez-vous à l'[interface de gestion de votre compte IFB](https://my.cluster.france-bioinformatique.fr/manager2/project) puis cliquez sur le bouton *Request A New Project* et détaillez en quelques mots votre projet. Plusieurs utilisateurs peuvent être associées à un même projet et partager des données. Selon la quantité de ressources que vous demanderez, la création d'un projet pourra être associée à un coût. Au 06/01/2022, la grille tarifaire n'est pas encore connue.
 
-Si vous avez besoin d'un logiciel spécifique sur le cluster. N'hésitez pas à le demander gentillement sur le site [Cluster Community Support](https://community.cluster.france-bioinformatique.fr/). Les administrateurs sont en général très réactifs.
+Si vous avez besoin d'un logiciel spécifique sur le cluster. N'hésitez pas à le demander gentillement sur le site [Cluster Community Support](https://community.france-bioinformatique.fr/c/ifb-core-cluster/). Les administrateurs sont très sympas et en général très réactifs.
 
 
 ## 0. Connexion au cluster
@@ -46,6 +46,7 @@ Si c'est la première fois que vous vous connectez au cluster, répondez `yes` �
 ```
 Are you sure you want to continue connecting (yes/no)?
 ```
+puis validez.
 
 Entrez ensuite votre mot de passe en **aveugle**, c'est-à-dire sans qu'aucun caractère ne soit affiché à l'écran. C'est assez déstabilisant la première fois puis on s'habitue.
 
@@ -95,6 +96,9 @@ $ module load samtools/1.9
 $ module load htseq/0.11.3
 ```
 
+**Remarque** : les logiciels chargés avec `module` ne sont disponibles que le temps de votre session sur le cluster. Si vous vous déconnectez puis vous vous reconnectez, il faudra charger à nouveau les logiciels dont vous aurez besoin.
+
+
 Vérifiez que les logiciels sont bien disponibles en affichant leurs versions :
 
 ```bash
@@ -130,7 +134,7 @@ License v3. Part of the 'HTSeq' framework, version 0.11.3.
 
 Votre répertoire utilisateur sur le noeud de connexion est : `/shared/home/LOGIN` (avec `LOGIN` votre identifiant sur le cluster).
 
-Ce répertoire ne doit pas contenir de donnée volumineuse car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/form_2021_29/LOGIN` . Par la suite, cet espace sera appelé « répertoire de travail ».
+Ce répertoire ne doit pas contenir de donnée volumineuse car l'espace disponible est limité à 100 Go. Un espace de stockage plus conséquent a été créé pour vous dans le répertoire  `/shared/projects/form_2021_29/LOGIN` . Par la suite, cet espace sera appelé « répertoire de travail ».
 
 De plus, le répertoire `/shared/projects/form_2021_29/data/rnaseq_tauri` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture seule, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers de ce répertoire (pas de modification, d'ajout ou de suppression).
 
@@ -155,7 +159,7 @@ $ srun -A form_2021_29 md5sum -c reads_md5sum.txt
 N'oubliez pas `srun -A form_2021_29` en début de commande :
 
 - L'instruction `srun` est spécifique au cluster. 
-- L'option `-A form_2021_29` spécifie quel projet utiliser (facturer) pour cette commande. Un même utilisateur peut appartenir à plusieurs projets. Le nombre d'heures de calcul attribuées à un projet étant limité, il est important de savoir quel projet imputé pour telle ou telle commande. Pensez-y pour vos futurs projets.
+- L'option `-A form_2021_29` spécifie quel projet utiliser (facturer) pour cette commande. Un même utilisateur peut appartenir à plusieurs projets. Le nombre d'heures de calcul attribuées à un projet étant limité, il est important de savoir quel projet imputer pour telle ou telle commande. Pensez-y pour vos futurs projets.
 
 
 Déplacez-vous maintenant dans votre répertoire de travail `/shared/projects/form_2021_29/LOGIN` (avec `LOGIN` votre identifiant sur le cluster). Un moyen simple d'y parvenir est d'exécuter la commande :
@@ -173,7 +177,9 @@ $ pwd
 /shared/projects/form_2021_29/LOGIN/rnaseq_tauri`
 ```
 
-avec `LOGIN` votre identifiant sur le cluster. 🛑 N'allez pas plus loin et appelez à l'aide si vous ne parvenez pas à être dans le bon répertoire 🆘.
+avec `LOGIN` votre identifiant sur le cluster.
+
+🛑 N'allez pas plus loin et appelez à l'aide si vous ne parvenez pas à être dans le bon répertoire 🆘.
 
 
 ## 3.1 Analyse d'un échantillon
