@@ -47,8 +47,9 @@ puis validez.
 
 Entrez ensuite votre mot de passe en **aveugle**, c'est-à-dire sans qu'aucun caractère ne soit affiché à l'écran. C'est assez déstabilisant la première fois puis on s'habitue.
 
-🔔 **Attention** 🔔 Le cluster est protégé contre certaines attaques. Si vous entrez un mot de passe erronné plusieurs fois de suite, votre adresse IP va être bannie et vous ne pourrez plus vous connecter (temporairement) au serveur.
+Si vous le souhaitez, une [vidéo](https://youtu.be/7OnrlZbVtEk) illustrant pas-à-pas la connexion en SSH est disponible.
 
+🔔 **Attention** 🔔 Le cluster est protégé contre certaines attaques. Si vous entrez un mot de passe erronné plusieurs fois de suite, votre adresse IP va être bannie et vous ne pourrez plus vous connecter (temporairement) au serveur.
 
 Pour vous déconnecter du cluster et revenir à votre terminal local, pressez la combinaison de touches <kbd>Ctrl</kbd>+<kbd>D</kbd>.
 
@@ -513,6 +514,8 @@ Vous recevrez alors automatiquement un e-mail lorsque le job se termine ou si ce
 ## 6. Sur place ou à emmporter ?
 
 Nous allons maintenant utiliser deux stratégies pour récupérer les résultats de l'analyse RNA-seq et copier les données depuis le cluster vers notre machine locale.
+
+Une [vidéo](https://youtu.be/1UTPzK-zeA8) illustrant ces deux approches est également disponible.
 
 ### 5.1 scp
 
