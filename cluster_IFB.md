@@ -158,9 +158,13 @@ N'oubliez pas le `srun -A form_2021_29` en début de commande :
 - L'option `-A form_2021_29` spécifie quel projet utiliser (facturer) pour cette commande. Un même utilisateur peut appartenir à plusieurs projets. Le nombre d'heures de calcul attribuées à un projet étant limité, il est important de savoir quel projet imputé pour telle ou telle commande. Pensez-y pour vos futurs projets.
 
 
-Déplacez-vous maintenant dans votre répertoire de travail `/shared/projects/form_2021_29/LOGIN` (avec `LOGIN` votre identifiant sur le cluster).
+Déplacez-vous maintenant dans votre répertoire de travail `/shared/projects/form_2021_29/LOGIN` (avec `LOGIN` votre identifiant sur le cluster). Un moyen simple d'y parvenir est d'exécuter la commande :
 
-Créez le répertoire `rnaseq_tauri` et déplacez-vous à l'intérieur. Dorénavant vous ne travaillerez plus qu'à partir de ce répertoire.
+```bash
+$ cd /shared/projects/form_2021_29/$USER
+```
+
+Créez ensuite le répertoire `rnaseq_tauri` et déplacez-vous à l'intérieur. Dorénavant vous ne travaillerez plus qu'à partir de ce répertoire.
 
 La commande `pwd` devrait vous renvoyer quelque chose du type :
 
@@ -177,7 +181,7 @@ avec `LOGIN` votre identifiant sur le cluster. 🆘 Appelez à l'aide si vous ne
 **Remarques préalables** : 
 
 - L'indexation du génome de référence avec le logiciel `bowtie2` a déjà été effectué pour vous. Pour vous en convraincre, affichez le contenu du répertoire `/shared/projects/form_2021_29/data/rnaseq_tauri/genome` et vérifiez l'existence de fichiers avec l'extension `.bt2`, spécifiques des fichiers index créés par `bowtie2`.
-- Cette indexation a été réalisée avec la commande `sbatch -A form_2021_29 /shared/projects/form_2021_29/data/rnaseq_tauri/build_genome_index.sh` qui, bien sûr, vous n'exécutrez pas !
+- Cette indexation a été réalisée avec la commande `sbatch -A form_2021_29 /shared/projects/form_2021_29/data/rnaseq_tauri/build_genome_index.sh` que, bien sûr, vous n'exécuterez pas !
 
 Depuis le cluster de l'IFB, vérifiez que vous êtes toujours dans votre répertoire `/shared/projects/form_2021_29/LOGIN/rnaseq_tauri`.
 
