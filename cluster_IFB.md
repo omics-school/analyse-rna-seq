@@ -138,9 +138,7 @@ Ce répertoire ne doit pas contenir de donnée volumineuse car l'espace disponib
 
 De plus, le répertoire `/shared/projects/form_2021_29/data/rnaseq_tauri` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture seule, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers de ce répertoire (pas de modification, d'ajout ou de suppression).
 
-De quels fichiers avez-vous besoin pour l'analyse des données RNA-seq de *O. tauri* ? 
-
-Vérifiez que tous les fichiers nécessaires sont bien présents dans `/shared/projects/form_2021_29/data/rnaseq_tauri`.
+Essayez de vous souvenir de quels fichiers vous aurez besoin pour l'analyse des données RNA-seq de *O. tauri*. Trouvez-vous ces fichiers dans le répertoire `/shared/projects/form_2021_29/data/rnaseq_tauri` ou un de ses sous-répertoires ?
 
 Vérifiez l'intégrité des fichiers `.fastq.gz` situés dans le répertoire `/shared/projects/form_2021_29/data/rnaseq_tauri/reads` avec les commandes suivantes :
 
@@ -179,18 +177,18 @@ $ pwd
 
 avec `LOGIN` votre identifiant sur le cluster.
 
-🛑 N'allez pas plus loin et appelez à l'aide si vous ne parvenez pas à être dans le bon répertoire 🆘.
+🛑 Si vous ne parvenez pas à être dans le bon répertoire, n'allez pas plus loin et appelez à l'aide 🆘.
 
 
 ## 3.1 Analyse d'un échantillon
 
-En guise d'introduction, vous pouvez affichez tous les jobs en cours d'exécution sur le cluster avec la commande :
+En guise d'introduction, vous affichez tous les jobs en cours d'exécution sur le cluster avec la commande :
 
 ```bash
 $ squeue -t RUNNING
 ```
 
-Vous voyez que vous n'êtes pas seul ! Vous pouvez aussi compter le nombre de jobs en cours d'exécution en chaînant la commande précédente avec `wc -l` :
+Vous voyez que vous n'êtes pas seul ! Comptez maintenant le nombre de jobs en cours d'exécution en chaînant la commande précédente avec `wc -l` :
 
 ```bash
 $ squeue -t RUNNING | wc -l
@@ -210,7 +208,15 @@ Téléchargez ensuite le script `script4.sh` avec la commande :
 $ wget https://raw.githubusercontent.com/omics-school/analyse-rna-seq/master/script4.sh
 ```
 
-Lancez ce script avec la commande :
+Pour en comprendre le fonctionnement, explorez le contenu de ce script avec la commande `less` :
+
+```bash
+$ less script4.sh
+```
+
+Utilisez les touches <kbd>↓</kbd> et <kbd>↑</kbd> pour naviguer dans le fichier. Pressez la touche <kbd>Q</kbd> pour quitter `less`.
+
+Lancez ensuite ce script avec la commande :
 
 ```bash
 $ sbatch -A form_2021_29 script4.sh
