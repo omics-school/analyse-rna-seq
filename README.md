@@ -15,9 +15,9 @@ Tutoriel :
 
 ### Analyse de données RNA-seq avec Unix sur un cluster de calcul
 
-[Gestion de votre compte utilisateur](compte_cluster.md) sur le cluster de calcul de l'IFB.
+- [Gestion de votre compte utilisateur](compte_cluster.md) sur le cluster de calcul de l'IFB.
+- [Tutoriel](cluster_IFB.md)
 
-[Tutoriel](cluster_IFB.md)
 
 ### Conda
 
