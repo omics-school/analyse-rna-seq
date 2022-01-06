@@ -21,31 +21,28 @@ Si vous avez besoin d'un logiciel spécifique sur le cluster. N'hésitez pas à 
 
 Sous Windows, ouvrez un terminal Ubuntu. Si vous avez oublié comment faire, consultez le [tutoriel Unix](https://omics-school.github.io/unix-tutorial/tutoriel/README).
 
-Déplacez-vous ensuite dans le répertoire `/mnt/c/Users/omics` :
-
-```bash
-$ cd /mnt/c/Users/omics
-```
-
-🔔 Rappels : 
-
-- Ne tapez pas le `$` en début de ligne et faites attention aux majuscules et aux minuscules (surtout pour `Users`) !
-- Utilisez le copier / coller.
-- Utilisez la complétion des noms de fichier et de répertoires avec la touche <kbd>Tab</kbd>.
-
 Connectez-vous en SSH au cluster avec les identifiants (login et mot de passe) que vous avez du recevoir par e-mail.
 
 La syntaxe est de la forme :
+
 ```bash
 $ ssh LOGIN@core.cluster.france-bioinformatique.fr
 ```
 
 avec `LOGIN` votre identifiant sur le cluster. 
 
+🔔 Rappels : 
+
+- Ne tapez pas le `$` en début de ligne et faites attention aux majuscules et aux minuscules !
+- Utilisez le copier / coller.
+- Utilisez la complétion des noms de fichier et de répertoires avec la touche <kbd>Tab</kbd>.
+
 Si c'est la première fois que vous vous connectez au cluster, répondez `yes` à la question 
+
 ```
 Are you sure you want to continue connecting (yes/no)?
 ```
+
 puis validez.
 
 Entrez ensuite votre mot de passe en **aveugle**, c'est-à-dire sans qu'aucun caractère ne soit affiché à l'écran. C'est assez déstabilisant la première fois puis on s'habitue.
