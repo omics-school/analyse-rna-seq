@@ -21,7 +21,7 @@ Si vous avez besoin d'un logiciel spécifique sur le cluster. N'hésitez pas à 
 
 Sous Windows, ouvrez un terminal Ubuntu. Si vous avez oublié comment faire, consultez le [tutoriel Unix](https://omics-school.github.io/unix-tutorial/tutoriel/README).
 
-Déplacez vous ensuite dans le répertoire `/mnt/c/Users/omics` :
+Déplacez-vous ensuite dans le répertoire `/mnt/c/Users/omics` :
 
 ```bash
 $ cd /mnt/c/Users/omics
@@ -132,7 +132,7 @@ Votre répertoire utilisateur sur le noeud de connexion est : `/shared/home/LOGI
 
 Ce répertoire ne doit pas contenir de donnée volumineuse car l'espace disponible est limité à 100 Go. Un espace de stockage a été créé pour vous dans le répertoire  `/shared/projects/form_2021_29/LOGIN` . Par la suite, cet espace sera appelé « répertoire de travail ».
 
-De plus, le répertoire `/shared/projects/form_2021_29/data/rnaseq_tauri` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers de ce répertoire (pas de modification, d'ajout ou de suppression).
+De plus, le répertoire `/shared/projects/form_2021_29/data/rnaseq_tauri` contient les données dont vous aurez besoin pour ce projet. Vous n'avez accès à ce répertoire qu'en lecture seule, c'est-à-dire que vous pouvez seulement parcourir les répertoires et lire les fichiers de ce répertoire (pas de modification, d'ajout ou de suppression).
 
 De quels fichiers avez-vous besoin pour l'analyse des données RNA-seq de *O. tauri* ? 
 
@@ -144,15 +144,15 @@ Vérifiez l'intégrité des fichiers `.fastq.gz` situés dans le répertoire `/s
 $ cd /shared/projects/form_2021_29/data/rnaseq_tauri
 ```
 
-*Rappel : n'entrez pas le symbole $ en début de ligne*
+*Rappel : N'entrez pas le symbole $ en début de ligne.*
 
-puis 
+puis :
 
 ```bash
 $ srun -A form_2021_29 md5sum -c reads_md5sum.txt
 ```
 
-N'oubliez pas le `srun -A form_2021_29` en début de commande :
+N'oubliez pas `srun -A form_2021_29` en début de commande :
 
 - L'instruction `srun` est spécifique au cluster. 
 - L'option `-A form_2021_29` spécifie quel projet utiliser (facturer) pour cette commande. Un même utilisateur peut appartenir à plusieurs projets. Le nombre d'heures de calcul attribuées à un projet étant limité, il est important de savoir quel projet imputé pour telle ou telle commande. Pensez-y pour vos futurs projets.
@@ -173,12 +173,25 @@ $ pwd
 /shared/projects/form_2021_29/LOGIN/rnaseq_tauri`
 ```
 
-avec `LOGIN` votre identifiant sur le cluster. 🆘 Appelez à l'aide si vous ne parvenez pas à être dans le bon répertoire.
+avec `LOGIN` votre identifiant sur le cluster. 🛑 N'allez pas plus loin et appelez à l'aide si vous ne parvenez pas à être dans le bon répertoire 🆘.
 
 
 ## 3.1 Analyse d'un échantillon
 
-**Remarques préalables** : 
+En guise d'introduction, vous pouvez affichez tous les jobs en cours d'exécution sur le cluster avec la commande :
+
+```bash
+$ squeue -t RUNNING
+```
+
+Vous voyez que vous n'êtes pas seul ! Vous pouvez aussi compter le nombre de jobs en cours d'exécution en chaînant la commande précédente avec `wc -l` :
+
+```bash
+$ squeue -t RUNNING | wc -l
+```
+
+
+**Remarques importantes concernant l'indexation du génome de référence** : 
 
 - L'indexation du génome de référence avec le logiciel `bowtie2` a déjà été effectué pour vous. Pour vous en convraincre, affichez le contenu du répertoire `/shared/projects/form_2021_29/data/rnaseq_tauri/genome` et vérifiez l'existence de fichiers avec l'extension `.bt2`, spécifiques des fichiers index créés par `bowtie2`.
 - Cette indexation a été réalisée avec la commande `sbatch -A form_2021_29 /shared/projects/form_2021_29/data/rnaseq_tauri/build_genome_index.sh` que, bien sûr, vous n'exécuterez pas !
@@ -210,12 +223,13 @@ $ squeue -u $USER
 **Remarque** : Voici quelques statuts (colonne `ST`) de job intéressant :
 
 - `CA` (*cancelled*) : le job a été annulé
-- `F` (*failled*) : le job a planté
+- `F` (*failed*) : le job a planté
 - `PD` (*pending*) : le job est en attente que des ressources soient disponibles
 - `R` (*running*) : le job est lancé
 
 
 Et pour avoir plus de détails, utilisez la commande :
+
 ```bash
 $ sacct --format=JobID,JobName,State,Start,Elapsed,CPUTime,NodeList -j JOBID
 ```
@@ -265,6 +279,7 @@ $ scancel JOBID
 où `JOBID` est le numéro de votre job.
 
 Faites aussi un peu de ménage en supprimant les fichiers créés précédemment avec la commande :
+
 ```bash
 $ rm -rf map/ reads_qc/ count/ slurm*.out
 ```
@@ -295,6 +310,8 @@ La différence majeure avec `script4.sh` réside dans l'utilisation de plusieurs
 srun samtools view --threads="${SLURM_CPUS_PER_TASK}" -b "map/bowtie-${sample}.sam" -o "map/bowtie-${sample}.bam"
 srun samtools sort --threads="${SLURM_CPUS_PER_TASK}" "map/bowtie-${sample}.bam" -o "map/bowtie-${sample}.sorted.bam"
 ```
+
+Notez que tous les outils ne peuvent utiliser plusieurs coeurs. Consultez toujours la documentation de l'outil considéré.
 
 Lancez maintenant le script d'analyse `script5.sh` :
 
@@ -400,7 +417,7 @@ Une dernière fois, vérifiez que tous vos fichiers sont présents dans les bons
 $ tree
 .
 ├── count
-│  ├── count-SRR2960338.txt
+│   ├── count-SRR2960338.txt
 │   ├── count-SRR2960341.txt
 │   ├── count-SRR2960343.txt
 │   └── count-SRR2960356.txt
@@ -448,18 +465,16 @@ Voici un exemple de rapport produit par `sreport` :
 ```bash
 $ sreport -t hour Cluster UserUtilizationByAccount Start=2022-01-01 End=$(date --iso-8601)T23:59:59 Users=$USER
 --------------------------------------------------------------------------------
-Cluster/User/Account Utilization 2020-01-01T00:00:00 - 2021-03-18T21:59:59 (38268000 secs)
+Cluster/User/Account Utilization 2022-01-01T00:00:00 - 2022-01-06T14:59:59 (486000 secs)
 Usage reported in CPU Hours
 --------------------------------------------------------------------------------
   Cluster     Login     Proper Name         Account     Used   Energy 
 --------- --------- --------------- --------------- -------- -------- 
-     core  ppoulain  Pierre Poulain       dubii2021      400        0 
-     core  ppoulain  Pierre Poulain     du_bii_2019      246        0 
-     core  ppoulain  Pierre Poulain uparis_duo_2020      129        0 
-     core  ppoulain  Pierre Poulain        minomics        5        0 
+     core  ppoulain  Pierre Poulain    form_2021_29        9        0 
+     core  ppoulain  Pierre Poulain          gonseq        5        0 
 ```
 
-Ainsi, l'utilisateur `ppoulain` a déjà consommé 129 heures de temps CPU sur le projet `uparis_duo_2020`.
+Ainsi, l'utilisateur `ppoulain` a déjà consommé 9 heures de temps CPU sur le projet `form_2021_29`.
 
 Attention, `sreport` ne prend pas en compte les heures immédiatement consommées. Il lui faut un peu de temps pour consolider les données.
 
@@ -484,11 +499,10 @@ $ scp LOGIN@core.cluster.france-bioinformatique.fr:/shared/projects/form_2021_29
 
 où `LOGIN` est votre identifiant sur le cluster. Faites bien attention à garder le `.` tout à la fin de la commande.
 
-
 Vérifiez que la somme de contrôle MD5 du fichier `count-SRR2960338.txt` est bien la même que précédemment (`36fc86a522ee152c89fd77430e9b56a5`).
 
 
-### 5.2 Filezilla
+### 5.2 FileZilla
 
 Lancez le logiciel FileZilla ([comme ceci](img/filezilla.png)). Puis entrez les informations suivantes :
 
