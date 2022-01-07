@@ -495,7 +495,7 @@ Ainsi, l'utilisateur `ppoulain` a déjà consommé 93 heures de temps CPU sur le
 Attention, `sreport` ne prend pas en compte les heures immédiatement consommées. Il lui faut un peu de temps pour consolider les données.
 
 
-## 5. Derniers conseils
+## 5. Quelques conseils supplémentaires
 
 L'analyse RNA-seq présentée ici tourne en 10-15', c'est très rapide car le génome d'*O. tauri* est relativement petit. Les temps d'analyse seront plus longs avec des génomes plus gros.
 
