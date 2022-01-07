@@ -503,28 +503,30 @@ Il est également possible de connaître la consommation CPU pour un projet donn
 ```bash
 $ sreport -t hour Cluster AccountUtilizationByUser Start=2022-01-01 End=$(date --iso-8601)T23:59:59 Accounts=form_2021_29
 --------------------------------------------------------------------------------
-Cluster/Account/User Utilization 2022-01-01T00:00:00 - 2022-01-07T11:59:59 (561600 secs)
+Cluster/Account/User Utilization 2022-01-01T00:00:00 - 2022-01-07T15:59:59 (576000 secs)
 Usage reported in CPU Hours
 --------------------------------------------------------------------------------
   Cluster         Account     Login     Proper Name     Used   Energy 
 --------- --------------- --------- --------------- -------- -------- 
-     core    form_2021_29                                129        0 
-     core    form_2021_29  adhuyser   Adele DHUYSER        1        0 
-     core    form_2021_29 aletessi+  Anne LETESSIER        0        0 
-     core    form_2021_29 blanglois Benedicte LANG+        1        0 
-     core    form_2021_29    cnegre   Camille NEGRE        0        0 
+     core    form_2021_29                                192        0 
+     core    form_2021_29  adhuyser   Adele DHUYSER        8        0 
+     core    form_2021_29 aletessi+  Anne LETESSIER        7        0 
+     core    form_2021_29 blanglois Benedicte LANG+        6        0 
+     core    form_2021_29    cnegre   Camille NEGRE        7        0 
      core    form_2021_29 emundwil+ Emeline Mundwi+        7        0 
      core    form_2021_29 glelanda+ Gaëlle Leland+        7        0 
      core    form_2021_29 gstevanin Giovanni Steva+        7        0 
-     core    form_2021_29 hdjermou+ Hasna DJERMOUNI        0        0 
-     core    form_2021_29 kleneind+ Killian Le Nei+        1        0 
+     core    form_2021_29 hdjermou+ Hasna DJERMOUNI        7        0 
+     core    form_2021_29 kleneind+ Killian Le Nei+        8        0 
      core    form_2021_29  mchicard Mathieu CHICARD        6        0 
-     core    form_2021_29  mpottier  Marine POTTIER        2        0 
-     core    form_2021_29  nravalet  Noemie RAVALET        2        0 
+     core    form_2021_29  mpottier  Marine POTTIER        7        0 
+     core    form_2021_29  nravalet  Noemie RAVALET        7        0 
      core    form_2021_29  ppoulain  Pierre Poulain       93        0 
-     core    form_2021_29    sknafo    Steven KNAFO        1        0 
-     core    form_2021_29   trenton Trenton Dailey+        1        0
+     core    form_2021_29    sknafo    Steven KNAFO        7        0 
+     core    form_2021_29   trenton Trenton Dailey+        7        0
 ```
+
+Ainsi, un total de 192 heures de calcul a déjà été consommé sur le projet `form_2021_29` ⏱️.
 
 
 ## 5. Quelques conseils supplémentaires
