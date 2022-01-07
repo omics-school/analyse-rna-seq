@@ -492,7 +492,7 @@ Usage reported in CPU Hours
 
 Ainsi, l'utilisateur `ppoulain` a déjà consommé 93 heures de temps CPU sur le projet `form_2021_29`.
 
-Attention, `sreport` ne prend pas en compte les heures immédiatement consommées. Il lui faut un peu de temps pour consolider les données.
+Attention, `sreport` ne prend pas en compte les heures immédiatement consommées. Il lui faut quelques minutes pour consolider les données.
 
 
 ## 5. Quelques conseils supplémentaires
