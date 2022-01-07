@@ -380,9 +380,13 @@ $ tree
 └── slurm-20716384.out
 ```
 
-Vérifiez que la somme de contrôle du fichier `count/count-SRR2960338.txt` est bien `36fc86a522ee152c89fd77430e9b56a5`.
+Vérifiez que la somme de contrôle du fichier `count/count-SRR2960338.txt` est bien `36fc86a522ee152c89fd77430e9b56a5` avec la commande :
 
-Faites maintenant un peu de ménage en supprimant les fichiers créés précédemment avec la commande :
+```bash
+$ md5sum count/count-SRR2960338.txt
+```
+
+Faites enfin un peu de ménage en supprimant les fichiers créés précédemment avec la commande :
 
 ```bash
 $ rm -rf map/ reads_qc/ count/ slurm*.out
@@ -493,6 +497,34 @@ Usage reported in CPU Hours
 Ainsi, l'utilisateur `ppoulain` a déjà consommé 93 heures de temps CPU sur le projet `form_2021_29`.
 
 Attention, `sreport` ne prend pas en compte les heures immédiatement consommées. Il lui faut quelques minutes pour consolider les données.
+
+Il est également possible de connaître la consommation CPU pour un projet donnée et par utilisateur :
+
+```bash
+$ sreport -t hour Cluster AccountUtilizationByUser Start=2022-01-01 End=$(date --iso-8601)T23:59:59 Accounts=form_2021_29
+--------------------------------------------------------------------------------
+Cluster/Account/User Utilization 2022-01-01T00:00:00 - 2022-01-07T11:59:59 (561600 secs)
+Usage reported in CPU Hours
+--------------------------------------------------------------------------------
+  Cluster         Account     Login     Proper Name     Used   Energy 
+--------- --------------- --------- --------------- -------- -------- 
+     core    form_2021_29                                129        0 
+     core    form_2021_29  adhuyser   Adele DHUYSER        1        0 
+     core    form_2021_29 aletessi+  Anne LETESSIER        0        0 
+     core    form_2021_29 blanglois Benedicte LANG+        1        0 
+     core    form_2021_29    cnegre   Camille NEGRE        0        0 
+     core    form_2021_29 emundwil+ Emeline Mundwi+        7        0 
+     core    form_2021_29 glelanda+ Gaëlle Leland+        7        0 
+     core    form_2021_29 gstevanin Giovanni Steva+        7        0 
+     core    form_2021_29 hdjermou+ Hasna DJERMOUNI        0        0 
+     core    form_2021_29 kleneind+ Killian Le Nei+        1        0 
+     core    form_2021_29  mchicard Mathieu CHICARD        6        0 
+     core    form_2021_29  mpottier  Marine POTTIER        2        0 
+     core    form_2021_29  nravalet  Noemie RAVALET        2        0 
+     core    form_2021_29  ppoulain  Pierre Poulain       93        0 
+     core    form_2021_29    sknafo    Steven KNAFO        1        0 
+     core    form_2021_29   trenton Trenton Dailey+        1        0
+```
 
 
 ## 5. Quelques conseils supplémentaires
