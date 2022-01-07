@@ -5,7 +5,7 @@ license: Creative Commons Attribution-ShareAlike (CC BY-SA 4.0)
 ---
 
 
-Dans cette activité, vous allez analyser des données RNA-seq de *O. tauri* avec le cluster *National Network of Computational Resources* (NNCR) de l'[Institut Français de Bioinformatique]((https://www.france-bioinformatique.fr/) (IFB). Ce cluster utilise un système d'exploitation Linux.
+Dans cette activité, vous allez analyser des données RNA-seq de *O. tauri* avec le cluster *National Network of Computational Resources* (NNCR) de l'[Institut Français de Bioinformatique](https://www.france-bioinformatique.fr/) (IFB). Ce cluster utilise un système d'exploitation Linux.
 
 
 ## Remarques préables
